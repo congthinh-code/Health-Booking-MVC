@@ -1,0 +1,27 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Health_Booking_MVC.Models
+{
+    public class Appointment
+    {
+        [Key]
+        public int AppointmentId { get; set; }
+        public int PatientId { get; set; }
+        [ForeignKey("PatientId")]
+        public virtual Patient Patient { get; set; }
+
+        public int DoctorId { get; set; }
+        [ForeignKey("DoctorId")]
+        public virtual Doctor Doctor { get; set; }
+
+        public int ScheduleId { get; set; }
+        [ForeignKey("ScheduleId")]
+        public virtual DoctorSchedule Schedule { get; set; }
+
+        public DateTime AppointmentDate { get; set; }
+        public AppointmentStatus Status { get; set; } = AppointmentStatus.Pending;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public virtual MedicalRecord MedicalRecord { get; set; }
+    }
+}

@@ -1,7 +1,52 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\VSCode2022\\Health-Booking-MVC\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|d:\\vscode2022\\health-booking-mvc\\models\\healthbookingdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|solutionrelative:models\\healthbookingdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|d:\\vscode2022\\health-booking-mvc\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|d:\\vscode2022\\health-booking-mvc\\models\\hospital.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|solutionrelative:models\\hospital.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|d:\\vscode2022\\health-booking-mvc\\models\\medicalrecord.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|solutionrelative:models\\medicalrecord.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|d:\\vscode2022\\health-booking-mvc\\models\\appointment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|solutionrelative:models\\appointment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|d:\\vscode2022\\health-booking-mvc\\models\\doctorschedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|solutionrelative:models\\doctorschedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|d:\\vscode2022\\health-booking-mvc\\models\\patient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|solutionrelative:models\\patient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|d:\\vscode2022\\health-booking-mvc\\models\\doctor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|solutionrelative:models\\doctor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|d:\\vscode2022\\health-booking-mvc\\models\\specialization.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|solutionrelative:models\\specialization.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|d:\\vscode2022\\health-booking-mvc\\models\\appoimentstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|solutionrelative:models\\appoimentstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|d:\\vscode2022\\health-booking-mvc\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D043733A-E235-0163-D179-2DF8A69505B4}|Health-Booking-MVC.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +54,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -18,6 +63,139 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HealthBookingDbContext.cs",
+              "DocumentMoniker": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\HealthBookingDbContext.cs",
+              "RelativeDocumentMoniker": "Models\\HealthBookingDbContext.cs",
+              "ToolTip": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\HealthBookingDbContext.cs",
+              "RelativeToolTip": "Models\\HealthBookingDbContext.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAowAsAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T08:57:05.388Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MedicalRecord.cs",
+              "DocumentMoniker": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\MedicalRecord.cs",
+              "RelativeDocumentMoniker": "Models\\MedicalRecord.cs",
+              "ToolTip": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\MedicalRecord.cs",
+              "RelativeToolTip": "Models\\MedicalRecord.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T08:56:12.453Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Appointment.cs",
+              "DocumentMoniker": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\Appointment.cs",
+              "RelativeDocumentMoniker": "Models\\Appointment.cs",
+              "ToolTip": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\Appointment.cs",
+              "RelativeToolTip": "Models\\Appointment.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAywBgAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T08:55:20.337Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DoctorSchedule.cs",
+              "DocumentMoniker": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\DoctorSchedule.cs",
+              "RelativeDocumentMoniker": "Models\\DoctorSchedule.cs",
+              "ToolTip": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\DoctorSchedule.cs",
+              "RelativeToolTip": "Models\\DoctorSchedule.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T08:53:31.476Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Hospital.cs",
+              "DocumentMoniker": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\Hospital.cs",
+              "RelativeDocumentMoniker": "Models\\Hospital.cs",
+              "ToolTip": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\Hospital.cs",
+              "RelativeToolTip": "Models\\Hospital.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T08:49:29.817Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Models\\User.cs",
+              "ToolTip": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\User.cs",
+              "RelativeToolTip": "Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T08:47:05.558Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Patient.cs",
+              "DocumentMoniker": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\Patient.cs",
+              "RelativeDocumentMoniker": "Models\\Patient.cs",
+              "ToolTip": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\Patient.cs",
+              "RelativeToolTip": "Models\\Patient.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAIBAwBQAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T08:52:34.338Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Doctor.cs",
+              "DocumentMoniker": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\Doctor.cs",
+              "RelativeDocumentMoniker": "Models\\Doctor.cs",
+              "ToolTip": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\Doctor.cs",
+              "RelativeToolTip": "Models\\Doctor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T08:51:37.292Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Specialization.cs",
+              "DocumentMoniker": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\Specialization.cs",
+              "RelativeDocumentMoniker": "Models\\Specialization.cs",
+              "ToolTip": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\Specialization.cs",
+              "RelativeToolTip": "Models\\Specialization.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T08:50:54.216Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AppoimentStatus.cs",
+              "DocumentMoniker": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\AppoimentStatus.cs",
+              "RelativeDocumentMoniker": "Models\\AppoimentStatus.cs",
+              "ToolTip": "D:\\VSCode2022\\Health-Booking-MVC\\Models\\AppoimentStatus.cs",
+              "RelativeToolTip": "Models\\AppoimentStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T08:47:36.096Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\VSCode2022\\Health-Booking-MVC\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\VSCode2022\\Health-Booking-MVC\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-18T08:55:50.566Z"
             }
           ]
         }

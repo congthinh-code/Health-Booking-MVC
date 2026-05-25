@@ -96,3 +96,4 @@ D:\VSCode2022\Health-Booking-MVC\obj\Debug\net10.0\refint\Health-Booking-MVC.dll
 D:\VSCode2022\Health-Booking-MVC\obj\Debug\net10.0\Health-Booking-MVC.pdb
 D:\VSCode2022\Health-Booking-MVC\obj\Debug\net10.0\Health-Booking-MVC.genruntimeconfig.cache
 D:\VSCode2022\Health-Booking-MVC\obj\Debug\net10.0\ref\Health-Booking-MVC.dll
+D:\VSCode2022\Health-Booking-MVC\obj\Debug\net10.0\Health-Booking-MVC.sourcelink.json
