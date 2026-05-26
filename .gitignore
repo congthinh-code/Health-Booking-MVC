@@ -21,3 +21,15 @@ gprof/
 
 ## Visual Studio 2015/2017/2019/2022/2026 cache directory
 .vs/
+
+## --- PHẦN BỔ SUNG ĐỂ TỐI ƯU HƠN ---
+
+# Lưu trữ bảo mật mã nguồn .NET
+.microsoft.dotnet.secrets/
+
+# Tránh lộ cấu hình Database và Mật khẩu ở máy cá nhân
+appsettings.Development.json
+
+# File rác hệ điều hành
+Thumbs.db
+.DS_Store
