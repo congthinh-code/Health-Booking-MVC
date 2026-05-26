@@ -6,7 +6,7 @@ namespace Health_Booking_MVC.Models
     public class Hospital
     {
         [Key]
-        public int HospitalId { get; set; };
+        public int HospitalId { get; set; }
         [Required, StringLength(255)]
         public string Name { get; set; }
         public string Address { get; set; }
