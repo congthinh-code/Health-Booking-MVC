@@ -1,13 +1,94 @@
-﻿<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+﻿<head>
+    <link rel="stylesheet" href="~/css/footer.css" />
 </head>
-<body>
-    <div>
-        @RenderBody()
+<footer class="footer">
+    <div class="footer-main">
+
+        <div class="footer-left">
+            <a asp-controller="Home" asp-action="Index">
+                <h2 class="logo"><img src="~/images/logo.png" alt="Logo HealthMeet"></h2>
+            </a>
+            <p class="slogan">Đặt khám nhanh - Uy tín - Chất lượng</p>
+            <p><strong>Địa chỉ:</strong> Thành phố Quy Nhơn, Bình Định</p>
+            <p><strong>Website:</strong> healthmeet.com</p>
+            <p><strong>Email:</strong> admin@healthmeet.com</p>
+            <p><strong>Điện thoại:</strong> 1900 2005</p>
+        </div>
+
+        <div class="footer-right">
+            <div class="footer-top-row">
+                <div class="footer-col">
+                    <h3>Dịch vụ Y tế</h3>
+                    <ul>
+                        <li><a asp-controller="DichVu" asp-action="Dkcs">Đặt khám tại cơ sở</a></li>
+                        <li><a asp-controller="DichVu" asp-action="Dkck">Đặt khám chuyên khoa</a></li>
+                        <li><a asp-controller="DichVu" asp-action="Gvbs">Gói video với bác sĩ</a></li>
+                        <li><a asp-controller="DichVu" asp-action="Dkbs">Đặt khám theo bác sĩ</a></li>
+                        <li><a asp-controller="DichVu" asp-action="Dkng">Đặt khám ngoài giờ</a></li>
+                        <li><a asp-controller="DichVu" asp-action="Ttvp">Thanh toán viện phí</a></li>
+                        <li><a asp-controller="DichVu" asp-action="Gksk">Gói khám sức khỏe</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Cơ sở y tế</h3>
+                    <ul>
+                        <li><a asp-controller="CoSo" asp-action="Bvcong">Bệnh viện công</a></li>
+                        <li><a asp-controller="CoSo" asp-action="Bvtu">Bệnh viện tư</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Hướng dẫn</h3>
+                    <ul>
+                        <li><a asp-controller="HuongDan" asp-action="TaiUngDung">Cài đặt ứng dụng</a></li>
+                        <li><a asp-controller="HuongDan" asp-action="Dlk">Đặt lịch khám</a></li>
+                        <li><a asp-controller="HuongDan" asp-action="HoanPhi">Quy trình hoàn phí</a></li>
+                        <li><a asp-controller="HuongDan" asp-action="CauHoi">Câu hỏi thường gặp</a></li>
+                        <li><a asp-controller="HuongDan" asp-action="DiKham">Quy trình đi khám</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom-row">
+                <div class="footer-col">
+                    <h3>Liên hệ hợp tác</h3>
+                    <ul>
+                        <li><a asp-controller="LienHe" asp-action="CoSoYTe">Cơ sở y tế</a></li>
+                        <li><a asp-controller="LienHe" asp-action="QuangCao">Quảng cáo</a></li>
+                        <li><a asp-controller="LienHe" asp-action="TuyenDung">Tuyển dụng</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Về Trang chủ</h3>
+                    <ul>
+                        <li><a asp-controller="Home" asp-action="GioiThieu">Giới thiệu</a></li>
+                        <li><a asp-controller="Home" asp-action="DieuKhoan">Điều khoản dịch vụ</a></li>
+                        <li><a asp-controller="Home" asp-action="ChinhSach">Chính sách bảo mật</a></li>
+                        <li><a asp-controller="Home" asp-action="SuDung">Quy định sử dụng</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+</footer>
+
+<div class="footer-logos">
+    <a href="http://online.gov.vn/Home/WebDetails/44668" target="_blank">
+        <img src="~/images/dadangky.webp" alt="Đăng ký bộ công thương">
+    </a>
+    <a href="http://online.gov.vn/Home/WebDetails/44209" target="_blank">
+        <img src="~/images/bocongthuong.webp" alt="Thông báo bộ công thương">
+    </a>
+    <img src="~/images/icon_ios.svg" alt="App Store">
+    <img src="~/images/icon_google_play.svg" alt="Google Play">
+</div>
+
+<div class="footer-bottom">
+    &copy; 2020 - @DateTime.Now.Year Bản quyền thuộc Công Ty Cổ Phần Ứng Dụng PKH
+</div>
+
+<a href="tel:19002005" class="phone-button">
+    <i class="fas fa-phone"></i>
+</a>
