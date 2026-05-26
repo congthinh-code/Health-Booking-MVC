@@ -9,7 +9,6 @@ namespace Health_Booking_MVC.Models
         public int SpecializationId { get; set; }
         [Required]
         public string Name { get; set; }
-        public string Description { get; set; }
         public virtual ICollection<Doctor> Doctors { get; set; }
     }
 }
