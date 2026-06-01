@@ -1,0 +1,513 @@
+﻿
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f9e2e7 0%, #fef6e4 50%, #e0f7fa 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 20px;
+    flex-wrap: wrap; /* responsive */
+}
+
+/* Container chứa ảnh và form */
+.register-container {
+    display: flex;
+    align-items: stretch;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    height: 650px;
+    max-height: 95vh;
+}
+
+/* Ảnh bên trái */
+.left-image {
+    width: 400px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border: 3px solid #e0e0e0;
+    border-right: none;
+    box-sizing: border-box;
+}
+
+    .left-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+/* Khung đăng ký */
+.register-box {
+    background: #fff;
+    padding: 20px 25px;
+    width: 400px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 3px solid #e0e0e0;
+    border-left: none;
+    box-sizing: border-box;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+    /* Ẩn thanh kéo nhưng vẫn có thể scroll */
+    .register-box::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .register-box::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .register-box::-webkit-scrollbar-thumb {
+        background: rgba(0,0,0,0.2);
+        border-radius: 3px;
+    }
+
+        .register-box::-webkit-scrollbar-thumb:hover {
+            background: rgba(0,0,0,0.3);
+        }
+
+    .register-box h2 {
+        text-align: center;
+        margin-bottom: 8px;
+        font-size: 20px;
+        color: #333;
+    }
+
+    .register-box label {
+        font-size: 12px;
+        font-weight: 500;
+        color: #555;
+        margin-bottom: 6px;
+        display: block;
+    }
+
+/* Message box */
+.message-box {
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    line-height: 1.5;
+    max-width: 100%;
+    word-wrap: break-word;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+    .message-box.success {
+        background: #e6f9f0;
+        color: #2d8659;
+        border: 1px solid #b8e6d0;
+    }
+
+    .message-box.error {
+        background: #fdeaea;
+        color: #cc0000;
+        border: 1px solid #f5c2c2;
+    }
+
+    .message-box strong {
+        font-weight: 600;
+    }
+
+/* Input + Select */
+.input-group {
+    position: relative;
+    margin-bottom: 14px;
+}
+
+    .input-group .icon {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        color: #888;
+        font-size: 13px;
+    }
+
+    .input-group input,
+    .input-group select {
+        width: 100%;
+        padding: 10px 12px 10px 40px;
+        border: none;
+        border-radius: 40px;
+        font-size: 13px;
+        background: #fef6e4;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+        transition: all .3s ease;
+        appearance: none;
+        cursor: pointer;
+    }
+
+        /* Ẩn mũi tên mặc định trên IE */
+        .input-group select::-ms-expand {
+            display: none;
+        }
+
+    /* Mũi tên giả cho select */
+    .input-group::after {
+        content: "▼";
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        font-size: 11px;
+        color: #888;
+    }
+
+    .input-group input:focus,
+    select:focus {
+        outline: none;
+        background: #ffffff;
+        box-shadow: 0 0 0 3px rgba(239, 182, 200, 0.4);
+    }
+
+/* Toggle mật khẩu */
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+    font-size: 13px;
+}
+
+/* Password hint */
+.password-hint {
+    margin-top: -10px;
+    margin-bottom: 10px;
+    padding-left: 4px;
+}
+
+    .password-hint small {
+        color: #666;
+        font-size: 10px;
+        line-height: 1.3;
+    }
+
+/* Animation xuất hiện */
+@keyframes fadeSlideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Buttons group */
+.btn-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 8px;
+    gap: 8px;
+}
+
+.register-btn,
+.login-btn {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+    padding: 11px;
+    background: linear-gradient(90deg, #fbc2eb, #a6c1ee);
+    border: none;
+    color: #0b0b0b;
+    font-weight: bold;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 5px 15px rgba(166,193,238,0.4);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: transform .3s ease, box-shadow .3s ease, background .5s ease;
+    animation: fadeSlideIn .6s forwards;
+}
+
+.register-btn {
+    animation-delay: .2s;
+}
+
+.login-btn {
+    animation-delay: .4s;
+}
+
+    .register-btn:hover,
+    .login-btn:hover {
+        background: linear-gradient(90deg, #a6c1ee, #fbc2eb);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 24px rgba(166,193,238,0.6);
+    }
+
+/* Responsive */
+@media (max-width: 992px) {
+    body {
+        flex-direction: column;
+        padding: 10px;
+        align-items: center;
+    }
+
+    .register-container {
+        flex-direction: column;
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        max-height: none;
+    }
+
+    .left-image {
+        width: 100%;
+        height: 250px;
+        border: 3px solid #e0e0e0;
+        border-bottom: none;
+    }
+
+        .left-image img {
+            width: 100%;
+            height: 100%;
+        }
+
+    .register-box {
+        width: 100%;
+        min-height: auto;
+        border: 3px solid #e0e0e0;
+        border-top: none;
+        border-left: 3px solid #e0e0e0;
+        height: auto;
+    }
+
+    .popup-box {
+        width: 90%;
+        max-width: 360px;
+        padding: 20px 24px;
+    }
+
+        .popup-box h3 {
+            font-size: 16px;
+        }
+
+        .popup-box p {
+            font-size: 13px;
+        }
+
+    .message-box {
+        font-size: 12px;
+        padding: 10px 14px;
+    }
+}
+
+/* =========================
+   ✅ Popup overlay (lỗi + xác thực)
+   ========================= */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(2px);
+    animation: fadeInOverlay .2s ease;
+}
+
+@keyframes fadeInOverlay {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.popup-box {
+    background: #fff;
+    padding: 24px 28px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    text-align: center;
+    width: 380px;
+    max-width: 90%;
+    position: relative;
+    animation: fadeIn .3s ease;
+}
+
+    .popup-box.success-popup {
+        border-top: 4px solid #2d8659;
+    }
+
+    .popup-box.error-popup {
+        border-top: 4px solid #cc0000;
+    }
+
+.popup-message {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    text-align: left;
+    word-wrap: break-word;
+}
+
+    .popup-message strong {
+        font-weight: 600;
+        color: #333;
+    }
+
+.popup-box h3 {
+    margin-bottom: 12px;
+    font-size: 18px;
+    color: #333;
+    font-weight: 600;
+}
+
+.popup-box p {
+    margin-bottom: 12px;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.close-popup-btn {
+    padding: 10px 18px;
+    background: linear-gradient(90deg,#a6c1ee,#fbc2eb);
+    border: none;
+    border-radius: 8px;
+    color: #000;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+    width: 100%;
+}
+
+    .close-popup-btn:hover {
+        background: linear-gradient(90deg,#fbc2eb,#a6c1ee);
+        transform: translateY(-2px);
+    }
+
+.code-box {
+    background: #f0f0f0;
+    padding: 12px;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin: 12px 0 16px;
+    border-radius: 8px;
+    color: #444;
+}
+
+.verify-code-display {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.code-display-box {
+    background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+    padding: 20px;
+    border-radius: 12px;
+    margin: 10px 0;
+    box-shadow: 0 4px 12px rgba(217, 59, 162, 0.3);
+}
+
+.verify-code-number {
+    font-size: 36px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 8px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    display: inline-block;
+}
+
+.popup-box button,
+.popup-box .verify-btn,
+.popup-box .close-btn {
+    padding: 10px 18px;
+    background: linear-gradient(90deg,#a6c1ee,#fbc2eb);
+    border: none;
+    border-radius: 8px;
+    color: #000;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 4px;
+    font-size: 14px;
+}
+
+    .popup-box button:hover,
+    .popup-box .verify-btn:hover {
+        background: linear-gradient(90deg,#fbc2eb,#a6c1ee);
+        transform: translateY(-2px);
+    }
+
+.popup-box .btn-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+    justify-content: center;
+}
+
+    .popup-box .btn-group button {
+        flex: 1;
+        min-width: 100px;
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #999;
+    font-weight: bold;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+    .close-btn:hover {
+        background: #f0f0f0;
+        color: #666;
+    }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

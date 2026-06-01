@@ -1,0 +1,159 @@
+﻿@{
+    ViewData["Title"] = "Đăng ký";
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/css/register.css" />
+
+<div class="register-container">
+
+    <div class="left-image">
+        <img src="~/images/anh1.jpg" alt="Ảnh">
+    </div>
+
+    <div class="register-box">
+
+        <h2>Đăng ký tài khoản</h2>
+
+        <form>
+
+            <label>Họ và tên *</label>
+
+            <div class="input-group">
+                <i class="icon fa fa-user"></i>
+
+                <input type="text"
+                       name="hoten"
+                       required>
+            </div>
+
+            <!-- THÊM NGÀY SINH -->
+            <label>Ngày sinh *</label>
+
+            <div class="input-group">
+                <i class="icon fa fa-calendar"></i>
+
+                <input type="date"
+                       name="ngaysinh"
+                       required>
+            </div>
+
+            <label>Email *</label>
+
+            <div class="input-group">
+                <i class="icon fa fa-envelope"></i>
+
+                <input type="email"
+                       name="email"
+                       required>
+            </div>
+
+            <!-- THÊM SỐ ĐIỆN THOẠI -->
+            <label>Số điện thoại</label>
+
+            <div class="input-group">
+                <i class="icon fa fa-phone"></i>
+
+                <input type="text"
+                       name="sodienthoai">
+            </div>
+
+            <!-- THÊM ĐỊA CHỈ -->
+            <label>Địa chỉ</label>
+
+            <div class="input-group">
+                <i class="icon fa fa-home"></i>
+
+                <input type="text"
+                       name="diachi">
+            </div>
+
+            <label>Mật khẩu *</label>
+
+            <div class="input-group">
+
+                <i class="icon fa fa-lock"></i>
+
+                <input type="password"
+                       id="matkhau"
+                       required>
+
+                <i class="toggle-password fa fa-eye"></i>
+
+            </div>
+
+            <!-- THÊM GỢI Ý MẬT KHẨU -->
+            <div class="password-hint">
+                <small>
+                    💡 Mật khẩu phải bắt đầu bằng chữ in hoa
+                    và kết thúc bằng ký tự đặc biệt
+                </small>
+            </div>
+
+            <!-- THÊM VAI TRÒ -->
+            <label>Vai trò *</label>
+
+            <div class="input-group">
+                <i class="icon fas fa-user-md"></i>
+
+                <select name="role" required>
+
+                    <option value="patient">
+                        Bệnh nhân
+                    </option>
+
+                    <option value="doctor">
+                        Bác sĩ
+                    </option>
+
+                </select>
+            </div>
+
+            <div class="btn-group">
+
+                <button type="submit"
+                        class="register-btn">
+                    Đăng ký
+                </button>
+
+                <a asp-controller="Account"
+                   asp-action="Login"
+                   class="login-btn">
+
+                    Đăng nhập
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+    document.querySelector('.toggle-password')
+        .addEventListener('click', function () {
+
+            const passwordInput =
+                document.getElementById('matkhau');
+
+            if (passwordInput.type === 'password') {
+
+                passwordInput.type = 'text';
+
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+
+            } else {
+
+                passwordInput.type = 'password';
+
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            }
+        });
+
+</script>
