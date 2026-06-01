@@ -1,5 +1,104 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Đặt khám bác sĩ";
+
+    var doctors = new[]
+    {
+        new {
+            FullName = "BS. Nguyễn Văn An",
+            Specialization = "Nội Tim Mạch",
+            Hospital = "Bệnh viện Đa khoa Bình Định",
+            Phone = "0901234567",
+            ExperienceYears = 15,
+            Avatar = "/images/doctors/doctor1.jpg",
+            Description = "Chuyên điều trị các bệnh lý tim mạch."
+        },
+
+        new {
+            FullName = "BS. Trần Thị Mai",
+            Specialization = "Da Liễu",
+            Hospital = "Bệnh viện Da Liễu Bình Định",
+            Phone = "0902345678",
+            ExperienceYears = 12,
+            Avatar = "/images/doctors/doctor2.jpg",
+            Description = "Khám và điều trị các bệnh về da."
+        },
+
+        new {
+            FullName = "BS. Lê Hoàng Nam",
+            Specialization = "Tai Mũi Họng",
+            Hospital = "Bệnh viện Đa khoa Bình Định",
+            Phone = "0903456789",
+            ExperienceYears = 10,
+            Avatar = "/images/doctors/doctor3.jpg",
+            Description = "Chuyên khoa Tai Mũi Họng."
+        },
+
+        new {
+            FullName = "BS. Phạm Minh Tuấn",
+            Specialization = "Nội Tiêu Hóa",
+            Hospital = "Bệnh viện Quân Y 13",
+            Phone = "0904567890",
+            ExperienceYears = 18,
+            Avatar = "/images/doctors/doctor4.jpg",
+            Description = "Điều trị các bệnh lý tiêu hóa."
+        }
+    };
 }
+
+<link rel="stylesheet" href="~/css/dkbs.css" />
+
+<div class="container">
+    <h2 class="text-center mb-4">Danh sách bác sĩ</h2>
+
+    <div class="row">
+        @foreach (var doctor in doctors)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+
+                    <img src="@doctor.Avatar"
+                         class="card-img-top"
+                         alt="@doctor.FullName"
+                         style="height:250px;object-fit:cover;"
+                         onerror="this.src='/images/doctor.png'" />
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+                            @doctor.FullName
+                        </h5>
+
+                        <p>
+                            <strong>Chuyên khoa:</strong>
+                            @doctor.Specialization
+                        </p>
+
+                        <p>
+                            <strong>Bệnh viện:</strong>
+                            @doctor.Hospital
+                        </p>
+
+                        <p>
+                            <strong>SĐT:</strong>
+                            @doctor.Phone
+                        </p>
+
+                        <p>
+                            <strong>Kinh nghiệm:</strong>
+                            @doctor.ExperienceYears năm
+                        </p>
+
+                        <p>
+                            @doctor.Description
+                        </p>
+
+                        <button class="btn btn-primary">
+                            Đặt lịch khám
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
