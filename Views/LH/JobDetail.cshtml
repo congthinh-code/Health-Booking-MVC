@@ -1,0 +1,105 @@
+﻿@model dynamic
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+<link rel="stylesheet" href="~/css/LH/JobDetail.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+<div class="job-detail-header">
+    <a asp-controller="LH" asp-action="TD" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Quay lại
+    </a>
+
+    <h1>@Model.Title</h1>
+    <p>@Model.Type</p>
+</div>
+
+<div class="job-detail-container">
+    <div class="job-detail-content">
+
+        <h2>Mô tả vị trí</h2>
+        <p>@Model.Description</p>
+
+        <h2>Yêu cầu</h2>
+        <ul>
+            <li>Có kinh nghiệm 2+ năm trong lĩnh vực tương ứng</li>
+            <li>Kỹ năng giao tiếp tốt</li>
+            <li>Sẵn sàng học hỏi và phát triển</li>
+            <li>Làm việc tốt trong nhóm</li>
+        </ul>
+
+        <h2>Quyền lợi</h2>
+        <ul>
+            <li>Lương cạnh tranh, thưởng hiệu suất</li>
+            <li>Bảo hiểm xã hội đầy đủ</li>
+            <li>Môi trường làm việc chuyên nghiệp</li>
+            <li>Cơ hội phát triển sự nghiệp</li>
+            <li>Đồng phục, cơm trưa miễn phí</li>
+        </ul>
+
+        <div class="apply-section">
+            <button class="apply-btn" onclick="openApplyModal()">
+                <i class="fas fa-paper-plane"></i> Ứng Tuyển Ngay
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="applyModal" class="modal">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2>Đơn ứng tuyển công việc</h2>
+            <span class="close" onclick="closeApplyModal()">&times;</span>
+        </div>
+
+        <form id="applyForm">
+
+            <div class="form-group">
+                <label>Họ và tên</label>
+                <input type="text" required />
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" required />
+            </div>
+
+            <div class="form-group">
+                <label>Số điện thoại</label>
+                <input type="tel" required />
+            </div>
+
+            <div class="form-group">
+                <label>Thư ứng tuyển</label>
+                <textarea rows="5"></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                Gửi đơn ứng tuyển
+            </button>
+
+        </form>
+
+    </div>
+</div>
+
+<script>
+    function openApplyModal() {
+        document.getElementById("applyModal").style.display = "block";
+    }
+
+    function closeApplyModal() {
+        document.getElementById("applyModal").style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        var modal = document.getElementById("applyModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+</script>

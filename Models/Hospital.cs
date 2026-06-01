@@ -13,6 +13,8 @@ namespace Health_Booking_MVC.Models
         public string Description { get; set; }
         public string Hotline { get; set; }
         public string Image { get; set; }
+        public int Rating { get; set; }
+        public string? WebsiteUrl { get; set; }
         public virtual ICollection<Doctor> Doctors { get; set; }
     }
 }

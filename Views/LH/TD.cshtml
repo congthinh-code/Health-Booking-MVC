@@ -1,0 +1,365 @@
+﻿@{
+    ViewData["Title"] = "Tuyển dụng";
+}
+
+<link rel="stylesheet" href="~/css/LH/TD.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+<section class="banner-section">
+    <div class="banner-content">
+        <h1>Vị trí tuyển dụng</h1>
+
+        <input type="text"
+               id="search-job"
+               class="search-input"
+               placeholder="Tìm kiếm vị trí, công việc">
+
+        <select id="job-type" class="filter-select">
+            <option value="">Chọn tính chất công việc</option>
+            <option value="full-time">Full Time</option>
+            <option value="part-time">Part Time</option>
+            <option value="internship">Thực tập sinh</option>
+        </select>
+    </div>
+
+    <section class="jobs-section">
+        <div class="jobs-table-container">
+            <table class="jobs-table">
+                <thead>
+                    <tr>
+                        <th>Vị Trí</th>
+                        <th>Hình Thức Làm Việc</th>
+                        <th>Chi Tiết</th>
+                    </tr>
+                </thead>
+
+                <tbody id="jobs-tbody">
+                    <tr class="job-row" data-type="full-time" data-title="Phát Triển Kinh Doanh">
+                        <td class="job-title">Phát Triển Kinh Doanh (B2B)</td>
+                        <td class="job-type"><span class="type-badge full-time">Full time</span></td>
+                            <td>
+                                <a asp-controller="LH"
+                                   asp-action="JobDetail"
+                                   asp-route-id="1"
+                                   class="btn-detail">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </td>
+                    </tr>
+
+                    <tr class="job-row" data-type="full-time" data-title="Hành Chính Nhân Sự">
+                        <td class="job-title">Chuyên Viên Hành Chính Nhân Sự</td>
+                        <td class="job-type"><span class="type-badge full-time">Full time</span></td>
+                            <td>
+                                <a asp-controller="LH"
+                                   asp-action="JobDetail"
+                                   asp-route-id="2"
+                                   class="btn-detail">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </td>
+                    </tr>
+
+                    <tr class="job-row" data-type="full-time" data-title="Kế Toán Viên Kiêm Chăm Sóc Khách Hàng">
+                        <td class="job-title">Kế Toán Viên Kiêm Chăm Sóc Khách Hàng</td>
+                        <td class="job-type"><span class="type-badge full-time">Full time</span></td>
+                            <td>
+                                <a asp-controller="LH"
+                                    asp-action="JobDetail"
+                                    asp-route-id="3"
+                                    class="btn-detail">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </td>
+                    </tr>
+
+                    <tr class="job-row" data-type="part-time" data-title="Content Marketing">
+                        <td class="job-title">Thực Tập Sinh Content Marketing</td>
+                        <td class="job-type"><span class="type-badge part-time">Part time</span></td>
+                            <td>
+                                <a asp-controller="LH"
+                                   asp-action="JobDetail"
+                                   asp-route-id="4"
+                                   class="btn-detail">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </td>
+                    </tr>
+
+                    <tr class="job-row" data-type="full-time" data-title="Giám Đốc Phát Triển Kinh Doanh - Dịch Vụ">
+                         <td class="job-title">Giám Đốc Phát Triển Kinh Doanh - Dịch Vụ</td>
+                         <td class="job-type"><span class="type-badge full-time">Full time</span></td>
+                         <td>
+                                <a asp-controller="LH"
+                                   asp-action="JobDetail"
+                                   asp-route-id="5"
+                                   class="btn-detail">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                         </td>
+                    </tr>
+
+                    <tr class="job-row" data-type="full-time" data-title="Business Analyst">
+                        <td class="job-title">Business Analyst</td>
+                        <td class="job-type"><span class="type-badge full-time">Full time</span></td>
+                            <td>
+                                <a asp-controller="LH"
+                                   asp-action="JobDetail"
+                                   asp-route-id="6"
+                                   class="btn-detail">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </td>
+                    </tr>
+
+                    <tr class="job-row" data-type="full-time" data-title="Frontend ReactJS">
+                        <td class="job-title">Frontend ReactJS Developer</td>
+                        <td class="job-type"><span class="type-badge full-time">Full time</span></td>
+                            <td>
+                                <a asp-controller="LH"
+                                   asp-action="JobDetail"
+                                   asp-route-id="7"
+                                   class="btn-detail">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </td>
+                    </tr>
+
+                    <tr class="job-row" data-type="full-time" data-title="Backend NodeJS">
+                        <td class="job-title">Backend NodeJS Developer</td>
+                        <td class="job-type"><span class="type-badge full-time">Full time</span></td>
+                            <td>
+                                <a asp-controller="LH"
+                                   asp-action="JobDetail"
+                                   asp-route-id="8"
+                                   class="btn-detail">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </td>
+                    </tr>
+
+                    <tr class="job-row" data-type="full-time" data-title="Mobile App Developer (iOS/Android)">
+                      <td class="job-title">Mobile App Developer (iOS/Android)</td>
+                      <td class="job-type"><span class="type-badge full-time">Full time</span></td>
+                            <td>
+                                <a asp-controller="LH"
+                                   asp-action="JobDetail"
+                                   asp-route-id="9"
+                                   class="btn-detail">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </td>
+                    </tr>
+
+                    <tr class="job-row" data-type="part-time" data-title="Digital Marketing Specialist">
+                      <td class="job-title">Digital Marketing Specialist</td>
+                      <td class="job-type"><span class="type-badge part-time">Part time</span></td>
+                            <td>
+                                <a asp-controller="LH"
+                                    asp-action="JobDetail"
+                                    asp-route-id="10"
+                                    class="btn-detail">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </td>
+                    </tr>
+
+                    <tr class="job-row" data-type="internship" data-title="Data Analyst">
+                        <td class="job-title">Data Analyst Intern</td>
+                        <td class="job-type"><span class="type-badge internship">Thực tập sinh</span></td>
+                            <td>
+                                <a asp-controller="LH"
+                                   asp-action="JobDetail"
+                                   asp-route-id="11"
+                                   class="btn-detail">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </td>
+                    </tr>
+
+                    <tr class="job-row" data-type="full-time" data-title="UI UX">
+                        <td class="job-title">UI/UX Designer</td>
+                        <td class="job-type"><span class="type-badge full-time">Full time</span></td>
+                            <td>
+                                <a asp-controller="LH"
+                                   asp-action="JobDetail"
+                                   asp-route-id="12"
+                                   class="btn-detail">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </td>
+                    </tr>
+
+                    <tr class="job-row" data-type="full-time" data-title="Product Manager">
+                        <td class="job-title">Product Manager</td>
+                        <td class="job-type"><span class="type-badge full-time">Full time</span></td>
+                            <td>
+                                <a asp-controller="LH"
+                                   asp-action="JobDetail"
+                                   asp-route-id="13"
+                                   class="btn-detail">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </td>
+                    </tr>
+
+                     <tr class="job-row" data-type="full-time" data-title="QA Engineer">
+                        <td class="job-title">QA Engineer</td>
+                        <td class="job-type"><span class="type-badge full-time">Full time</span></td>
+                            <td>
+                                <a asp-controller="LH"
+                                   asp-action="JobDetail"
+                                   asp-route-id="14"
+                                   class="btn-detail">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </td>
+                    </tr>
+
+                    <tr class="job-row" data-type="part-time" data-title="Senior Technical Writer">
+                        <td class="job-title">Senior Technical Writer</td>
+                        <td class="job-type"><span class="type-badge part-time">Part time</span></td>
+                            <td>
+                                <a asp-controller="LH"
+                                    asp-action="JobDetail"
+                                    asp-route-id="15"
+                                    class="btn-detail">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </td>
+                    </tr>
+
+                    <tr class="job-row" data-type="full-time" data-title="DevOps Engineer">
+                        <td class="job-title">DevOps Engineer</td>
+                        <td class="job-type"><span class="type-badge full-time">Full time</span></td>
+                            <td>
+                                <a asp-controller="LH"
+                                    asp-action="JobDetail"
+                                    asp-route-id="16"
+                                    class="btn-detail">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </td>
+                    </tr>
+
+                    <tr class="job-row" data-type="internship" data-title="Graphics Designer Intern">
+                        <td class="job-title">Graphics Designer Intern</td>
+                        <td class="job-type"><span class="type-badge internship">Thực tập sinh</span></td>
+                            <td>
+                                <a asp-controller="LH"
+                                   asp-action="JobDetail"
+                                   asp-route-id="17"
+                                   class="btn-detail">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination">
+            <button class="page-btn active" onclick="goToPage(1)">1</button>
+            <button class="page-btn" onclick="goToPage(2)">2</button>
+            <button class="page-btn" onclick="goToPage(3)">3</button>
+        </div>
+    </section>
+</section>
+
+<script>
+
+    const ITEMS_PER_PAGE = 8;
+    let currentPage = 1;
+
+    function getFilteredRows() {
+        return Array.from(document.querySelectorAll('.job-row'))
+            .filter(row => !row.classList.contains('filtered-out'));
+    }
+
+    function updatePaginationButtons(totalPages) {
+
+        const pagination = document.querySelector('.pagination');
+        pagination.innerHTML = '';
+
+        for (let i = 1; i <= totalPages; i++) {
+
+            const btn = document.createElement('button');
+
+            btn.classList.add('page-btn');
+
+            if (i === currentPage)
+                btn.classList.add('active');
+
+            btn.textContent = i;
+
+            btn.onclick = () => goToPage(i);
+
+            pagination.appendChild(btn);
+        }
+    }
+
+    function displayPage(page) {
+
+        const rows = getFilteredRows();
+
+        const totalPages =
+            Math.ceil(rows.length / ITEMS_PER_PAGE);
+
+        currentPage = page;
+
+        document.querySelectorAll('.job-row')
+            .forEach(row => row.style.display = 'none');
+
+        const start = (page - 1) * ITEMS_PER_PAGE;
+        const end = start + ITEMS_PER_PAGE;
+
+        for (let i = start; i < end && i < rows.length; i++) {
+            rows[i].style.display = '';
+        }
+        updatePaginationButtons(totalPages);
+}
+
+    function goToPage(page) {
+        displayPage(page);
+    }
+
+    function filterJobs() {
+        const searchText =
+            document.getElementById('search-job')
+                .value.toLowerCase();
+
+        const typeFilter =
+            document.getElementById('job-type').value;
+
+        document.querySelectorAll('.job-row')
+            .forEach(row => {
+
+                const matchSearch =
+                    row.dataset.title.toLowerCase()
+                        .includes(searchText);
+
+                const matchType =
+                    typeFilter === '' ||
+                    row.dataset.type === typeFilter;
+
+                if (matchSearch && matchType)
+                    row.classList.remove('filtered-out');
+                else
+                    row.classList.add('filtered-out');
+            });
+            displayPage(1);
+    }
+
+    document.getElementById('search-job')
+        .addEventListener('keydown', e => {
+
+            if (e.key === 'Enter')
+                filterJobs();
+        });
+
+    document.getElementById('job-type')
+        .addEventListener('change', filterJobs);
+
+    window.onload = () => displayPage(1);
+
+</script>

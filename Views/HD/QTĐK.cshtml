@@ -1,0 +1,146 @@
+﻿@{
+    ViewData["Title"] = "Quy trình đi khám";
+}
+
+<link rel="stylesheet" href="~/css/HD/QTĐK.css" />
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<!-- MENU TAB -->
+<div class="tab-container">
+    <a asp-controller="HD"
+       asp-action="CĐ"
+       class="tab-item">
+        Cài đặt ứng dụng
+    </a>
+
+    <a asp-controller="HD"
+       asp-action="QTHP"
+       class="tab-item">
+        Quy trình hoàn phí
+    </a>
+
+    <a asp-controller="HD"
+       asp-action="CHTG"
+       class="tab-item">
+        Câu hỏi thường gặp
+    </a>
+
+    <a asp-controller="HD"
+       asp-action="QTĐK"
+       class="tab-item active">
+        Quy trình đi khám
+    </a>
+</div>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="title">
+            <strong>Danh sách cơ sở y tế</strong>
+
+            <a class="view-all"
+               href="#"
+               onclick="openModal()">
+                Xem tất cả
+            </a>
+        </div>
+
+        <div class="search-box">
+            <input type="text" placeholder="Tìm kiếm">
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+        <div class="text-center">
+            <img src="~/images/anhkinhlup.jpg"
+                 class="empty-img"
+                 alt="Kính lúp">
+
+            <h2>
+                Vui lòng nhập cơ sở y tế để xem quy trình đi khám
+            </h2>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h3>Danh sách cơ sở y tế</h3>
+        </div>
+
+        <div class="modal-body">
+            <ul class="hospital-list">
+                <li>Bệnh viện Đa khoa tỉnh Bình Định</li>
+                <li>Bệnh viện Mắt Bình Định</li>
+                <li>Bệnh viện Đa khoa TP. Quy Nhơn</li>
+                <li>Bệnh viện Y học cổ truyền & PHCN Bình Định</li>
+                <li>Bệnh viện Phong - Da liễu TW Quy Hòa</li>
+                <li>Bệnh viện Đa khoa Hòa Bình</li>
+            </ul>
+        </div>
+
+        <span class="close-btn"
+              onclick="closeModal()">
+            ×
+        </span>
+
+    </div>
+</div>
+
+<!-- SUPPORT -->
+<section class="support-container">
+
+    <div class="support-left">
+        <img src="~/images/anhbia.jpg"
+             alt="Doctor"
+             class="doctor-img">
+    </div>
+
+    <div class="support-right">
+
+        <h2>CÁC HÌNH THỨC HỖ TRỢ</h2>
+
+        <p class="hotline">1900-2005</p>
+
+        <div class="qr-group">
+
+            <div class="qr-item">
+                <img src="~/images/qrZalo.jpg"
+                     alt="QR Zalo">
+                <p>Zalo</p>
+            </div>
+
+            <div class="qr-item">
+                <img src="~/images/qrFB.jpg"
+                     alt="QR Facebook">
+                <p>Facebook</p>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<script>
+    function openModal() {
+        document.getElementById("modal").style.display = "flex";
+    }
+
+    function closeModal() {
+        document.getElementById("modal").style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        let modal = document.getElementById("modal");
+
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>

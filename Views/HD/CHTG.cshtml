@@ -1,0 +1,179 @@
+﻿@{
+    ViewData["Title"] = "Câu hỏi thường gặp";
+
+    var categories = new Dictionary<string, string>()
+    {
+        { "van-de-chung", "Vấn đề chung" },
+        { "van-de-tai-khoan", "Vấn đề tài khoản" },
+        { "van-de-thanh-toan", "Vấn đề về thanh toán" },
+        { "van-de-fundiin", "Vấn đề trả sau qua Fundiin" }
+    };
+
+    var current = Context.Request.Query["cat"].ToString();
+
+    if (string.IsNullOrEmpty(current))
+    {
+        current = "van-de-chung";
+    }
+
+    var faq = new Dictionary<string, List<string>>()
+    {
+        {
+            "van-de-chung",
+            new List<string>()
+            {
+                "Lợi ích khi sử dụng ứng dụng đăng ký khám bệnh trực tuyến này là gì?",
+                "Làm sao để sử dụng được ứng dụng đăng ký khám bệnh trực tuyến?",
+                "Đăng ký khám bệnh online có mất phí không?",
+                "Ứng dụng có hỗ trợ đăng ký khám 24/7 không?"
+            }
+        },
+
+        {
+            "van-de-tai-khoan",
+            new List<string>()
+            {
+                "Mã số bệnh nhân là gì? Làm sao tôi có thể biết được mã số bệnh nhân của mình?",
+                "Tôi quên mã số bệnh nhân của mình thì phải làm sao?",
+                "Làm sao tôi biết bên mình đã có mã số bệnh nhân chưa?",
+                "Tôi có thể chọn tùy ý một hồ sơ bệnh nhân của người khác để đăng ký khám bệnh cho mình không?"
+            }
+        },
+
+        {
+            "van-de-thanh-toan",
+            new List<string>()
+            {
+                "Điều kiện để được hoàn tiền là gì?",
+                "Hoàn tiền như thế nào? Bao lâu thì tôi nhận lại được tiền hoàn?",
+                "Thông tin thanh toán của tôi có bị lộ không?",
+                "Tôi nhập tài khoản thẻ nhưng bấm xác thực hoài không được?",
+                "Phí tiện ích là gì?",
+                "Cách tính phí tiện ích"
+            }
+        },
+
+        {
+            "van-de-fundiin",
+            new List<string>()
+            {
+                "Quy trình thu hồi nợ diễn ra như thế nào?",
+                "Hạn mức tối đa khách hàng có thể sử dụng?",
+                "Nếu thanh toán trễ hơn kỳ hạn, tôi sẽ phải trả mức phí bao nhiêu?",
+                "Lý do khách hàng bị từ chối là gì?",
+                "Nếu không còn nhu cầu sử dụng, tôi có thể hủy dịch vụ không?"
+            }
+        }
+    };
+}
+
+<link rel="stylesheet" href="~/css/HD/CHTG.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- MENU TAB -->
+<div class="tab-container">
+
+    <a asp-controller="HD"
+       asp-action="CĐ"
+       class="tab-item">
+        Cài đặt ứng dụng
+    </a>
+
+    <a asp-controller="HD"
+       asp-action="QTHP"
+       class="tab-item">
+        Quy trình hoàn phí
+    </a>
+
+    <a asp-controller="HD"
+       asp-action="CHTG"
+       class="tab-item active">
+        Câu hỏi thường gặp
+    </a>
+
+    <a asp-controller="HD"
+       asp-action="QTĐK"
+       class="tab-item">
+        Quy trình đi khám
+    </a>
+
+</div>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+        <h3>Danh sách câu hỏi</h3>
+
+        <ul>
+
+            @foreach (var item in categories)
+            {
+                <li class="@(current == item.Key ? "active" : "")">
+
+                    <a asp-controller="HD"
+                       asp-action="CHTG"
+                       asp-route-cat="@item.Key">
+
+                        @item.Value
+
+                    </a>
+
+                </li>
+            }
+
+        </ul>
+
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-list">
+
+        @foreach (var item in faq[current])
+        {
+            <div class="faq-item">
+
+                <span>@item</span>
+
+                <div class="arrow">&gt;</div>
+
+            </div>
+        }
+
+    </div>
+
+</div>
+
+<!-- HỖ TRỢ -->
+<section class="support-container">
+
+    <div class="support-left">
+        <img src="~/images/anhbia.jpg"
+             alt="Doctor"
+             class="doctor-img">
+    </div>
+
+    <div class="support-right">
+
+        <h2>CÁC HÌNH THỨC HỖ TRỢ</h2>
+
+        <p class="hotline">1900-2005</p>
+
+        <div class="qr-group">
+
+            <div class="qr-item">
+                <img src="~/images/qrZalo.jpg" alt="QR Zalo">
+                <p>Zalo</p>
+            </div>
+
+            <div class="qr-item">
+                <img src="~/images/qrFB.jpg" alt="QR Facebook">
+                <p>Facebook</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

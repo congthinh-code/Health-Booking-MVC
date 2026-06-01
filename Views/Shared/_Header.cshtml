@@ -1,13 +1,175 @@
-﻿<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+﻿<head>
+    <link rel="stylesheet" href="~/css/header.css"/>
 </head>
-<body>
-    <div>
-        @RenderBody()
+<header>
+    <div class="header-container">
+        <!-- Logo -->
+        <div class="logo">
+            <a asp-controller="Home" asp-action="Index">
+                <img src="~/images/logo.png"
+                     alt="Logo HealthMeet"
+                     title="Logo HealthMeet">
+            </a>
+        </div>
+
+        <!-- Right section -->
+        <div class="right-section">
+
+            <!-- Top bar -->
+            <div class="top-bar">
+
+                <div class="social">
+                    <a href="#"><i class="fa-brands fa-tiktok"></i> Tiktok</a> |
+                    <a href="#"><i class="fa-brands fa-facebook"></i> Facebook</a> |
+                    <a href="#"><i class="fa-solid fa-comment"></i> Zalo</a> |
+                    <a href="#"><i class="fa-brands fa-youtube"></i> Youtube</a>
+                </div>
+
+                <div class="actions d-flex align-items-center gap-2">
+
+                    <!-- CHỈ GIỮ GIAO DIỆN -->
+                    <!-- Backend sẽ xử lý sau -->
+
+                    <a href="#" class="btn-outline">
+                        <i class="fa-solid fa-user"></i> Đăng ký
+                    </a>
+
+                    <a href="#" class="btn-outline">
+                        <i class="fa-solid fa-user"></i> Đăng nhập
+                    </a>
+
+                    <!-- Ngôn ngữ -->
+                    <div class="lang">
+                        <div class="lang-selected">
+                            <img src="~/images/vietnam.png" alt="VN">
+                            <i class="fa-solid fa-caret-down"></i>
+                        </div>
+
+                        <div class="lang-menu">
+                            <a href="#">
+                                <img src="~/images/vietnam.png" alt="VN">
+                                Tiếng Việt
+                            </a>
+                            <a href="#">
+                                <img src="~/images/english.png" alt="EN">
+                                English
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main bar -->
+            <div class="main-bar">
+                <div class="hotline">
+                    <i class="fa-solid fa-headset"></i>
+                    <div>
+                        Hỗ trợ đặt khám <br>
+                        <span>1900 2005</span>
+                    </div>
+                </div>
+                <nav>
+                    <div class="dropdown">
+                        <a href="#">
+                            Cơ sở y tế
+                            <i class="fa-solid fa-caret-down"></i>
+                        </a>
+
+                        <div class="dropdown-menu">
+                            <a href="#">Bệnh viện công</a>
+                            <a href="#">Bệnh viện tư</a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <a href="#">
+                            Dịch vụ y tế
+                            <i class="fa-solid fa-caret-down"></i>
+                        </a>
+
+                        <div class="dropdown-menu">
+                            <a href="#">Đặt khám tại cơ sở</a>
+                            <a href="#">Đặt khám chuyên khoa</a>
+                            <a href="#">Đặt khám theo bác sĩ</a>
+                            <a href="#">Đặt khám ngoài giờ</a>
+                            <a href="#">Thanh toán viện phí</a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <a href="#">
+                            Hướng dẫn
+                            <i class="fa-solid fa-caret-down"></i>
+                        </a>
+
+                        <div class="dropdown-menu">
+                            <a asp-controller="HD"
+                                asp-action="CĐ">
+                                Cài đặt ứng dụng
+                            </a>
+                            <a asp-controller="HD"
+                                asp-action="QTHP">
+                                Quy trình hoàn phí
+                            </a>
+                            <a asp-controller="HD"
+                                asp-action="CHTG">
+                                Câu hỏi thường gặp
+                            </a>
+                            <a asp-controller="HD"
+                                asp-action="QTĐK">
+                                Quy trình đi khám
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <a href="#">
+                            Liên hệ hợp tác
+                            <i class="fa-solid fa-caret-down"></i>
+                        </a>
+
+                        <div class="dropdown-menu">
+                            <a asp-controller="LH"
+                                asp-action="CSYT">
+                                Cơ sở y tế
+                            </a>
+                            <a asp-controller="LH"
+                                asp-action="QC">
+                                Quảng cáo
+                            </a>
+                            <a asp-controller="LH"
+                                asp-action="TD">
+                                Tuyển dụng
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+
+    <!-- Notice -->
+    <div class="notice">
+        <div class="marquee">
+            <span>
+                <i class="fa-solid fa-bullhorn"></i>
+                Đặt ngay Trợ Lý Giúp Việc để người thân luôn được chăm sóc khi đi khám bệnh
+            </span>
+
+            <span>
+                <i class="fa-solid fa-bullhorn"></i>
+                Đặt ngay Trợ Lý Giúp Việc để người thân luôn được chăm sóc khi đi khám bệnh
+            </span>
+
+            <span>
+                <i class="fa-solid fa-bullhorn"></i>
+                Đặt ngay Trợ Lý Giúp Việc để người thân luôn được chăm sóc khi đi khám bệnh
+            </span>
+
+            <span>
+                <i class="fa-solid fa-bullhorn"></i>
+                Đặt ngay Trợ Lý Giúp Việc để người thân luôn được chăm sóc khi đi khám bệnh
+            </span>
+        </div>
+    </div>
+</header>
