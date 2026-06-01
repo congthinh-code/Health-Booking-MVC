@@ -1,5 +1,110 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<Health_Booking_MVC.Models.Specialization>
+
 @{
+    ViewData["Title"] = "Đặt khám chuyên khoa";
+
+    var specialtyData = new Dictionary<string, (string Icon, string Link)>
+{
+    { "Bác sĩ Gia Đình", ("Bác sĩ gia đình.png", "https://medpro.vn/tim-kiem?kw=Bác%20sĩ%20Gia%20Đình&tab=subject&page=1") },
+    { "Tiêu Hóa Gan Mật", ("Tiêu hoá gan mật.png", "https://medpro.vn/tim-kiem?kw=Tiêu%20Hóa%20Gan%20Mật&tab=subject&page=1") },
+    { "Nội Tổng Quát", ("Nội tổng quát.png", "https://medpro.vn/tim-kiem?kw=Nội%20Tổng%20Quát&tab=subject&page=1") },
+    { "Nội Tiết", ("Nội tiết.png", "https://medpro.vn/tim-kiem?kw=Nội%20Tiết&tab=subject&page=1") },
+    { "Da liễu", ("Da liễu.png", "https://medpro.vn/tim-kiem?kw=Da%20Liễu&tab=subject&page=1") },
+    { "Nội Tim Mạch", ("Nội tim mạch.png", "https://medpro.vn/tim-kiem?kw=Nội%20Tim%20Mạch&tab=subject&page=1") },
+    { "Nội Thần Kinh", ("Nội thần kinh.png", "https://medpro.vn/tim-kiem?kw=Nội%20Thần%20Kinh&tab=subject&page=1") },
+    { "Nội Cơ Xương Khớp", ("Nội cơ xương khớp.png", "https://medpro.vn/tim-kiem?kw=Nội%20Cơ%20Xương%20Khớp&tab=subject&page=1") },
+    { "Tai Mũi Họng", ("Tai mũi họng.png", "https://medpro.vn/tim-kiem?kw=Tai%20Mũi%20Họng&tab=subject&page=1") },
+    { "Mắt", ("Mắt.png", "https://medpro.vn/tim-kiem?kw=Mắt&tab=subject&page=1") },
+    { "Nội Tiêu Hoá", ("Nội tiêu hoá.png", "https://medpro.vn/tim-kiem?kw=Nội%20Tiêu%20Hóa&tab=subject&page=1") },
+    { "Nội Truyền Nhiễm", ("Nội truyền nhiễm.png", "https://medpro.vn/tim-kiem?kw=Nội%20Truyền%20Nhiễm&tab=subject&page=1") },
+    { "Nội Hô Hấp", ("Nội hô hấp.png", "https://medpro.vn/tim-kiem?kw=Nội%20Hô%20Hấp&tab=subject&page=1") },
+    { "Nội Tiết Niệu", ("Nội tiết niệu.png", "https://medpro.vn/tim-kiem?kw=Nội%20Tiết%20Niệu&tab=subject&page=1") },
+    { "Ngoại Cơ Xương Khớp", ("Ngoại cơ xương khớp.png", "https://medpro.vn/tim-kiem?kw=Ngoại%20Cơ%20Xương%20Khớp&tab=subject&page=1") },
+    { "Sản - Phụ Khoa", ("Sản - phụ khoa.png", "https://medpro.vn/tim-kiem?kw=Sản%20-%20Phụ%20Khoa&tab=subject&page=1") }
+};
+
 }
+
+<!DOCTYPE html>
+
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <title>Đặt khám chuyên khoa</title>
+
+    ```
+    <link rel="stylesheet" href="~/css/dkck.css" />
+    <link rel="icon" href="~/images/logo.png" type="image/x-icon" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    ```
+
+</head>
+<body>
+
+    <div class="tab-container">
+        <a asp-controller="DVYT" asp-action="ĐKCS" class="tab-item">
+            Đặt khám cơ sở
+        </a>
+
+        ```
+        <a asp-controller="DVYT" asp-action="ĐKCK" class="tab-item">
+            Đặt khám chuyên khoa
+        </a>
+
+        <a asp-controller="DVYT" asp-action="ĐKBS" class="tab-item">
+            Đặt khám bác sĩ
+        </a>
+
+        <a asp-controller="DVYT" asp-action="ĐKNG" class="tab-item">
+            Đặt khám ngoài giờ
+        </a>
+
+        <a asp-controller="DVYT" asp-action="TTVP" class="tab-item">
+            Thanh toán viện phí
+        </a>
+        ```
+
+    </div>
+
+    <h1 class="title">Danh sách chuyên khoa</h1>
+
+    <div class="department-grid">
+
+        @if (Model != null && Model.Count > 0)
+        {
+            @foreach (var item in Model)
+            {
+                string icon = "default.png";
+                string link = "#";
+
+                if (specialtyData.ContainsKey(item.Name))
+                {
+                    icon = specialtyData[item.Name].Icon;
+                    link = specialtyData[item.Name].Link;
+                }
+
+                <a href="@link"
+                   class="department-card"
+                   target="_blank">
+
+                    <img src="~/images/iconchuyenkhoa/@icon"
+                         alt="@item.Name" />
+
+                    <p>@item.Name</p>
+
+                </a>
+            }
+        }
+        else
+        {
+            <div style="text-align:center;width:100%;">
+                <p>Không có dữ liệu chuyên khoa.</p>
+            </div>
+        }
+        
+
+    </div>
+
+</body>
+</html>
