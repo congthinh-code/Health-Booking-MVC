@@ -1,4 +1,7 @@
-﻿<head>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<head>
     <link rel="stylesheet" href="~/css/header.css"/>
 </head>
 <header>
@@ -30,13 +33,45 @@
                     <!-- CHỈ GIỮ GIAO DIỆN -->
                     <!-- Backend sẽ xử lý sau -->
 
-                    <a href="#" class="btn-outline">
+                    @* <a asp-controller="Account" asp-action="Register" class="btn-outline">
                         <i class="fa-solid fa-user"></i> Đăng ký
                     </a>
 
-                    <a href="#" class="btn-outline">
+                    <a asp-controller="Account" asp-action="Login" class="btn-outline">
                         <i class="fa-solid fa-user"></i> Đăng nhập
-                    </a>
+                    </a> *@
+                    @* Kiểm tra xem Session UserId đã tồn tại chưa *@
+                    @if (HttpContextAccessor.HttpContext?.Session.GetInt32("UserId") != null)
+                    {
+                        @* NẾU ĐÃ ĐĂNG NHẬP: Hiển thị tên và nút Đăng xuất *@
+                        <span class="user-name-display" style="font-weight: 500; color: #333; margin-right: 10px;">
+                            <i class="fa-solid fa-circle-user" style="color: #f4978e;"></i>
+                            Xin chào, @HttpContextAccessor.HttpContext.Session.GetString("Name")
+                        </span>
+
+                        @* Kiểm tra nếu là bác sĩ thì có thể hiện thêm nút vào trang quản lý *@
+                        @if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "doctor")
+                        {
+                            <a asp-controller="Doctor" asp-action="Dashboard" class="btn-outline" style="font-size: 13px;">
+                                <i class="fa-solid fa-chart-line"></i> Quản lý
+                            </a>
+                        }
+
+                        <a asp-controller="Account" asp-action="Logout" class="btn-outline" style="color: #dc3545; border-color: #dc3545;">
+                            <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                        </a>
+                    }
+                    else
+                    {
+                        @* NẾU CHƯA ĐĂNG NHẬP: Hiển thị cặp nút Đăng ký và Đăng nhập mặc định *@
+                        <a asp-controller="Account" asp-action="Register" class="btn-outline">
+                            <i class="fa-solid fa-user"></i> Đăng ký
+                        </a>
+
+                        <a asp-controller="Account" asp-action="Login" class="btn-outline">
+                            <i class="fa-solid fa-right-to-bracket"></i> Đăng nhập
+                        </a>
+                    }
 
                     <!-- Ngôn ngữ -->
                     <div class="lang">

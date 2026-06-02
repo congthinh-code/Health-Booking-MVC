@@ -16,6 +16,6 @@ namespace Health_Booking_MVC.Models
         public string Symptoms { get; set; }  // Triệu chứng
         public string Treatment { get; set; } // Lời dặn
         public string Prescription { get; set; } // Đơn thuốc
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; }
     }
 }
