@@ -1,5 +1,266 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Đặt khám ngoài giờ";
+
+    var hospitals = new[]
+    {
+        new {
+            HospitalId = 1,
+            Name = "Bệnh viện Đa khoa Bình Định",
+            Address = "106 Nguyễn Huệ, TP. Quy Nhơn",
+            Rating = 5,
+            Image = "/images/hospital/bvdkbinhdinh.jpg"
+        },
+
+        new {
+            HospitalId = 2,
+            Name = "Bệnh viện Quân Y 13",
+            Address = "01 Nguyễn Thái Học, TP. Quy Nhơn",
+            Rating = 4,
+            Image = "/images/hospital/quany13.jpg"
+        },
+
+        new {
+            HospitalId = 3,
+            Name = "Bệnh viện Mắt Bình Định",
+            Address = "12 Lê Lợi, TP. Quy Nhơn",
+            Rating = 5,
+            Image = "/images/hospital/matbinhdinh.jpg"
+        },
+
+        new {
+            HospitalId = 4,
+            Name = "Bệnh viện Da Liễu Bình Định",
+            Address = "08 Trần Hưng Đạo, TP. Quy Nhơn",
+            Rating = 4,
+            Image = "/images/hospital/dalieu.jpg"
+        }
+    };
+
+    var doctors = new[]
+    {
+        new {
+            DoctorId = 1,
+            FullName = "BS. Nguyễn Văn An"
+        },
+
+        new {
+            DoctorId = 2,
+            FullName = "BS. Trần Thị Bình"
+        },
+
+        new {
+            DoctorId = 3,
+            FullName = "BS. Lê Minh Khôi"
+        },
+
+        new {
+            DoctorId = 4,
+            FullName = "BS. Võ Thành Nam"
+        }
+    };
 }
+<link rel="stylesheet" href="~/css/DVYT/ĐKNG.css" />
+
+
+<!-- TAB -->
+<div class="tab-container">
+    <a asp-controller="DVYT" asp-action="ĐKCS" class="tab-item">
+        Đặt khám cơ sở
+    </a>
+
+    <a asp-controller="DVYT" asp-action="ĐKCK" class="tab-item">
+        Đặt khám chuyên khoa
+    </a>
+
+    <a asp-controller="DVYT" asp-action="ĐKBS" class="tab-item">
+        Đặt khám bác sĩ
+    </a>
+
+    <a asp-controller="DVYT" asp-action="ĐKNG" class="tab-item active">
+        Đặt khám ngoài giờ
+    </a>
+
+    <a asp-controller="DVYT" asp-action="TTVP" class="tab-item">
+        Thanh toán viện phí
+    </a>
+</div>
+
+<!-- TITLE -->
+<div class="page-header">
+    <h1 class="page-title">
+		ĐẶT LỊCH KHÁM NGOÀI GIỜ
+    </h1>
+
+  
+</div>
+
+<!-- LIST -->
+<div class="grid">
+
+    @foreach (var bv in hospitals)
+    {
+        <div class="card">
+
+            <div class="card-left">
+                <img src="@bv.Image"
+                     class="logo"
+                     alt="@bv.Name" />
+            </div>
+
+            <div class="card-right">
+
+                <h3 class="title">
+                    @bv.Name
+                    <span class="verified">✓</span>
+                </h3>
+
+                <p class="address">
+                    @bv.Address
+                </p>
+
+                <div class="rating">
+
+                    <span class="score">
+                        (@bv.Rating)
+                    </span>
+
+                    <span class="stars">
+                        @for (int i = 0; i < bv.Rating; i++)
+                        {
+                            @:★
+                        }
+                    </span>
+
+                </div>
+
+                <div class="actions">
+
+                    <a href="#"
+                       class="btn outline">
+                        Xem chi tiết
+                    </a>
+
+                    <button type="button"
+                            class="btn primary"
+                            onclick="openModal(@bv.HospitalId,'@bv.Name')">
+                        Đặt khám
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    }
+
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close"
+              onclick="closeModal()">
+            &times;
+        </span>
+
+        <h2>Đặt lịch khám ngoài giờ</h2>
+
+        <form id="bookingForm">
+
+            <input type="text"
+                   id="patientName"
+                   placeholder="Họ và tên"
+                   required />
+
+            <input type="tel"
+                   id="phone"
+                   placeholder="Số điện thoại"
+                   required />
+
+            <input type="hidden"
+                   id="hospital_id" />
+
+            <input type="text"
+                   id="hospital_name"
+                   readonly />
+
+            <select id="doctorSelect" required>
+
+                <option value="">
+                    -- Chọn bác sĩ --
+                </option>
+
+                @foreach (var doctor in doctors)
+                {
+                    <option value="@doctor.DoctorId">
+                        @doctor.FullName
+                    </option>
+                }
+
+            </select>
+
+            <input type="date" required />
+
+            <input type="time" required />
+
+            <button type="submit">
+                Xác nhận đặt khám
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+    function openModal(id, name) {
+
+        document.getElementById("hospital_id").value = id;
+
+        document.getElementById("hospital_name").value = name;
+
+        document.getElementById("modal")
+            .style.display = "flex";
+    }
+
+    function closeModal() {
+
+        document.getElementById("modal")
+            .style.display = "none";
+
+        document.getElementById("bookingForm")
+            .reset();
+    }
+
+    document.getElementById("bookingForm")
+        .addEventListener("submit", function (e) {
+
+            e.preventDefault();
+
+            let patient =
+                document.getElementById("patientName").value;
+
+            alert(
+                "Đặt lịch thành công!\n\n" +
+                "Bệnh nhân: " + patient
+            );
+
+            closeModal();
+        });
+
+    window.onclick = function (event) {
+
+        let modal =
+            document.getElementById("modal");
+
+        if (event.target === modal) {
+
+            closeModal();
+        }
+    }
+
+</script>
