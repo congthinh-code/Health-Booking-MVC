@@ -1,5 +1,269 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Thanh toán viện phí";
+
+    var hospitals = new[]
+    {
+        new {
+            HospitalId = 1,
+            Name = "Bệnh viện Đa khoa Bình Định",
+            Address = "106 Nguyễn Huệ, TP. Quy Nhơn",
+            Rating = 5,
+            Image = "/images/hospital/bvdkbinhdinh.jpg",
+            WebsiteUrl = "https://benhviendakhoabinhdinh.vn"
+        },
+
+        new {
+            HospitalId = 2,
+            Name = "Bệnh viện Quân Y 13",
+            Address = "01 Nguyễn Thái Học, TP. Quy Nhơn",
+            Rating = 4,
+            Image = "/images/hospital/quany13.jpg",
+            WebsiteUrl = "https://bvquany13.vn"
+        },
+
+        new {
+            HospitalId = 3,
+            Name = "Bệnh viện Mắt Bình Định",
+            Address = "12 Lê Lợi, TP. Quy Nhơn",
+            Rating = 5,
+            Image = "/images/hospital/matbinhdinh.jpg",
+            WebsiteUrl = "#"
+        },
+
+        new {
+            HospitalId = 4,
+            Name = "Bệnh viện Da Liễu Bình Định",
+            Address = "08 Trần Hưng Đạo, TP. Quy Nhơn",
+            Rating = 4,
+            Image = "/images/hospital/dalieu.jpg",
+            WebsiteUrl = "#"
+        }
+    };
 }
+
+<link rel="stylesheet" href="~/css/DVYT/TTVP.css" />
+
+<!-- MENU -->
+<div class="tab-container">
+    <a asp-controller="DVYT" asp-action="ĐKCS" class="tab-item">
+        Đặt khám cơ sở
+    </a>
+
+    <a asp-controller="DVYT" asp-action="ĐKCK" class="tab-item">
+        Đặt khám chuyên khoa
+    </a>
+
+    <a asp-controller="DVYT" asp-action="ĐKBS" class="tab-item">
+        Đặt khám bác sĩ
+    </a>
+
+    <a asp-controller="DVYT" asp-action="ĐKNG" class="tab-item">
+        Đặt khám ngoài giờ
+    </a>
+
+    <a asp-controller="DVYT" asp-action="TTVP" class="tab-item active">
+        Thanh toán viện phí
+    </a>
+</div>
+
+<!-- BANNER -->
+<div class="banner">
+    <h1>Thanh toán viện phí</h1>
+</div>
+
+<!-- SEARCH -->
+<div class="search-box">
+    <input type="text"
+           id="search"
+           placeholder="🔍 Tìm bệnh viện..." />
+</div>
+
+<!-- DANH SÁCH BỆNH VIỆN -->
+<div id="list" class="benhvien-list">
+
+    @foreach (var h in hospitals)
+    {
+        <div class="benhvien-card">
+
+            <img src="@h.Image"
+                 alt="@h.Name"
+                 class="benhvien-img" />
+
+            <div class="benhvien-info">
+
+                <h2>@h.Name</h2>
+
+                <p>@h.Address</p>
+
+                <div class="rating">
+                    ⭐ @h.Rating / 5
+                </div>
+
+                <div class="benhvien-btns">
+
+                    <a href="@h.WebsiteUrl"
+                       target="_blank"
+                       class="xem">
+                        Xem chi tiết
+                    </a>
+
+                    <button class="dat"
+                            onclick="openModal(@h.HospitalId,'@h.Name')">
+                        Thanh toán viện phí
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    }
+
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close"
+              onclick="closeModal()">
+            &times;
+        </span>
+
+        <h2>Thanh toán viện phí</h2>
+
+        <form id="paymentForm">
+
+            <input type="text"
+                   id="patientName"
+                   placeholder="Họ và tên"
+                   required />
+
+            <input type="tel"
+                   id="phone"
+                   placeholder="Số điện thoại"
+                   required />
+
+            <input type="hidden"
+                   id="hospitalId" />
+
+            <input type="text"
+                   id="hospitalName"
+                   placeholder="Bệnh viện"
+                   readonly />
+
+            <input type="text"
+                   id="billNumber"
+                   placeholder="Mã hóa đơn"
+                   required />
+
+            <input type="number"
+                   id="amount"
+                   placeholder="Số tiền cần thanh toán"
+                   required />
+
+            <button type="button"
+                    onclick="payNow()">
+                Xác nhận thanh toán
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+    function openModal(id, name) {
+
+        document.getElementById("hospitalId").value = id;
+        document.getElementById("hospitalName").value = name;
+
+        document
+            .getElementById("modal")
+            .classList.add("show");
+    }
+
+    function closeModal() {
+
+        document
+            .getElementById("modal")
+            .classList.remove("show");
+
+        document
+            .getElementById("paymentForm")
+            .reset();
+    }
+
+    function payNow() {
+
+        let patientName =
+            document.getElementById("patientName").value;
+
+        let phone =
+            document.getElementById("phone").value;
+
+        let billNumber =
+            document.getElementById("billNumber").value;
+
+        let amount =
+            document.getElementById("amount").value;
+
+        if (!patientName ||
+            !phone ||
+            !billNumber ||
+            !amount) {
+
+            alert("Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
+
+        alert(
+            "Thanh toán thành công!\n\n" +
+            "Bệnh nhân: " + patientName + "\n" +
+            "Mã hóa đơn: " + billNumber + "\n" +
+            "Số tiền: " + amount + " VNĐ"
+        );
+
+        closeModal();
+    }
+
+    document
+        .getElementById("search")
+        .addEventListener("keyup", function () {
+
+            let keyword =
+                this.value.toLowerCase();
+
+            document
+                .querySelectorAll(".benhvien-card")
+                .forEach(card => {
+
+                    let hospitalName =
+                        card.querySelector("h2")
+                            .innerText
+                            .toLowerCase();
+
+                    if (hospitalName.includes(keyword)) {
+                        card.style.display = "";
+                    }
+                    else {
+                        card.style.display = "none";
+                    }
+                });
+        });
+
+    window.onclick = function (event) {
+
+        let modal =
+            document.getElementById("modal");
+
+        if (event.target === modal) {
+
+            closeModal();
+        }
+    };
+
+</script>
