@@ -16,6 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\images\iconchuyenkhoa\" />
+    <Folder Include="wwwroot\video\" />
     <Folder Include="wwwroot\uploads\doctors\" />
     <Folder Include="wwwroot\uploads\hospitals\" />
     <Folder Include="wwwroot\uploads\patients\" />

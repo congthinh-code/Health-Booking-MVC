@@ -1,4 +1,218 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Trang Chủ";
 }
 
+<link rel="stylesheet" href="~/css/index.css" />
+
+<!-- HERO -->
+<section class="hero">
+
+    <!-- Video nền -->
+    <video autoplay muted loop playsinline class="hero-video">
+        <source src="~/video/nen.mp4" type="video/mp4">
+    </video>
+
+    <!-- Nội dung hero -->
+    <div class="hero-content">
+        <h1>Đặt lịch khám nhanh chóng</h1>
+        <div class="search-container">
+            <input type="text"
+                   id="searchInput"
+                   class="search"
+                   placeholder="Tìm kiếm bác sĩ, chuyên khoa, bệnh viện...">
+
+            <div id="searchResults" class="search-results"></div>
+        </div>
+
+        <ul class="hero-list">
+            <li>✔ Đặt khám nhanh - lấy số thứ tự online</li>
+            <li>✔ Đặt khám theo giờ - chọn khung giờ thuận tiện</li>
+            <li>✔ Hoàn tiền khi hủy khám</li>
+        </ul>
+
+        <button class="btn-book" onclick="openBooking()">
+            ĐẶT LỊCH NGAY
+        </button>
+    </div>
+</section>
+
+<!-- Modal Đặt lịch -->
+<div id="bookingModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeBooking()">&times;</span>
+        <h2>Đặt Lịch Khám</h2>
+        <form id="bookingForm">
+
+            <label>Họ và Tên:</label>
+            <input type="text" required>
+
+            <label>Số điện thoại:</label>
+            <input type="tel"
+                   required
+                   pattern="[0-9]{10,11}"
+                   placeholder="0123456789">
+
+            <label>Bệnh viện:</label>
+            <select>
+                <option>-- Chọn bệnh viện --</option>
+                <option>Bệnh viện Chợ Rẫy</option>
+                <option>Bệnh viện Đại học Y Dược</option>
+                <option>Bệnh viện Nhi Đồng</option>
+            </select>
+
+            <label>Chuyên khoa:</label>
+            <select>
+                <option>-- Chọn chuyên khoa --</option>
+                <option>Tim mạch</option>
+                <option>Da liễu</option>
+                <option>Nội tổng quát</option>
+            </select>
+
+            <label>Ngày khám:</label>
+            <input type="date" required>
+
+            <label>Giờ khám:</label>
+            <input type="time" required>
+
+            <button type="submit" class="btn-submit">
+                Xác nhận đặt lịch
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- DỊCH VỤ -->
+<section class="services">
+    <div class="container">
+        <div class="cards">
+            <a href="#">
+                <div class="card">
+                    📅
+                    <p>Đặt khám tại cơ sở</p>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="card">
+                    💊
+                    <p>Đặt khám chuyên khoa</p>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="card">
+                    👨‍⚕️
+                    <p>Đặt khám theo bác sĩ</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CHUYÊN KHOA -->
+<section class="specialties">
+    <h2>CHUYÊN KHOA</h2>
+    <div class="grid">
+        <a class="item" href="#">
+            <img src="~/images/iconchuyenkhoa/Bác sĩ gia đình.png">
+            <p>Bác sĩ Gia Đình</p>
+        </a>
+
+        <a class="item" href="#">
+            <img src="~/images/iconchuyenkhoa/Tiêu hoá gan mật.png">
+            <p>Tiêu Hóa Gan Mật</p>
+        </a>
+
+        <a class="item" href="#">
+            <img src="~/images/iconchuyenkhoa/Nội tổng quát.png">
+            <p>Nội Tổng Quát</p>
+        </a>
+
+        <a class="item" href="#">
+            <img src="~/images/iconchuyenkhoa/Nội tiết.png">
+            <p>Nội Tiết</p>
+        </a>
+
+        <a class="item" href="#">
+            <img src="~/images/iconchuyenkhoa/Da liễu.png">
+            <p>Da Liễu</p>
+        </a>
+
+        <a class="item" href="#">
+            <img src="~/images/iconchuyenkhoa/Nội tim mạch.png">
+            <p>Nội Tim Mạch</p>
+        </a>
+
+        <a class="item" href="#">
+            <img src="~/images/iconchuyenkhoa/Nội thần kinh.png">
+            <p>Nội Thần Kinh</p>
+        </a>
+
+        <a class="item" href="#">
+            <img src="~/images/iconchuyenkhoa/Nội cơ xương khớp.png">
+            <p>Nội Cơ Xương Khớp</p>
+        </a>
+
+        <a class="item" href="#">
+            <img src="~/images/iconchuyenkhoa/Tai mũi họng.png">
+            <p>Tai Mũi Họng</p>
+        </a>
+
+        <a class="item" href="#">
+            <img src="~/images/iconchuyenkhoa/Mắt.png">
+            <p>Mắt</p>
+        </a>
+
+        <a class="item" href="#">
+            <img src="~/images/iconchuyenkhoa/Nội tiêu hoá.png">
+            <p>Nội Tiêu Hóa</p>
+        </a>
+
+        <a class="item" href="#">
+            <img src="~/images/iconchuyenkhoa/Nội truyền nhiễm.png">
+            <p>Nội Truyền Nhiễm</p>
+        </a>
+
+        <a class="item extra-item" href="#">
+            <img src="~/images/iconchuyenkhoa/Nội hô hấp.png">
+            <p>Nội Hô Hấp</p>
+        </a>
+
+        <a class="item extra-item" href="#">
+            <img src="~/images/iconchuyenkhoa/Nội tiết niệu.png">
+            <p>Nội Tiết Niệu</p>
+        </a>
+
+        <a class="item extra-item" href="#">
+            <img src="~/images/iconchuyenkhoa/Ngoại cơ xương khớp.png">
+            <p>Ngoại Cơ Xương Khớp</p>
+        </a>
+
+        <a class="item extra-item" href="#">
+            <img src="~/images/iconchuyenkhoa/Sản - phụ khoa.png">
+            <p>Sản - Phụ Khoa</p>
+        </a>
+    </div>
+
+    <button id="toggleSpecialties" class="see-more">
+        Xem tất cả ⌄
+    </button>
+</section>
+
+<script>
+    const btn = document.getElementById("toggleSpecialties");
+    const extraItems = document.querySelectorAll(".extra-item");
+
+    btn.onclick = function () {
+
+        extraItems.forEach(item => {
+            item.classList.toggle("show");
+        });
+
+        if (btn.innerText.includes("Xem")) {
+            btn.innerHTML = "Thu gọn ▲";
+        } else {
+            btn.innerHTML = "Xem tất cả ⌄";
+        }
+    };
+</script>

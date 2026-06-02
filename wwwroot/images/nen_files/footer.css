@@ -1,0 +1,159 @@
+/* Reset cơ bản */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background: #ffffff; /* trắng tinh */
+  color: #333;
+}
+
+/* Footer tổng */
+.footer {
+  background: #fff;
+  color: #333;
+  border-top: 1px solid #ddd;
+  padding-top: 40px;
+}
+
+/* Phần chính: chia 2 */
+.footer-main {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 0 20px 40px;
+}
+
+/* Bên trái */
+.footer-left {
+  flex: 1;
+  min-width: 250px;
+}
+
+.footer-left .logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #0ea5e9;
+}
+
+.footer-left .slogan {
+  color: #0ea5e9;
+  margin-bottom: 15px;
+}
+
+.footer-left a {
+  color: #0ea5e9;
+  text-decoration: none;
+}
+
+.footer-left a:hover {
+  text-decoration: underline;
+}
+
+/* Bên phải */
+.footer-right {
+  display: grid;
+  grid-template-rows: auto auto; /* 2 hàng */
+  gap: 30px;
+}
+
+.footer-col h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #111;
+}
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col ul li {
+  margin-bottom: 8px;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.footer-col ul li:hover {
+  color: #0ea5e9;
+}
+
+/* Footer dưới */
+.footer-top-row,
+.footer-bottom-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* mỗi hàng 3 cột */
+  gap: 30px;
+}
+
+.footer-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  background: #fff;
+  padding: 20px 0;
+}
+
+.footer-logos img {
+  height: 40px;
+  display: block;
+  cursor: pointer;
+}
+
+.footer-bottom {
+  width: 100%;              /* không dùng 100vw */
+  background: #00b7f1;
+  text-align: center;
+  padding: 15px 0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .footer-right {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-right {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Nút điện thoại cố định góc dưới bên phải */
+.phone-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #00b7f1;   /* xanh */
+  color: #fff;           /* icon trắng */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  z-index: 1000;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.phone-button:hover {
+  background: #008ec2;   /* đậm hơn khi hover */
+  transform: scale(1.1);
+}

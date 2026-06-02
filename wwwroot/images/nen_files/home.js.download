@@ -1,0 +1,240 @@
+function openBooking() {
+  document.getElementById("bookingModal").style.display = "flex";
+}
+
+function closeBooking() {
+  document.getElementById("bookingModal").style.display = "none";
+  document.getElementById("bookingForm").reset();
+}
+
+// Đóng modal khi click ra ngoài
+window.onclick = function(event) {
+  const modal = document.getElementById("bookingModal");
+  if (event.target === modal) {
+    modal.style.display = "none";
+    document.getElementById("bookingForm").reset();
+  }
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  const items = document.querySelectorAll(".specialties .item");
+  items.forEach((item, index) => {
+    item.style.animationDelay = `${index * 0.1}s`;
+  });
+
+  // Toggle xem thêm
+  const seeMoreBtn = document.querySelector(".see-more");
+  const hiddenItems = document.querySelectorAll(".specialties .item:nth-child(n+13)");
+  let expanded = false;
+
+  hiddenItems.forEach(item => item.style.display = "none");
+
+  seeMoreBtn.addEventListener("click", e => {
+    e.preventDefault();
+    expanded = !expanded;
+    hiddenItems.forEach(item => {
+      item.style.display = expanded ? "block" : "none";
+    });
+    seeMoreBtn.textContent = expanded ? "Thu gọn ▲" : "Xem tất cả ⌄";
+  });
+
+  // Tìm kiếm autocomplete
+  const searchInput = document.getElementById("searchInput");
+  const searchResults = document.getElementById("searchResults");
+  let searchTimeout;
+
+  console.log("Search elements:", { searchInput, searchResults }); // Debug
+
+  if (searchInput && searchResults) {
+    console.log("Search initialized"); // Debug
+    
+    searchInput.addEventListener("input", function(e) {
+      const query = this.value.trim();
+      console.log("Search input:", query); // Debug
+      
+      clearTimeout(searchTimeout);
+      
+      if (query.length < 1) {
+        searchResults.innerHTML = "";
+        searchResults.style.display = "none";
+        searchResults.classList.remove("show");
+        return;
+      }
+
+      searchTimeout = setTimeout(() => {
+        const url = `/HealthMeet/public/api/search.php?q=${encodeURIComponent(query)}`;
+        console.log("Fetching:", url); // Debug
+        
+        fetch(url)
+          .then(res => {
+            console.log("Response status:", res.status); // Debug
+            if (!res.ok) {
+              throw new Error('Network response was not ok: ' + res.status);
+            }
+            return res.json();
+          })
+          .then(data => {
+            console.log("Search results:", data); // Debug
+            displaySearchResults(data);
+          })
+          .catch(err => {
+            console.error("Search error:", err);
+            searchResults.innerHTML = "<div class='search-item' style='padding: 15px; color: red;'>Lỗi: " + err.message + "</div>";
+            searchResults.style.display = "block";
+          });
+      }, 200);
+    });
+
+    // Hiển thị kết quả khi focus vào input
+    searchInput.addEventListener("focus", function() {
+      const query = this.value.trim();
+      if (query.length >= 1 && searchResults.innerHTML) {
+        searchResults.style.display = "block";
+      }
+    });
+
+    // Hàm escape HTML
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function displaySearchResults(results) {
+      if (!results || results.length === 0) {
+        searchResults.innerHTML = "<div class='search-item' style='padding: 20px; text-align: center; color: #999;'>Không tìm thấy kết quả</div>";
+        searchResults.style.display = "block";
+        searchResults.classList.add("show");
+        return;
+      }
+
+      // Giới hạn tối đa 10 kết quả
+      const limitedResults = results.slice(0, 10);
+      
+      searchResults.innerHTML = limitedResults.map(item => {
+        let icon = "🏥";
+        let typeLabel = "Bệnh viện";
+        if (item.type === "doctor") {
+          icon = "👨‍⚕️";
+          typeLabel = "Bác sĩ";
+        } else if (item.type === "specialty") {
+          icon = "💊";
+          typeLabel = "Chuyên khoa";
+        }
+        // prefer API-provided URL if available (e.g. listing page)
+        let link = item.url ? item.url : '';
+        if (!link && item.type === 'doctor') {
+          // fallback to detail page if no url provided
+          link = `/HealthMeet/public/services/dkbs.php?doctor_id=${item.id}`;
+        }
+
+        const inner = `
+          <div class="search-item" data-type="${item.type}" data-id="${item.id}" style="cursor: pointer;">
+            <span class="search-icon">${icon}</span>
+            <div class="search-info" style="flex: 1;">
+              <div class="search-title" style="font-weight: 600; color: #333; margin-bottom: 4px; font-size: 15px;">${escapeHtml(item.title)}</div>
+              ${item.subtitle ? `<div class="search-subtitle" style="color: #666; font-size: 13px; margin-bottom: 2px;">${escapeHtml(item.subtitle)}</div>` : ""}
+              ${item.price ? `<div class="search-price" style="color: #d93ba2; font-weight: 600; font-size: 13px;">${escapeHtml(item.price)}</div>` : ""}
+              ${item.rating ? `<div style="color: #ffc107; font-size: 12px;">⭐ ${item.rating}</div>` : ""}
+            </div>
+            <span style="color: #999; font-size: 12px; margin-left: 10px;">${typeLabel}</span>
+          </div>
+        `;
+
+        if (link) {
+          return `<a href="${link}" class="search-link" style="text-decoration:none; color:inherit; display:block;">${inner}</a>`;
+        }
+
+        return inner;
+      }).join("");
+
+      searchResults.style.display = "block";
+      searchResults.classList.add("show");
+
+      // Xử lý click vào kết quả (event delegation & anchors)
+      // If there are direct anchor links (for doctors), let them navigate but hide dropdown
+      searchResults.querySelectorAll('.search-link').forEach(a => {
+        a.addEventListener('click', function() {
+          searchInput.value = '';
+          searchResults.style.display = 'none';
+        });
+      });
+
+      // For non-anchor items (or if anchor not used), keep existing behaviour
+      searchResults.querySelectorAll(".search-item").forEach(item => {
+        item.addEventListener("click", function(e) {
+          const type = this.dataset.type;
+          const id = this.dataset.id;
+
+          // If this is a doctor item wrapped with a link, do not handle here
+          if (type === 'doctor') {
+            // just hide dropdown; anchor will navigate if present
+            searchInput.value = '';
+            searchResults.style.display = 'none';
+            return;
+          }
+
+          if (type === "hospital") {
+            const el = document.getElementById("hospital_id");
+            if (el) el.value = id;
+            openBooking();
+          } else if (type === "specialty") {
+            const el = document.getElementById("specialty_id");
+            if (el) el.value = id;
+            openBooking();
+          }
+
+          searchInput.value = "";
+          searchResults.style.display = "none";
+        });
+      });
+    }
+
+    // Đóng kết quả tìm kiếm khi click ra ngoài
+    document.addEventListener("click", function(e) {
+      if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+        searchResults.style.display = "none";
+        searchResults.classList.remove("show");
+      }
+    });
+  }
+
+  // Xử lý form đặt lịch
+  const bookingForm = document.getElementById("bookingForm");
+  if (bookingForm) {
+    bookingForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const submitBtn = this.querySelector(".btn-submit");
+      const originalText = submitBtn.textContent;
+      
+      submitBtn.textContent = "Đang xử lý...";
+      submitBtn.disabled = true;
+
+      fetch("/HealthMeet/public/api/submit_booking.php", {
+        method: "POST",
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          alert(data.message);
+          closeBooking();
+          bookingForm.reset();
+        } else {
+          alert(data.message || "Có lỗi xảy ra");
+        }
+      })
+      .catch(err => {
+        console.error("Error:", err);
+        alert("Có lỗi xảy ra khi đặt lịch");
+      })
+      .finally(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      });
+    });
+  }
+});
