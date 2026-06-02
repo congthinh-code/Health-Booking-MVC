@@ -4,6 +4,28 @@
 @{
     ViewData["Title"] = "Hợp tác quảng cáo cùng HealthMeet";
 }
+
+<!-- MENU TAB -->
+<div class="tab-container">
+    <a asp-controller="LH"
+       asp-action="CSYT"
+       class="tab-item">
+        Cơ sở y tế
+    </a>
+
+    <a asp-controller="LH"
+       asp-action="QC"
+       class="tab-item active">
+        Quảng cáo
+    </a>
+
+    <a asp-controller="LH"
+       asp-action="TD"
+       class="tab-item">
+        Tuyển dụng
+    </a>
+</div>
+
 <section class="banner-section">
     <div class="banner-content">
         <h1>Quảng cáo với HealthMeet</h1>

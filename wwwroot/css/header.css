@@ -277,3 +277,21 @@ nav a {
         transform: translateX(-100%);
     }
 }
+
+header nav a,
+header nav a:visited,
+header nav a:link {
+    color: #0a2a43 !important;
+}
+
+    header nav a:hover {
+        color: #0077cc !important;
+    }
+
+header .social a {
+    color: #0a2a43 !important;
+}
+
+header .btn-outline {
+    color: #00a6ea !important;
+}
