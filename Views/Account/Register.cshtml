@@ -1,9 +1,11 @@
-﻿@{
+﻿@model Health_Booking_MVC.Models.ViewModels.RegisterViewModel
+@{
     ViewData["Title"] = "Đăng ký";
     Layout = null;
 }
 
 <link rel="stylesheet" href="~/css/register.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <div class="register-container">
 
@@ -15,115 +17,70 @@
 
         <h2>Đăng ký tài khoản</h2>
 
-        <form>
+        <form asp-controller="Account" asp-action="Register" method="post" id="registerForm">
 
-            <label>Họ và tên *</label>
+            <div asp-validation-summary="ModelOnly" class="text-danger" style="color: #cc0000; font-size: 13px; margin-bottom: 10px; font-weight: 500;"></div>
 
+            <label asp-for="HoTen">Họ và tên *</label>
             <div class="input-group">
                 <i class="icon fa fa-user"></i>
-
-                <input type="text"
-                       name="hoten"
-                       required>
+                <input asp-for="HoTen" type="text" required />
             </div>
+            <span asp-validation-for="HoTen" style="color: #cc0000; font-size: 11px; display: block; margin-top: -10px; margin-bottom: 10px;"></span>
 
-            <!-- THÊM NGÀY SINH -->
-            <label>Ngày sinh *</label>
-
+            <label asp-for="NgaySinh">Ngày sinh *</label>
             <div class="input-group">
                 <i class="icon fa fa-calendar"></i>
-
-                <input type="date"
-                       name="ngaysinh"
-                       required>
+                <input asp-for="NgaySinh" type="date" required />
             </div>
+            <span asp-validation-for="NgaySinh" style="color: #cc0000; font-size: 11px; display: block; margin-top: -10px; margin-bottom: 10px;"></span>
 
-            <label>Email *</label>
-
+            <label asp-for="Email">Email *</label>
             <div class="input-group">
                 <i class="icon fa fa-envelope"></i>
-
-                <input type="email"
-                       name="email"
-                       required>
+                <input asp-for="Email" type="email" required />
             </div>
+            <span asp-validation-for="Email" style="color: #cc0000; font-size: 11px; display: block; margin-top: -10px; margin-bottom: 10px;"></span>
 
-            <!-- THÊM SỐ ĐIỆN THOẠI -->
-            <label>Số điện thoại</label>
-
+            <label asp-for="SoDienThoai">Số điện thoại</label>
             <div class="input-group">
                 <i class="icon fa fa-phone"></i>
-
-                <input type="text"
-                       name="sodienthoai">
+                <input asp-for="SoDienThoai" type="text" />
             </div>
+            <span asp-validation-for="SoDienThoai" style="color: #cc0000; font-size: 11px; display: block; margin-top: -10px; margin-bottom: 10px;"></span>
 
-            <!-- THÊM ĐỊA CHỈ -->
-            <label>Địa chỉ</label>
-
+            <label asp-for="DiaChi">Địa chỉ</label>
             <div class="input-group">
                 <i class="icon fa fa-home"></i>
-
-                <input type="text"
-                       name="diachi">
+                <input asp-for="DiaChi" type="text" />
             </div>
 
-            <label>Mật khẩu *</label>
-
+            <label asp-for="MatKhau">Mật khẩu *</label>
             <div class="input-group">
-
                 <i class="icon fa fa-lock"></i>
-
-                <input type="password"
-                       id="matkhau"
-                       required>
-
+                <input asp-for="MatKhau" type="password" id="matkhau" required />
                 <i class="toggle-password fa fa-eye"></i>
-
             </div>
+            <span asp-validation-for="MatKhau" style="color: #cc0000; font-size: 11px; display: block; margin-top: -10px; margin-bottom: 10px;"></span>
 
-            <!-- THÊM GỢI Ý MẬT KHẨU -->
             <div class="password-hint">
                 <small>
-                    💡 Mật khẩu phải bắt đầu bằng chữ in hoa
-                    và kết thúc bằng ký tự đặc biệt
+                    💡 Mật khẩu phải bắt đầu bằng chữ in hoa và kết thúc bằng ký tự đặc biệt
                 </small>
             </div>
 
-            <!-- THÊM VAI TRÒ -->
-            <label>Vai trò *</label>
-
+            <label asp-for="Role">Vai trò *</label>
             <div class="input-group">
                 <i class="icon fas fa-user-md"></i>
-
-                <select name="role" required>
-
-                    <option value="patient">
-                        Bệnh nhân
-                    </option>
-
-                    <option value="doctor">
-                        Bác sĩ
-                    </option>
-
+                <select asp-for="Role" required>
+                    <option value="patient">Bệnh nhân</option>
+                    <option value="doctor">Bác sĩ</option>
                 </select>
             </div>
 
             <div class="btn-group">
-
-                <button type="submit"
-                        class="register-btn">
-                    Đăng ký
-                </button>
-
-                <a asp-controller="Account"
-                   asp-action="Login"
-                   class="login-btn">
-
-                    Đăng nhập
-
-                </a>
-
+                <button type="submit" class="register-btn">Đăng ký</button>
+                <a asp-controller="Account" asp-action="Login" class="login-btn">Đăng nhập</a>
             </div>
 
         </form>
@@ -132,28 +89,23 @@
 
 </div>
 
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
 <script>
-
+    // Logic ẩn / hiện mật khẩu
     document.querySelector('.toggle-password')
-        .addEventListener('click', function () {
-
-            const passwordInput =
-                document.getElementById('matkhau');
-
-            if (passwordInput.type === 'password') {
-
-                passwordInput.type = 'text';
-
-                this.classList.remove('fa-eye');
-                this.classList.add('fa-eye-slash');
-
-            } else {
-
-                passwordInput.type = 'password';
-
-                this.classList.remove('fa-eye-slash');
-                this.classList.add('fa-eye');
-            }
-        });
-
+    .addEventListener('click', function () {
+    const passwordInput = document.getElementById('matkhau');
+    if (passwordInput.type === 'password') {
+    passwordInput.type = 'text';
+    this.classList.remove('fa-eye');
+    this.classList.add('fa-eye-slash');
+    } else {
+    passwordInput.type = 'password';
+    this.classList.remove('fa-eye-slash');
+    this.classList.add('fa-eye');
+    }
+    });
 </script>

@@ -17,7 +17,7 @@ namespace Health_Booking_MVC.Models
         public int ExperienceYears { get; set; }
         [Required]
         public string Description { get; set; }
-        public string Avatar { get; set; }
+        public string? Avatar { get; set; }
 
         public int SpecializationId { get; set; }
         [ForeignKey("SpecializationId")]

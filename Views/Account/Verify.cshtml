@@ -1,0 +1,106 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Xác thực tài khoản";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xác thực tài khoản - HealthMeet</title>
+    <link rel="stylesheet" href="~/css/register.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+            /* CSS bổ sung dành riêng cho khung thông báo nhập OTP đẹp mắt */
+            .verify-box {
+                background: #fff;
+                padding: 40px;
+                border-radius: 16px;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+                text-align: center;
+                max-width: 450px;
+                width: 100%;
+            }
+
+                .verify-box h2 {
+                    color: #333;
+                    margin-bottom: 15px;
+                    font-size: 24px;
+                }
+
+                .verify-box p {
+                    color: #666;
+                    font-size: 14px;
+                    margin-bottom: 25px;
+                    line-height: 1.5;
+                }
+
+                .verify-box .email-highlight {
+                    color: #f4978e;
+                    font-weight: bold;
+                }
+
+            .otp-input {
+                letter-spacing: 15px;
+                text-align: center;
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+            }
+
+            .alert-success-custom {
+                background-color: #e6f4ea;
+                color: #137333;
+                padding: 12px;
+                border-radius: 8px;
+                font-size: 13px;
+                margin-bottom: 20px;
+                text-align: left;
+                border-left: 4px solid #1e8e3e;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="verify-box">
+        <div style="font-size: 3.5rem; color: #f4978e; margin-bottom: 15px;">
+            <i class="fa-solid fa-shield-halved"></i>
+        </div>
+
+        <h2>Xác thực tài khoản</h2>
+        <p>Hệ thống đã gửi một mã xác thực gồm 6 chữ số đến địa chỉ email: <br><span class="email-highlight">@ViewBag.Email</span></p>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert-success-custom">
+                <i class="fa-solid fa-circle-info"></i> @TempData["SuccessMessage"]
+            </div>
+        }
+
+        <form asp-controller="Account" asp-action="Verify" method="post">
+            <input type="hidden" name="email" value="@ViewBag.Email" />
+
+            <div asp-validation-summary="ModelOnly" style="color: #cc0000; font-size: 13px; margin-bottom: 15px; font-weight: 500; text-align: left;"></div>
+
+            <div class="input-group">
+                <i class="icon fa-solid fa-key"></i>
+                <input type="text" name="code" class="otp-input" placeholder="******" maxlength="6" autocomplete="off" required>
+            </div>
+
+            <div class="btn-group" style="margin-top: 25px;">
+                <button type="submit" class="register-btn" style="width: 100%; letter-spacing: 1px;">XÁC THỰC NGAY</button>
+            </div>
+        </form>
+
+        <div style="margin-top: 25px; font-size: 13px;">
+            <span style="color: #888;">Không nhận được mã?</span>
+            <a href="#" style="color: #f4978e; text-decoration: none; font-weight: 600;">Gửi lại mã</a>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

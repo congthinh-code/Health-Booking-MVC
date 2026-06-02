@@ -21,7 +21,7 @@ namespace Health_Booking_MVC.Models
 
         public DateTime AppointmentDate { get; set; }
         public AppointmentStatus Status { get; set; } = AppointmentStatus.Pending;
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } 
         public virtual MedicalRecord MedicalRecord { get; set; }
     }
 }

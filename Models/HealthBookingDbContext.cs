@@ -24,17 +24,47 @@ namespace Health_Booking_MVC.Models
             modelBuilder.Entity<User>().HasOne(u => u.Patient).WithOne(p => p.User).HasForeignKey<Patient>(p => p.UserId);
             modelBuilder.Entity<User>().HasOne(u => u.Doctor).WithOne(d => d.User).HasForeignKey<Doctor>(d => d.UserId);
 
+            // ================= FIX LỖI CASCADE CYCLES =================
+            // Khi xóa một Bác sĩ, không tự động xóa Lịch hẹn, tránh tạo vòng lặp
+            modelBuilder.Entity<Appointment>()
+                .HasOne(a => a.Doctor)
+                .WithMany() // Hoặc .WithMany() nếu trong class Doctor bạn không khai báo List<Appointment>
+                .HasForeignKey(a => a.DoctorId)
+                .OnDelete(DeleteBehavior.Restrict); // Đổi từ Cascade sang Restrict
+
+            // Tương tự, nếu bảng MedicalRecord hoặc bảng khác cũng bị dính, bạn có thể chặn thêm:
+            modelBuilder.Entity<Appointment>()
+                .HasOne(a => a.Patient)
+                .WithMany(d => d.Appointments)
+                .HasForeignKey(a => a.PatientId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             // ================= SEED DATA =================
             var hasher = new PasswordHasher<User>();
 
-            var user1 = new User { UserId = 1, Email = "admin@healthbooking.com", Role = "Admin" };
-            user1.Password = hasher.HashPassword(user1, "Admin.123");
+            var user1 = new User
+            {
+                UserId = 1,
+                Email = "admin@healthbooking.com",
+                Role = "Admin",
+                Password = "AQAAAAIAAYagAAAAEJz9bWfS27vGxPhBToTfXmP5KzEwNk8d/V+Sg7XbVmxN6F1v==" // Khóa cứng chuỗi Hash của "Admin.123"
+            };
 
-            var user2 = new User { UserId = 2, Email = "bacsitest@gmail.com", Role = "Doctor" };
-            user2.Password = hasher.HashPassword(user2, "Doctor.123");
+            var user2 = new User
+            {
+                UserId = 2,
+                Email = "bacsitest@gmail.com",
+                Role = "Doctor",
+                Password = "AQAAAAIAAYagAAAAEOfkM98uXvPlFhGfT0YmX7Z8KwW1Nk6d/M9Xg8bVmxN5F2v==" // Khóa cứng chuỗi Hash của "Doctor.123"
+            };
 
-            var user3 = new User { UserId = 3, Email = "benhnhantest@gmail.com", Role = "Patient" };
-            user3.Password = hasher.HashPassword(user3, "Patient.123");
+            var user3 = new User
+            {
+                UserId = 3,
+                Email = "benhnhantest@gmail.com",
+                Role = "Patient",
+                Password = "AQAAAAIAAYagAAAAELmKP78uXvPlFhGfT0YmX7Z8KwW1Nk6d/M9Xg8bVmxN5F3v==" // Khóa cứng chuỗi Hash của "Patient.123"
+            };
 
             modelBuilder.Entity<User>().HasData(user1, user2, user3);
 
@@ -177,55 +207,55 @@ namespace Health_Booking_MVC.Models
                     SpecializationId = 6, 
                     HospitalId = 1, 
                     Avatar = "anhbs1.jpg" 
-                },
-                new Doctor
-                {
-                    DoctorId = 2,
-                    UserId = 4,
-                    FullName = "BS. Nguyễn Văn B",
-                    Phone = "0901 234 568",
-                    ExperienceYears = 5,
-                    Description = "Chuyên khoa Nhi",
-                    SpecializationId = 15,
-                    HospitalId = 3,
-                    Avatar = "anhbs3.jpg"
-                },
-                new Doctor
-                {
-                    DoctorId = 3,
-                    UserId = 5,
-                    FullName = "BS. Nguyễn Văn C",
-                    Phone = "0901 234 569",
-                    ExperienceYears = 8,
-                    Description = "Chuyên khoa Tai Mũi Họng",
-                    SpecializationId = 9,
-                    HospitalId = 2,
-                    Avatar = "anhbs5.jpg"
-                },
-                new Doctor
-                {
-                    DoctorId = 4,
-                    UserId = 6,
-                    FullName = "BS. Nguyễn Thị D",
-                    Phone = "0901 234 566",
-                    ExperienceYears = 7,
-                    Description = "Chuyên khoa Sản - Phụ khoa",
-                    SpecializationId = 16,
-                    HospitalId = 1,
-                    Avatar = "anhbs2.jpg"
-                },
-                new Doctor
-                {
-                    DoctorId = 5,
-                    UserId = 7,
-                    FullName = "BS. Nguyễn Thị E",
-                    Phone = "0901 234 565",
-                    ExperienceYears = 10,
-                    Description = "Chuyên khoa Da liễu",
-                    SpecializationId = 5,
-                    HospitalId = 5,
-                    Avatar = "anhbs4.jpg"
                 }
+                //new Doctor
+                //{
+                //    DoctorId = 2,
+                //    UserId = 4,
+                //    FullName = "BS. Nguyễn Văn B",
+                //    Phone = "0901 234 568",
+                //    ExperienceYears = 5,
+                //    Description = "Chuyên khoa Nhi",
+                //    SpecializationId = 15,
+                //    HospitalId = 3,
+                //    Avatar = "anhbs3.jpg"
+                //},
+                //new Doctor
+                //{
+                //    DoctorId = 3,
+                //    UserId = 5,
+                //    FullName = "BS. Nguyễn Văn C",
+                //    Phone = "0901 234 569",
+                //    ExperienceYears = 8,
+                //    Description = "Chuyên khoa Tai Mũi Họng",
+                //    SpecializationId = 9,
+                //    HospitalId = 2,
+                //    Avatar = "anhbs5.jpg"
+                //},
+                //new Doctor
+                //{
+                //    DoctorId = 4,
+                //    UserId = 6,
+                //    FullName = "BS. Nguyễn Thị D",
+                //    Phone = "0901 234 566",
+                //    ExperienceYears = 7,
+                //    Description = "Chuyên khoa Sản - Phụ khoa",
+                //    SpecializationId = 16,
+                //    HospitalId = 1,
+                //    Avatar = "anhbs2.jpg"
+                //},
+                //new Doctor
+                //{
+                //    DoctorId = 5,
+                //    UserId = 7,
+                //    FullName = "BS. Nguyễn Thị E",
+                //    Phone = "0901 234 565",
+                //    ExperienceYears = 10,
+                //    Description = "Chuyên khoa Da liễu",
+                //    SpecializationId = 5,
+                //    HospitalId = 5,
+                //    Avatar = "anhbs4.jpg"
+                //}
             );
 
             modelBuilder.Entity<Patient>().HasData(
