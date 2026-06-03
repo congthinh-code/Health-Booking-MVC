@@ -1,6 +1,10 @@
 ﻿using Health_Booking_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Health_Booking_MVC.Models.ViewModels;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 using BCrypt.Net;
 
 namespace Health_Booking_MVC.Controllers
@@ -81,6 +85,8 @@ namespace Health_Booking_MVC.Controllers
 
             _context.SaveChanges();
 
+            HttpContext.Session.SetString("OTP_Code", verifyCode);
+
             TempData["SuccessMessage"] = $"✅ Đăng ký thành công! Mã xác thực: {verifyCode}";
             return RedirectToAction("Verify", new { email = model.Email });
         }
@@ -155,23 +161,110 @@ namespace Health_Booking_MVC.Controllers
                 return View();
             }
 
-            // Lấy mã xác thực đã được lưu tạm ở TempData lúc đăng ký thành công
-            // Lưu ý: TempData chỉ tồn tại qua 1 lần Redirect, nên cần dùng .Peek() nếu muốn giữ lại khi nhập sai
-            string? savedCode = TempData.Peek("SuccessMessage")?.ToString()?.Split(':').LastOrDefault()?.Trim();
+            // 🔥 SỬA TẠI ĐÂY: Lấy mã OTP chính xác từ Session ra
+            string? savedCode = HttpContext.Session.GetString("OTP_Code");
 
-            // LƯU Ý THỰC TẾ: Vì hiện tại hệ thống chưa tích hợp Server gửi Email thật, 
-            // Nên nếu mã tạo ngẫu nhiên bị mất, bạn có thể mặc định hoặc chấp nhận mã trùng khớp từ TempData.
-            if (code == savedCode || code == "123456") // Cho phép dùng 123456 làm mã dự phòng để test
+            // Tiến hành kiểm tra đối chiếu mã nhập vào
+            if (code == savedCode || code == "123456") // Vẫn giữ mã 123456 dự phòng để bạn test nhanh
             {
-                // Xác thực thành công -> Chuyển hướng sang trang Đăng nhập kèm thông báo
-                TempData["LoginMessage"] = "🎉 Xác thực tài khoản thành công! Vui lòng đăng nhập.";
+                // Xác thực thành công -> Xóa mã OTP trong Session đi để bảo mật
+                HttpContext.Session.Remove("OTP_Code");
+
+                // Chuyển hướng sang trang Đăng nhập kèm thông báo thành công
+                TempData["LoginMessage"] = "🎉 Đăng ký tài khoản thành công! Vui lòng đăng nhập.";
                 return RedirectToAction("Login");
             }
 
-            // Nếu mã nhập vào bị sai
-            ModelState.AddModelError("", "❌ Mã xác thực không chính xác hoặc đã hết hạn!");
+            // Nếu mã nhập vào bị sai hoặc Session hết hạn
+            ModelState.AddModelError("", "❌ Mã xác thực không chính xác!");
             ViewBag.Email = email;
             return View();
+        }
+        // 1. Hàm kích hoạt yêu cầu đăng nhập bằng Google
+        [HttpGet]
+        public IActionResult LoginWithGoogle()
+        {
+            // Cấu hình thuộc tính chuyển hướng: Sau khi đăng nhập Google xong, Google sẽ trả kết quả về hàm "GoogleResponse"
+            var properties = new AuthenticationProperties { RedirectUri = Url.Action("GoogleResponse") };
+            return Challenge(properties, GoogleDefaults.AuthenticationScheme);
+        }
+
+        // 2. Hàm đón nhận kết quả trả về từ Google
+        [HttpGet]
+        public async Task<IActionResult> GoogleResponse()
+        {
+            // Đọc thông tin tài khoản mà Google trả về thông qua Cookie mã hóa
+            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            if (result?.Principal == null)
+            {
+                return RedirectToAction("Login"); // Nếu thất bại quay lại trang Đăng nhập
+            }
+
+            // Trích xuất các thông tin cơ bản từ Google tài khoản người dùng
+            var claims = result.Principal.Identities.FirstOrDefault()?.Claims;
+            var email = claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            var name = claims?.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+
+            if (string.IsNullOrEmpty(email))
+            {
+                return RedirectToAction("Login");
+            }
+
+            // KIỂM TRA TRONG DATABASE CỦA BẠN:
+            // Xem Email này đã từng tồn tại trong bảng Users chưa
+            var user = _context.Users.FirstOrDefault(u => u.Email == email);
+
+            if (user == null)
+            {
+                // TRƯỜNG HỢP 1: Tài khoản mới tinh chưa từng đăng ký hệ thống của bạn
+                // Tự động tạo một User mới lưu xuống Database
+                user = new User
+                {
+                    Email = email,
+                    Password = BCrypt.Net.BCrypt.HashPassword(Guid.NewGuid().ToString()), // Mật khẩu ngẫu nhiên vì họ đăng nhập qua Google
+                    Role = "patient", // Mặc định gán vai trò là Bệnh nhân
+                    CreatedAt = DateTime.Now
+                };
+                _context.Users.Add(user);
+                _context.SaveChanges();
+
+                // Tạo thêm bảng thông tin Patient tương ứng
+                var patient = new Patient
+                {
+                    UserId = user.UserId,
+                    FullName = name ?? "Người dùng Google",
+                    DateOfBirth = DateTime.Now.AddYears(-20), // Ngày sinh tạm thời
+                    Phone = "",
+                    Address = "",
+                    Gender = "Chưa cập nhật"
+                };
+                _context.Patients.Add(patient);
+                _context.SaveChanges();
+            }
+
+            // TRƯỜNG HỢP 2: Tài khoản đã có trong hệ thống (Hoặc vừa tạo xong ở trên)
+            // Thực hiện lưu dữ liệu vào Session giống hệt hàm Login cũ của bạn để đồng bộ hệ thống navbar
+            HttpContext.Session.SetInt32("UserId", user.UserId);
+            HttpContext.Session.SetString("Role", user.Role.ToLower());
+
+            // Lấy tên hiển thị
+            string displayName = user.Email;
+            if (user.Role == "patient")
+            {
+                var pInfo = _context.Patients.FirstOrDefault(p => p.UserId == user.UserId);
+                if (pInfo != null) displayName = pInfo.FullName;
+            }
+            else
+            {
+                var dInfo = _context.Doctors.FirstOrDefault(d => d.UserId == user.UserId);
+                if (dInfo != null) displayName = dInfo.FullName;
+            }
+
+            HttpContext.Session.SetString("Name", displayName);
+
+            // Đăng nhập thành công! Chuyển hướng về trang chủ
+            return RedirectToAction("Index", "Home");
         }
     }
 }
