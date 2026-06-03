@@ -37,7 +37,7 @@
     </div>
 </section>
 
-!-- Modal Đặt lịch -->
+@* Modal đặt lịch *@
 <div id="bookingModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeBooking()">&times;</span>
@@ -187,22 +187,5 @@
     </div>
 </section>
 
-<script>
-    const btn = document.getElementById("toggleSpecialties");
-    const extraItems = document.querySelectorAll(".extra-item");
-
-    btn.onclick = function () {
-
-        extraItems.forEach(item => {
-            item.classList.toggle("show");
-        });
-
-        if (btn.innerText.includes("Xem")) {
-            btn.innerHTML = "Thu gọn ▲";
-        } else {
-            btn.innerHTML = "Xem tất cả ⌄";
-        }
-    };
-</script>
 <script src="~/js/search.js"></script>
 <script src="~/js/home.js"></script>
