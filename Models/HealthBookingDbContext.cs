@@ -18,6 +18,7 @@ namespace Health_Booking_MVC.Models
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<MedicalRecord> MedicalRecords { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Ràng buộc quan hệ 1-1
