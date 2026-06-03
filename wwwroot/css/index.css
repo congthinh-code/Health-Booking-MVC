@@ -449,13 +449,6 @@ body {
     margin: 0;
 }
 
-.extra-item {
-    display: none;
-}
-
-.extra-item.show {
-    display: block;
-}
 /* Responsive cho quảng cáo */
 @media (max-width: 768px) {
     .ads-container {

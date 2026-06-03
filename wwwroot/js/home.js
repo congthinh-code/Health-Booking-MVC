@@ -22,22 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
         item.style.animationDelay = `${index * 0.1}s`;
     });
 
-    // Toggle xem thêm
-    const seeMoreBtn = document.querySelector(".see-more");
-    const hiddenItems = document.querySelectorAll(".specialties .item:nth-child(n+13)");
-    let expanded = false;
-
-    hiddenItems.forEach(item => item.style.display = "none");
-
-    seeMoreBtn.addEventListener("click", e => {
-        e.preventDefault();
-        expanded = !expanded;
-        hiddenItems.forEach(item => {
-            item.style.display = expanded ? "block" : "none";
-        });
-        seeMoreBtn.textContent = expanded ? "Thu gọn ▲" : "Xem tất cả ⌄";
-    });
-
     // Tìm kiếm autocomplete
     const searchInput = document.getElementById("searchInput");
     const searchResults = document.getElementById("searchResults");
