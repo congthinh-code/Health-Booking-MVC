@@ -30,16 +30,6 @@
 
                 <div class="actions d-flex align-items-center gap-2">
 
-                    <!-- CHỈ GIỮ GIAO DIỆN -->
-                    <!-- Backend sẽ xử lý sau -->
-
-                    @* <a asp-controller="Account" asp-action="Register" class="btn-outline">
-                        <i class="fa-solid fa-user"></i> Đăng ký
-                    </a>
-
-                    <a asp-controller="Account" asp-action="Login" class="btn-outline">
-                        <i class="fa-solid fa-user"></i> Đăng nhập
-                    </a> *@
                     @* Kiểm tra xem Session UserId đã tồn tại chưa *@
                     @if (HttpContextAccessor.HttpContext?.Session.GetInt32("UserId") != null)
                     {
@@ -54,6 +44,14 @@
                         {
                             <a asp-controller="Doctor" asp-action="Dashboard" class="btn-outline" style="font-size: 13px;">
                                 <i class="fa-solid fa-chart-line"></i> Quản lý
+                            </a>
+                        }
+
+                        @* Kiểm tra nếu là bệnh nhân thì có thể hiện thêm nút vào trang cá nhân *@
+                        @if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "patient")
+                        {
+                            <a asp-controller="Doctor" asp-action="Dashboard" class="btn-outline" style="font-size: 13px;">
+                                <i class="fa-solid fa-chart-line"></i> Trang cá nhân
                             </a>
                         }
 
@@ -111,8 +109,14 @@
                         </a>
 
                         <div class="dropdown-menu">
-                            <a href="#">Bệnh viện công</a>
-                            <a href="#">Bệnh viện tư</a>
+                            <a asp-controller="CSYT"
+                               asp-action="BVCong">
+                               Bệnh viện công
+                            </a>
+                            <a asp-controller="CSYT"
+                               asp-action="BVTu">
+                                Bệnh viện tư
+                            </a>
                         </div>
                     </div>
 

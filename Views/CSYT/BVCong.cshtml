@@ -1,5 +1,86 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Bệnh viện công lập";
+
+    var benhViens = new[]
+    {
+        new
+        {
+            Ten = "Bệnh viện Đa khoa tỉnh Bình Định",
+            DiaChi = "106 Nguyễn Huệ, TP. Quy Nhơn, Bình Định",
+            Sao = 5,
+            Anh = "/images/anhbenhvien/bvdk.jpg",
+            Url = "https://benhvienbinhdinh.com.vn/benh-vien-da-khoa-tinh-binh-dinh-diem-sang-ve-phat-trien-cac-ky-thuat-moi-chuyen-sau-va-xa-hoi-hoa-y-te-2/"
+        },
+
+        new
+        {
+			Ten = "Bệnh viện Phong - Da liễu TW Quy Hòa",
+            DiaChi = "TP. Quy Nhơn, Bình Định",
+            Sao = 4,
+            Anh = "/images/anhbenhvien/bvquyhoa.jpg",
+            Url = "https://bvquyhoa.vn/"
+        },
+
+        new
+        {
+            Ten = "Bệnh viện Y học cổ truyền và Phục hồi chức năng Bình Định",
+            DiaChi = "TP. Quy Nhơn, Bình Định",
+            Sao = 4,
+            Anh = "/images/anhbenhvien/yhoccotruyen.jpg",
+            Url = ""
+        }
+    };
 }
+
+<div class="tab-container">
+    <a asp-controller="CSYT"
+       asp-action="BVCong"
+       class="tab-item active">
+        Bệnh viện công lập
+    </a>
+
+    <a asp-controller="CSYT"
+       asp-action="BVTu"
+       class="tab-item">
+        Bệnh viện tư
+    </a>
+</div>
+<link rel="stylesheet" href="~/css/CSYT/BVCong.css" asp-append-version="true" />
+<h2 class="title">Bệnh viện công lập</h2>
+<h3 class="subtitle">Danh sách các bệnh viện công lập tại Bình Định</h3>
+
+<div class="container">
+    @foreach (var bv in benhViens)
+    {
+        <div class="card">
+            <img src="@bv.Anh" alt="@bv.Ten">
+
+            <h3 class="name">@bv.Ten</h3>
+
+            <p class="address">@bv.DiaChi</p>
+
+            <div class="stars">
+                @for (int i = 0; i < bv.Sao; i++)
+                {
+                    <span>⭐</span>
+                }
+            </div>
+
+            @if (!string.IsNullOrEmpty(bv.Url))
+            {
+                <a class="btn"
+                   href="@bv.Url"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Xem chi tiết
+                </a>
+            }
+            else
+            {
+                <a class="btn" href="#">
+                    Xem chi tiết
+                </a>
+            }
+        </div>
+    }
+</div>
