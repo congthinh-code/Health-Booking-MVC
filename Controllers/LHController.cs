@@ -1,19 +1,52 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Health_Booking_MVC.Models;
 
 namespace Health_Booking_MVC.Controllers
 {
     public class LHController : Controller
     {
-        public IActionResult CSYT()
-        {
+        private readonly HealthBookingDbContext _context;
 
-            return View();
+        public LHController(HealthBookingDbContext context)
+        {
+            _context = context;
         }
 
-        public IActionResult QC()
+        public async Task<IActionResult> CSYT(int page = 1)
         {
-            return View();
+            int pageSize = 4;
+
+            int totalItems = await _context.Hospitals.CountAsync();
+
+            int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            var hospitals = await _context.Hospitals
+                .OrderBy(x => x.HospitalId)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            ViewBag.Page = page;
+            ViewBag.TotalPages = totalPages;
+
+            return View(hospitals);
+        }
+
+        //public async Task<IActionResult> CSYT()
+        //{
+        //    var hospitals = await _context.Hospitals.ToListAsync();
+
+        //    return View(hospitals);
+        //}
+
+        public async Task<IActionResult> QC()
+        {
+            var hospitals = await _context.Hospitals
+                .Take(5)
+                .ToListAsync();
+
+            return View(hospitals);
         }
 
         public IActionResult TD()
