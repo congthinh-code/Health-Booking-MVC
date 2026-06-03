@@ -21,18 +21,18 @@ builder.Services.AddSession(options =>
 builder.Services.AddHttpContextAccessor();
 
 // Đăng ký dịch vụ Authentication (Bắt buộc phải có Cookie để lưu trạng thái đăng nhập từ Google)
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = Microsoft.AspNetCore.Authentication.Google.GoogleDefaults.AuthenticationScheme;
-})
-.AddCookie() // Lưu phiên đăng nhập bằng Cookie độc lập hoặc song song với Session của bạn
-.AddGoogle(googleOptions =>
-{
-    // Đọc thông tin từ file appsettings.json đã cấu hình ở Bước 2
-    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-});
+//builder.Services.AddAuthentication(options =>
+//{
+//    options.DefaultScheme = Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme;
+//    options.DefaultChallengeScheme = Microsoft.AspNetCore.Authentication.Google.GoogleDefaults.AuthenticationScheme;
+//})
+//.AddCookie() // Lưu phiên đăng nhập bằng Cookie độc lập hoặc song song với Session của bạn
+//.AddGoogle(googleOptions =>
+//{
+//    // Đọc thông tin từ file appsettings.json đã cấu hình ở Bước 2
+//    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+//    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+//});
 
 var app = builder.Build();
 
