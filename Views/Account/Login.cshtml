@@ -58,8 +58,10 @@
             <div class="divider">or</div>
 
             <div class="social-login">
-                <button type="button" class="fb"><i class="fab fa-facebook-f"></i></button>
-                <button type="button" class="gg"><i class="fab fa-google"></i></button>
+                @* <button type="button" class="fb"><i class="fab fa-facebook-f"></i></button> *@
+                <button type="button" class="gg" onclick="location.href='@Url.Action("LoginWithGoogle", "Account")'">
+                    <i class="fab fa-google"></i>
+                    </button>
             </div>
         </form>
     </div>
