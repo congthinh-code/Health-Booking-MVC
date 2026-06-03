@@ -1,4 +1,5 @@
-﻿@using Health_Booking_MVC.Models
+﻿@model List<Hospital>
+@using Health_Booking_MVC.Models
 
 <link rel="stylesheet" href="~/css/LH/QC.css" />
 @{
@@ -46,40 +47,23 @@
         <h2>Hệ thống Cơ sở Y tế triển khai</h2>
 
         <div class="partners-grid">
+            @foreach (var hospital in Model)
+            {
+                <div class="partner-item">
+                    <div class="partner-img"
+                         style="background-image:url('/images/footer/@hospital.Image')">
+                    </div>
 
-            <div class="partner-item">
-                <div class="partner-img"
-                     style="background-image:url('/images/bv1.jpg')">
-                </div>
-                <h3>Bệnh viện Đa khoa Bình Định</h3>
-                <p>70 An Dương Vương, Quy Nhơn</p>
-                <div class="rating">
-                    <i class="fas fa-star"></i> 4.8
-                </div>
-            </div>
+                    <h3>@hospital.Name</h3>
 
-            <div class="partner-item">
-                <div class="partner-img"
-                     style="background-image:url('/images/bv2.jpg')">
-                </div>
-                <h3>Bệnh viện Mắt Bình Định</h3>
-                <p>Quy Nhơn, Bình Định</p>
-                <div class="rating">
-                    <i class="fas fa-star"></i> 4.7
-                </div>
-            </div>
+                    <p>@hospital.Address</p>
 
-            <div class="partner-item">
-                <div class="partner-img"
-                     style="background-image:url('/images/bv3.jpg')">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        @hospital.Rating
+                    </div>
                 </div>
-                <h3>Bệnh viện Đa khoa TP Quy Nhơn</h3>
-                <p>Quy Nhơn, Bình Định</p>
-                <div class="rating">
-                    <i class="fas fa-star"></i> 4.9
-                </div>
-            </div>
-
+            }
         </div>
     </section>
 </div>
