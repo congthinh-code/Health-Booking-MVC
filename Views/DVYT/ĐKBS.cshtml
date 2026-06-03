@@ -1,201 +1,205 @@
-﻿@{
+@model IEnumerable<Health_Booking_MVC.Models.Doctor>
+@{
     ViewData["Title"] = "Đặt khám bác sĩ";
-
-    var doctors = new[]
-    {
-        new {
-            FullName = "BS. Nguyễn Văn An",
-            Specialization = "Nội Tim Mạch",
-            Treatment = "Điều trị các bệnh lý tim mạch",
-            Price = "300.000 VNĐ",
-            Rating = 4.9,
-            Reviews = 120,
-            Avatar = "/images/doctors/doctor1.jpg"
-        },
-
-        new {
-            FullName = "BS. Trần Thị Mai",
-            Specialization = "Da Liễu",
-            Treatment = "Khám và điều trị bệnh da liễu",
-            Price = "250.000 VNĐ",
-            Rating = 4.8,
-            Reviews = 98,
-            Avatar = "/images/doctors/doctor2.jpg"
-        },
-
-        new {
-            FullName = "BS. Lê Hoàng Nam",
-            Specialization = "Tai Mũi Họng",
-            Treatment = "Khám Tai Mũi Họng",
-            Price = "280.000 VNĐ",
-            Rating = 4.7,
-            Reviews = 75,
-            Avatar = "/images/doctors/doctor3.jpg"
-        },
-
-        new {
-            FullName = "BS. Phạm Minh Tuấn",
-            Specialization = "Nội Tiêu Hóa",
-            Treatment = "Điều trị bệnh tiêu hóa",
-            Price = "350.000 VNĐ",
-            Rating = 4.9,
-            Reviews = 150,
-            Avatar = "/images/doctors/doctor4.jpg"
-        }
-    };
-
-    var hospitals = new[]
-    {
-        new {
-            Name = "Bệnh viện Đa khoa Bình Định",
-            Address = "106 Nguyễn Huệ, Quy Nhơn",
-            Rating = 5
-        },
-
-        new {
-            Name = "Bệnh viện Quân Y 13",
-            Address = "01 Nguyễn Thái Học, Quy Nhơn",
-            Rating = 4
-        },
-
-        new {
-            Name = "Bệnh viện Da Liễu Bình Định",
-            Address = "08 Trần Hưng Đạo, Quy Nhơn",
-            Rating = 5
-        },
-
-        new {
-            Name = "Bệnh viện Mắt Bình Định",
-            Address = "12 Lê Lợi, Quy Nhơn",
-            Rating = 4
-        }
-    };
 }
-<link rel="stylesheet" href="~/css/DVYT/ĐKBS.css" asp-append-version="true" />
+
+<link rel="stylesheet"
+      href="~/css/DVYT/ĐKBS.css"
+      asp-append-version="true" />
 
 <!-- MENU -->
 <div class="tab-container">
-    <a asp-controller="DVYT" asp-action="ĐKCS" class="tab-item">
+
+    <a asp-controller="DVYT"
+       asp-action="ĐKCS"
+       class="tab-item">
         Đặt khám cơ sở
     </a>
 
-    <a asp-controller="DVYT" asp-action="ĐKCK" class="tab-item">
+    <a asp-controller="DVYT"
+       asp-action="ĐKCK"
+       class="tab-item">
         Đặt khám chuyên khoa
     </a>
 
-    <a asp-controller="DVYT" asp-action="ĐKBS" class="tab-item active">
+    <a asp-controller="DVYT"
+       asp-action="ĐKBS"
+       class="tab-item active">
         Đặt khám bác sĩ
     </a>
 
-    <a asp-controller="DVYT" asp-action="ĐKNG" class="tab-item">
+    <a asp-controller="DVYT"
+       asp-action="ĐKNG"
+       class="tab-item">
         Đặt khám ngoài giờ
     </a>
 
-    <a asp-controller="DVYT" asp-action="TTVP" class="tab-item">
+    <a asp-controller="DVYT"
+       asp-action="TTVP"
+       class="tab-item">
         Thanh toán viện phí
     </a>
+
 </div>
 
 <!-- DANH SÁCH BÁC SĨ -->
-<section class="doctor-list">
-    <h3>DANH SÁCH BÁC SĨ</h3>
+<section class="content-section">
+
+    <div class="section-title">
+        DANH SÁCH BÁC SĨ
+    </div>
 
     <div class="grid">
 
-        @foreach (var doctor in doctors)
+        @foreach (var doctor in Model)
         {
             <div class="doctor-card">
 
-                <img src="@doctor.Avatar"
+                <img src="/images/anhbacsi/@doctor.Avatar"
                      alt="@doctor.FullName"
                      onerror="this.src='/images/doctor.png'" />
 
-                <h4>@doctor.FullName</h4>
+                <div class="doctor-info">
 
-                <p>
-                    <b>Chuyên khoa:</b>
-                    @doctor.Specialization
-                </p>
+                    <h4>@doctor.FullName</h4>
 
-                <p>
-                    <b>Chuyên trị:</b>
-                    @doctor.Treatment
-                </p>
+                    <p>
+                        <b>Chuyên khoa:</b>
+                        @(doctor.Specialization?.Name ?? "Chưa rõ")
+                    </p>
 
-                <p>
-                    <b>Giá khám:</b>
-                    @doctor.Price
-                </p>
+                    <p>
+                        <b>Chuyên trị:</b>
+                        @(doctor.Description ?? "Không có")
+                    </p>
 
-                <div class="rating">
-                    ⭐ @doctor.Rating (@doctor.Reviews lượt)
-                </div>
+                    <p>
+                        <b>Giá khám:</b>
+                        300.000 VNĐ
+                    </p>
 
-                <button class="btn-book">
-                    Đặt khám với bác sĩ
-                </button>
+                    <div class="rating">
+                        ⭐ 5.0 (100 lượt đánh giá)
+                    </div>
 
-            </div>
-        }
+                    <button class="btn-book"
+                            onclick="openBooking('@doctor.FullName')">
+                        Đặt khám với bác sĩ
+                    </button>
 
-    </div>
-</section>
-
-<!-- DANH SÁCH CƠ SỞ Y TẾ -->
-<section class="clinic-list">
-    <h3>Danh sách cơ sở y tế</h3>
-
-    <div class="grid">
-
-        @foreach (var hospital in hospitals)
-        {
-            <div class="clinic-card">
-
-                <h4>@hospital.Name</h4>
-
-                <p>@hospital.Address</p>
-
-                <div class="rating">
-                    ⭐ @hospital.Rating
                 </div>
 
             </div>
         }
 
     </div>
+
 </section>
 
-<!-- HỖ TRỢ -->
-<div class="support-container">
+<!-- FORM ĐẶT KHÁM -->
+<div id="bookingModal" class="booking-overlay">
 
-    <div class="support-left">
-        <img src="/images/support-doctor.jpg"
-             class="doctor-img"
-             alt="Hỗ trợ" />
-    </div>
+    <div class="booking-modal">
 
-    <div class="support-right">
+        <button type="button"
+                class="booking-close"
+                onclick="closeBooking()">
+            &times;
+        </button>
 
-        <h2>Tổng đài hỗ trợ</h2>
+        <h3>Đặt lịch khám bác sĩ</h3>
 
-        <div class="hotline">
-            1900 2005
-        </div>
+        <p class="booking-subtitle">
+            Vui lòng nhập đầy đủ thông tin để đặt lịch khám.
+        </p>
 
-        <div class="qr-group">
+        <form>
 
-            <div class="qr-item">
-                <img src="/images/qr-android.png" />
-                <p>Android</p>
+            <div class="form-field">
+                <label>Tên bác sĩ</label>
+
+                <input type="text"
+                       id="doctorName"
+                       readonly />
             </div>
 
-            <div class="qr-item">
-                <img src="/images/qr-ios.png" />
-                <p>iOS</p>
+            <div class="form-field">
+                <label>Họ và tên bệnh nhân</label>
+
+                <input type="text"
+                       placeholder="Nhập họ và tên" />
             </div>
 
-        </div>
+            <div class="form-field">
+                <label>Số điện thoại</label>
+
+                <input type="tel"
+                       placeholder="Nhập số điện thoại" />
+            </div>
+
+            <div class="form-field">
+                <label>Email</label>
+
+                <input type="email"
+                       placeholder="Nhập email" />
+            </div>
+
+            <div class="form-field">
+                <label>Ngày khám</label>
+
+                <input type="date" />
+            </div>
+
+            <div class="form-field">
+                <label>Giờ khám</label>
+
+                <input type="time" />
+            </div>
+
+            <div class="form-field">
+                <label>Triệu chứng</label>
+
+                <textarea rows="4"
+                          placeholder="Mô tả triệu chứng"
+                          style="width:100%;padding:12px;border:2px solid #f3c8de;border-radius:12px;"></textarea>
+            </div>
+
+            <button type="submit"
+                    class="btn-submit">
+                Xác nhận đặt lịch
+            </button>
+
+        </form>
 
     </div>
 
 </div>
+
+<script>
+
+    function openBooking(doctorName) {
+
+        document.getElementById("doctorName").value = doctorName;
+
+        document
+            .getElementById("bookingModal")
+            .classList.add("show");
+    }
+
+    function closeBooking() {
+
+        document
+            .getElementById("bookingModal")
+            .classList.remove("show");
+    }
+
+    window.onclick = function (event) {
+
+        const modal = document.getElementById("bookingModal");
+
+        if (event.target === modal) {
+            closeBooking();
+        }
+    };
+
+</script> 

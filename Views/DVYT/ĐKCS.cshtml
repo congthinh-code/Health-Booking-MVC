@@ -1,54 +1,7 @@
-﻿@{
+@model IEnumerable<Health_Booking_MVC.Models.Hospital>
+@{
     ViewData["Title"] = "Đặt khám tại cơ sở";
-var benhviens = new[]
-{
-    new {
-        Id = 1,
-        Ten = "Bệnh viện Đa khoa Bình Định",
-        DiaChi = "106 Nguyễn Huệ, TP. Quy Nhơn",
-        Sao = 5,
-        Anh = "/images/hospital/bvdkbinhdinh.jpg",
-        Url = "https://benhviendakhoabinhdinh.vn"
-    },
-
-    new {
-        Id = 2,
-        Ten = "Bệnh viện Quân Y 13",
-        DiaChi = "01 Nguyễn Thái Học, TP. Quy Nhơn",
-        Sao = 4,
-        Anh = "/images/hospital/quany13.jpg",
-        Url = "https://bvquany13.vn"
-    },
-
-    new {
-        Id = 3,
-        Ten = "Bệnh viện Mắt Bình Định",
-        DiaChi = "12 Lê Lợi, TP. Quy Nhơn",
-        Sao = 5,
-        Anh = "/images/hospital/matbinhdinh.jpg",
-        Url = "#"
-    },
-
-    new {
-        Id = 4,
-        Ten = "Bệnh viện Da Liễu Bình Định",
-        DiaChi = "08 Trần Hưng Đạo, TP. Quy Nhơn",
-        Sao = 4,
-        Anh = "/images/hospital/dalieu.jpg",
-        Url = "#"
-    }
-};
-
-    var specialties = new[]
-    {
-    new { Id = 1, Name = "Tim mạch" },
-    new { Id = 2, Name = "Da liễu" },
-    new { Id = 3, Name = "Tai Mũi Họng" },
-    new { Id = 4, Name = "Mắt" },
-    new { Id = 5, Name = "Nội tổng quát" }
-};
-
-
+    var specialties = ViewBag.Specialties as IEnumerable<Health_Booking_MVC.Models.Specialization>;
 }
 
 <link rel="stylesheet" href="~/css/DVYT/ĐKCS.css" />
@@ -67,25 +20,26 @@ var benhviens = new[]
 
     <div class="benhvien-list">
 
-        @foreach (var bv in benhviens)
+        @foreach (var bv in Model)
         {
             <div class="benhvien-card">
 
-                <img src="@bv.Anh"
+                <img src="/images/anhbv/@bv.Image"
                      class="benhvien-img"
-                     alt="@bv.Ten" />
+                     alt="@bv.Name"
+                     onerror="this.src='/images/hospital/quany13.jpg'" />
 
                 <div class="benhvien-info">
 
-                    <h2>@bv.Ten</h2>
+                    <h2>@bv.Name</h2>
 
                     <p>
                         <i class="fa-solid fa-location-dot"></i>
-                        @bv.DiaChi
+                        @bv.Address
                     </p>
 
                     <div class="rating">
-                        @for (int i = 0; i < bv.Sao; i++)
+                        @for (int i = 0; i < 5; i++)
                         {
                             <i class="fa-solid fa-star"></i>
                         }
@@ -94,14 +48,14 @@ var benhviens = new[]
                     <div class="benhvien-btns">
 
                         <a class="xem"
-                           href="@bv.Url"
+                           href="#"
                            target="_blank">
                             <i class="fa-solid fa-eye"></i>
                             Xem chi tiết
                         </a>
 
                         <button class="dat"
-                                onclick="openBookingFromHospital(@bv.Id)">
+                                onclick="openBookingFromHospital(@bv.HospitalId)">
                             <i class="fa-solid fa-calendar-check"></i>
                             Đặt khám ngay
                         </button>
@@ -143,10 +97,10 @@ var benhviens = new[]
                     -- Chọn bệnh viện --
                 </option>
 
-                @foreach (var bv in benhviens)
+                @foreach (var bv in Model)
                 {
-                    <option value="@bv.Id">
-                        @bv.Ten
+                    <option value="@bv.HospitalId">
+                        @bv.Name
                     </option>
                 }
 
@@ -158,11 +112,14 @@ var benhviens = new[]
                     -- Chọn chuyên khoa --
                 </option>
 
-                @foreach (var s in specialties)
+                @if (specialties != null)
                 {
-                    <option value="@s.Id">
-                        @s.Name
-                    </option>
+                    foreach (var s in specialties)
+                    {
+                        <option value="@s.SpecializationId">
+                            @s.Name
+                        </option>
+                    }
                 }
 
             </select>

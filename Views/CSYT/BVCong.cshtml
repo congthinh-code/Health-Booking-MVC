@@ -1,5 +1,96 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
+    ViewData["Title"] = "Bệnh viện công lập";
+
+    var hospitals = new[]
+    {
+        new {
+            Name = "Bệnh viện Đa khoa Bình Định",
+            Address = "106 Nguyễn Huệ, TP. Quy Nhơn",
+            Rating = 5,
+            Image = "/images/anhbv/bvdk.jpg",
+            WebsiteUrl = "https://benhvienbinhdinh.com.vn/"
+        },
+        new {
+            Name = "Bệnh viện Quân Y 13",
+            Address = "01 Nguyễn Thái Học, TP. Quy Nhơn",
+            Rating = 4,
+            Image = "/images/anhbv/quany13.jpg",
+            WebsiteUrl = "https://benhvienquany13.vn/"
+        },
+        new {
+            Name = "Bệnh viện Mắt Bình Định",
+            Address = "12 Lê Lợi, TP. Quy Nhơn",
+            Rating = 5,
+            Image = "/images/anhbv/bvmat.jpg",
+            WebsiteUrl = "https://www.bvmatbinhdinh.vn/"
+        }
+    };
 }
+
+<link rel="stylesheet" href="~/css/CSYT/BVCong.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- MENU TAB -->
+<div class="tab-container">
+    <a asp-controller="CSYT"
+       asp-action="BVCong"
+       class="tab-item active">
+        Bệnh viện công lập
+    </a>
+
+    <a asp-controller="CSYT"
+       asp-action="BVTu"
+       class="tab-item">
+        Bệnh viện tư
+    </a>
+</div>
+
+<h2 class="title">Bệnh viện công lập</h2>
+<h3 class="subtitle">Danh sách các bệnh viện công lập tại Bình Định</h3>
+
+<div class="container">
+
+    @if (hospitals != null && hospitals.Any())
+    {
+        @foreach (var bv in hospitals)
+        {
+            <div class="card">
+
+                <img src="@bv.Image"
+                     alt="@bv.Name">
+
+                <h3 class="name">@bv.Name</h3>
+
+                <p class="address">@bv.Address</p>
+
+                <div class="stars">
+                    @for (int i = 0; i < bv.Rating; i++)
+                    {
+                        <span>⭐</span>
+                    }
+                </div>
+
+                @if (!string.IsNullOrEmpty(bv.WebsiteUrl))
+                {
+                    <a class="btn"
+                       href="@bv.WebsiteUrl"
+                       target="_blank">
+                        Xem chi tiết
+                    </a>
+                }
+                else
+                {
+                    <a class="btn" href="#">
+                        Xem chi tiết
+                    </a>
+                }
+
+            </div>
+        }
+    }
+    else
+    {
+        <p>Không có dữ liệu bệnh viện.</p>
+    }
+
+</div>

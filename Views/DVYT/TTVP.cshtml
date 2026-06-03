@@ -1,44 +1,6 @@
-﻿@{
+@model List<Health_Booking_MVC.Models.Hospital>
+@{
     ViewData["Title"] = "Thanh toán viện phí";
-
-    var hospitals = new[]
-    {
-        new {
-            HospitalId = 1,
-            Name = "Bệnh viện Đa khoa Bình Định",
-            Address = "106 Nguyễn Huệ, TP. Quy Nhơn",
-            Rating = 5,
-            Image = "/images/hospital/bvdkbinhdinh.jpg",
-            WebsiteUrl = "https://benhviendakhoabinhdinh.vn"
-        },
-
-        new {
-            HospitalId = 2,
-            Name = "Bệnh viện Quân Y 13",
-            Address = "01 Nguyễn Thái Học, TP. Quy Nhơn",
-            Rating = 4,
-            Image = "/images/hospital/quany13.jpg",
-            WebsiteUrl = "https://bvquany13.vn"
-        },
-
-        new {
-            HospitalId = 3,
-            Name = "Bệnh viện Mắt Bình Định",
-            Address = "12 Lê Lợi, TP. Quy Nhơn",
-            Rating = 5,
-            Image = "/images/hospital/matbinhdinh.jpg",
-            WebsiteUrl = "#"
-        },
-
-        new {
-            HospitalId = 4,
-            Name = "Bệnh viện Da Liễu Bình Định",
-            Address = "08 Trần Hưng Đạo, TP. Quy Nhơn",
-            Rating = 4,
-            Image = "/images/hospital/dalieu.jpg",
-            WebsiteUrl = "#"
-        }
-    };
 }
 
 <link rel="stylesheet" href="~/css/DVYT/TTVP.css" />
@@ -81,11 +43,11 @@
 <!-- DANH SÁCH BỆNH VIỆN -->
 <div id="list" class="benhvien-list">
 
-    @foreach (var h in hospitals)
+    @foreach (var h in Model)
     {
         <div class="benhvien-card">
 
-            <img src="@h.Image"
+            <img src="~/images/@h.Image"
                  alt="@h.Name"
                  class="benhvien-img" />
 
