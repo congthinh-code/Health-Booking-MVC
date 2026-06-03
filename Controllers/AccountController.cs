@@ -180,7 +180,7 @@ namespace Health_Booking_MVC.Controllers
             ViewBag.Email = email;
             return View();
         }
-        // 1. Hàm kích hoạt yêu cầu đăng nhập bằng Google
+         //1. Hàm kích hoạt yêu cầu đăng nhập bằng Google
         [HttpGet]
         public IActionResult LoginWithGoogle()
         {
