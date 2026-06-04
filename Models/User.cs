@@ -12,7 +12,7 @@ namespace Health_Booking_MVC.Models
         [Required]
         public string Password { get; set; }
         public string Role { get; set; } // Admin, Doctor, Patient
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; }
 
         public virtual Patient Patient { get; set; }
         public virtual Doctor Doctor { get; set; }

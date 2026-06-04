@@ -1,0 +1,141 @@
+﻿:root {
+    --color-primary: #d93ba2;
+    --color-secondary: #4c24a8;
+    --color-background: #fef6e4;
+    --color-light: #f9e2e7;
+    --color-highlight: #f3c8de;
+    --gradient: linear-gradient(180deg, #fef6e4 0%, #f9e2e7 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body.page-chinhsach {
+    background: var(--gradient);
+    color: var(--color-secondary);
+    line-height: 1.7;
+}
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:active,
+a:focus {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+.page-chinhsach .policy-hero {
+    text-align: center;
+    padding: 70px 20px 80px;
+}
+
+    .page-chinhsach .policy-hero .logo {
+        width: 90px;
+        margin: 0 auto 16px;
+    }
+
+    .page-chinhsach .policy-hero h1 {
+        font-size: 2.6rem;
+        color: var(--color-primary);
+        margin-bottom: 10px;
+    }
+
+.page-chinhsach .policy-content {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 20px 70px;
+}
+
+    .page-chinhsach .policy-content section {
+        background: rgba(255,255,255,0.95);
+        border-radius: 24px;
+        padding: 38px 42px;
+        margin-bottom: 28px;
+        border: 2px solid var(--color-highlight);
+        box-shadow: 0 12px 30px rgba(76,36,168,0.12);
+    }
+
+    .page-chinhsach .policy-content h2 {
+        font-size: 1.5rem;
+        color: var(--color-primary);
+        margin-bottom: 18px;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+        .page-chinhsach .policy-content h2::before {
+            content: "";
+            width: 38px;
+            height: 4px;
+            background: var(--color-secondary);
+            border-radius: 999px;
+        }
+
+    .page-chinhsach .policy-content p,
+    .page-chinhsach .policy-content li {
+        color: var(--color-secondary);
+        font-size: 1rem;
+    }
+
+    .page-chinhsach .policy-content ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .page-chinhsach .policy-content li {
+        margin-bottom: 12px;
+        padding-left: 24px;
+        position: relative;
+    }
+
+        .page-chinhsach .policy-content li::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            position: absolute;
+            left: 0;
+            top: 8px;
+            box-shadow: 0 0 0 4px rgba(217,59,162,0.15);
+        }
+
+    .page-chinhsach .policy-content a {
+        color: var(--color-primary);
+        text-decoration: none;
+        font-weight: 600;
+        border-bottom: 1px solid transparent;
+        transition: 0.2s;
+    }
+
+        .page-chinhsach .policy-content a:hover {
+            border-color: var(--color-primary);
+        }
+
+.page-chinhsach .policy-updated {
+    text-align: center;
+    color: var(--color-secondary);
+    margin-top: 30px;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+    .page-chinhsach .policy-hero {
+        padding: 40px 10px 50px;
+    }
+
+        .page-chinhsach .policy-hero h1 {
+            font-size: 2rem;
+        }
+
+    .page-chinhsach .policy-content section {
+        padding: 26px;
+    }
+}

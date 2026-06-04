@@ -1,63 +1,8 @@
-﻿@{
+@{
     ViewData["Title"] = "Đặt khám ngoài giờ";
 
-    var hospitals = new[]
-    {
-        new {
-            HospitalId = 1,
-            Name = "Bệnh viện Đa khoa Bình Định",
-            Address = "106 Nguyễn Huệ, TP. Quy Nhơn",
-            Rating = 5,
-            Image = "/images/hospital/bvdkbinhdinh.jpg"
-        },
-
-        new {
-            HospitalId = 2,
-            Name = "Bệnh viện Quân Y 13",
-            Address = "01 Nguyễn Thái Học, TP. Quy Nhơn",
-            Rating = 4,
-            Image = "/images/hospital/quany13.jpg"
-        },
-
-        new {
-            HospitalId = 3,
-            Name = "Bệnh viện Mắt Bình Định",
-            Address = "12 Lê Lợi, TP. Quy Nhơn",
-            Rating = 5,
-            Image = "/images/hospital/matbinhdinh.jpg"
-        },
-
-        new {
-            HospitalId = 4,
-            Name = "Bệnh viện Da Liễu Bình Định",
-            Address = "08 Trần Hưng Đạo, TP. Quy Nhơn",
-            Rating = 4,
-            Image = "/images/hospital/dalieu.jpg"
-        }
-    };
-
-    var doctors = new[]
-    {
-        new {
-            DoctorId = 1,
-            FullName = "BS. Nguyễn Văn An"
-        },
-
-        new {
-            DoctorId = 2,
-            FullName = "BS. Trần Thị Bình"
-        },
-
-        new {
-            DoctorId = 3,
-            FullName = "BS. Lê Minh Khôi"
-        },
-
-        new {
-            DoctorId = 4,
-            FullName = "BS. Võ Thành Nam"
-        }
-    };
+    var hospitals = ViewBag.Hospitals as List<Health_Booking_MVC.Models.Hospital>;
+    var doctors = ViewBag.Doctors as List<Health_Booking_MVC.Models.Doctor>;
 }
 <link rel="stylesheet" href="~/css/DVYT/ĐKNG.css" />
 
@@ -102,7 +47,7 @@
         <div class="card">
 
             <div class="card-left">
-                <img src="@bv.Image"
+                <img src="~/images/@bv.Image"
                      class="logo"
                      alt="@bv.Name" />
             </div>

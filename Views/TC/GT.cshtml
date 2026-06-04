@@ -1,0 +1,136 @@
+﻿@{
+    ViewData["Title"] = "Giới Thiệu";
+
+    var visionText = "Công ty Cổ phần HM trở thành công ty cung cấp giải pháp công nghệ hàng đầu tại Việt Nam và khu vực Đông Nam Á giúp kết nối các dịch vụ y tế đến rộng rãi người dân, mang lại hiệu quả đột phá...";
+
+    var missionText = "Công ty Cổ phần HM cung cấp nền tảng HealthMeet - giải pháp tiếp cận y tế thông minh mang đến cho người dùng những phương thức chăm sóc sức khỏe mới, ở bất cứ không gian - thời gian nào...";
+
+    var features = new[]
+    {
+        "Đăng ký và chọn ngày, giờ khám bệnh",
+        "Thanh toán chi phí qua nhiều hình thức",
+        "Quản lý lịch sử khám bệnh và hồ sơ sức khỏe",
+        "Tìm kiếm thông tin bệnh viện, phòng khám, bác sĩ"
+    };
+
+    var hospitals = new[]
+    {
+        new { Name = "Bệnh viện Bình Định", Logo = "/images/footer/bvbinhdinh.jpg" },
+        new { Name = "Bệnh viện đa khoa tỉnh Bình Định", Logo = "/images/footer/bvdk.jpg" },
+        new { Name = "Bệnh viện Hòa Bình", Logo = "/images/footer/bvhoabinh.jpg" },
+        new { Name = "Bệnh viện Mắt Bình Định", Logo = "/images/footer/bvmat.jpg" },
+        new { Name = "Bệnh viện Quy Hòa", Logo = "/images/footer/bvquyhoa.jpg" },
+        new { Name = "Bệnh viện TP Quy Nhơn", Logo = "/images/footer/bvquynhon.jpg" },
+        new { Name = "Trung tâm Y tế Tuy Phước", Logo = "/images/footer/bvtuyphuoc.jpg" },
+        new { Name = "Bệnh viện Đa khoa Thu Phúc", Logo = "/images/footer/dktp.jpg" },
+        new { Name = "Bệnh viện Quân Y 13", Logo = "/images/footer/quany13.jpg" },
+        new { Name = "Bệnh viện Y học cổ truyền", Logo = "/images/footer/yhoccotruyen.jpg" },
+        new { Name = "Trung tâm Y tế TP Quy Nhơn", Logo = "/images/footer/ytqn.jpg" }
+    };
+}
+
+<link rel="stylesheet" href="~/css/TC/GT.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<body class="page-gioithieu">
+
+    <header class="hero-banner">
+        <div class="container">
+            <h1>Chào mừng bạn đến với HealthMeet</h1>
+            <h2>Công ty Cổ phần HM</h2>
+
+            <div class="app-screenshot-left">
+                <img src="~/images/footer/anhhealthmeet.jpg"
+                     alt="Màn hình ứng dụng HealthMeet">
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <section class="section-intro-pkh">
+            <div class="container layout-grid-2">
+
+                <div class="content">
+                    <h3>Giải pháp y tế thông minh</h3>
+
+                    <p>
+                        Ứng dụng này giúp người bệnh và thân nhân người bệnh
+                        có thể thực hiện trực tuyến việc đặt lịch, thanh toán
+                        và quản lý hồ sơ sức khỏe một cách tiện lợi.
+                    </p>
+
+                    <div class="feature-cards">
+                        @{
+                            int stt = 1;
+                        }
+
+                        @foreach (var feature in features)
+                        {
+                            <div class="card-feature">
+                                <span>@stt</span>
+                                <p>@feature</p>
+                            </div>
+
+                            stt++;
+                        }
+                    </div>
+                </div>
+
+                <div class="image-doctors">
+                    <img src="~/images/footer/doingubs.jpg"
+                         alt="Đội ngũ bác sĩ">
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section-mission-vision">
+            <div class="container flex-space-between">
+
+                <div class="vision-box">
+                    <h2>Tầm Nhìn</h2>
+                    <p>@visionText</p>
+                </div>
+
+                <div class="mission-box">
+                    <h2>Sứ mệnh</h2>
+                    <p>@missionText</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section-philosophy">
+            <div class="container">
+                <h2>Triết lý sản phẩm - dịch vụ</h2>
+
+                <img src="~/images/footer/triết lý sp -dv.png"
+                     alt="Triết lí sp-dv"
+                     class="intro-healthmeet">
+            </div>
+        </section>
+
+        <section class="section-partners">
+            <div class="container">
+
+                <h2>Các bệnh viện tiêu biểu</h2>
+
+                <div class="hospitals-carousel">
+
+                    @foreach (var hospital in hospitals)
+                    {
+                        <div class="hospital-logo">
+                            <img src="@hospital.Logo"
+                                 alt="@hospital.Name" />
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+</body>

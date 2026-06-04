@@ -1,0 +1,193 @@
+﻿@{
+    ViewData["Title"] = "Quy định sử dụng";
+
+    var sections = new Dictionary<string, List<string>>
+    {
+        {
+            "1. Giới thiệu",
+            new List<string>
+            {
+                "Chào mừng bạn đến với HEALTHMEET – Phần mềm đặt lịch khám bệnh.",
+                "Vui lòng đọc kỹ để hiểu quyền lợi và nghĩa vụ liên quan đến đăng ký khám, thanh toán, phiếu khám, hồ sơ bệnh nhân, hủy/sửa phiếu và các sự cố khi sử dụng phần mềm.",
+                "Định nghĩa:",
+                "Chúng tôi: Công ty Cổ phần Dược - Trang thiết bị Y tế Bình Định (BIDIPHAR) và các bên liên kết.",
+                "Dịch vụ: Các tính năng trên phần mềm.",
+                "Bạn: Người dùng, bệnh nhân, hoặc người được ủy quyền sử dụng dịch vụ."
+            }
+        },
+
+        {
+            "2. Đăng nhập",
+            new List<string>
+            {
+                "Phải đăng nhập để sử dụng đầy đủ dịch vụ.",
+                "Tài khoản được định danh bằng số điện thoại. Mất quyền kiểm soát số điện thoại, hỗ trợ mail hotro@healthmeet.com.vn hoặc liên hệ 1900 2005."
+            }
+        },
+
+        {
+            "3. Thông tin bệnh nhân",
+            new List<string>
+            {
+                "Cần cung cấp đầy đủ thông tin trước khi đặt lịch.",
+                "Đã khám trước: Nhập mã số bệnh nhân.",
+                "Chưa khám: Điền đầy đủ thông tin chính xác.",
+                "Giấy tờ tùy thân cần thiết để xác nhận danh tính.",
+                "Email và số điện thoại dùng để nhận thông báo, phiếu khám.",
+                "Thông tin không chính xác → bệnh viện từ chối khám và không hoàn tiền."
+            }
+        },
+
+        {
+            "4. Nhập & tra cứu mã số bệnh nhân",
+            new List<string>
+            {
+                "Dùng để xem, kiểm tra hồ sơ hoặc lịch hẹn.",
+                "Chỉ dùng đúng mục đích, bạn chịu trách nhiệm pháp lý nếu dùng sai mục đích."
+            }
+        },
+
+        {
+            "5. Đăng ký chuyên khoa",
+            new List<string>
+            {
+                "Có thể đăng ký nhiều chuyên khoa cùng ngày, không trùng nhau.",
+                "Chỉ trả 1 lần phí tiện ích, giá khám tùy chuyên khoa và số lượng.",
+                "Mỗi chuyên khoa có 1 phiếu khám. Hủy 1 phiếu → hủy tất cả trong lượt, hoàn tiền theo quy định."
+            }
+        },
+
+        {
+            "6. Thời gian đăng ký",
+            new List<string>
+            {
+                "Từ 01–30 ngày trước ngày khám.",
+                "Đăng ký khám ngày hôm sau phải hoàn tất trước 16h30 hôm nay."
+            }
+        },
+
+        {
+            "7. Tiền và phí đăng ký",
+            new List<string>
+            {
+                "Tiền khám bệnh (tùy chuyên khoa):",
+                "Tư vấn Tâm lý: 500.000₫",
+                "Tâm thần kinh: 250.000₫",
+                "Tiêm ngừa: 100.000₫",
+                "Các chuyên khoa khác: 150.000₫",
+                "Phí tiện ích + TGTT: hỗ trợ sử dụng phần mềm và thanh toán.",
+                "Thanh toán = đồng ý các khoản phí, không khiếu nại sau này."
+            }
+        },
+
+        {
+            "8. Phương thức thanh toán",
+            new List<string>
+            {
+                "Thẻ khám bệnh, ATM nội địa, thẻ quốc tế Visa/MasterCard.",
+                "Vấn đề thanh toán → liên hệ 1900 2005."
+            }
+        },
+
+        {
+            "9. Nhận phiếu khám bệnh",
+            new List<string>
+            {
+                "Phiếu điện tử trên phần mềm, gửi email (nếu cung cấp).",
+                "Ngày khám: có mặt trước 15–30 phút theo loại BHYT hoặc không BHYT."
+            }
+        },
+
+        {
+            "10. Giá trị phiếu khám",
+            new List<string>
+            {
+                "Phiếu giấy: 6h30–16h30 ngày in trên phiếu.",
+                "Phiếu điện tử: đến 16h30 ngày trước ngày khám, dùng để in hoặc hủy nhận lại tiền."
+            }
+        },
+
+        {
+            "11. Thay đổi thông tin phiếu khám",
+            new List<string>
+            {
+                "Sau đăng ký, thông tin không thể thay đổi, trừ:",
+                "Lịch khám thay đổi, chỉnh sửa trước 16h30 ngày trước ngày khám.",
+                "Chỉ chỉnh sửa 1 lần, miễn phí, thay đổi: ngày, giờ, phòng/bác sĩ.",
+                "Lịch thay đổi sau 16h30 → không thể hủy/sửa, chỉ chấp nhận theo sắp xếp bệnh viện."
+            }
+        },
+
+        {
+            "12. Hủy phiếu khám",
+            new List<string>
+            {
+                "Điều kiện: phiếu còn giá trị, hủy trước 16h30 ngày trước ngày khám.",
+                "Chỉ thực hiện trực tuyến trên phần mềm.",
+                "Nhiều phiếu trong lượt: hủy 1 phiếu → hủy tất cả, hoàn tiền theo quy định."
+            }
+        },
+
+        {
+            "13. Hoàn tiền",
+            new List<string>
+            {
+                "Hoàn tiền vào đúng tài khoản/method đã thanh toán.",
+                "Chỉ hoàn tiền khám, không hoàn phí tiện ích.",
+                "ATM nội địa/Thẻ khám bệnh/Ví ZaloPay/VN Pay: 10–15 ngày.",
+                "Thẻ quốc tế Visa/Master/JCB: tối đa 45 ngày.",
+                "Ví Momo/Viettel Money: 7–10 ngày.",
+                "Chuyển khoản: 10–15 ngày."
+            }
+        },
+
+        {
+            "14. Quy định khác",
+            new List<string>
+            {
+                "Chúng tôi có quyền chỉnh sửa quy định bất cứ lúc nào.",
+                "Quy định này là một phần của Điều khoản dịch vụ và Chính sách bảo mật."
+            }
+        },
+
+        {
+            "15. Đồng ý",
+            new List<string>
+            {
+                "Bằng việc tiếp tục sử dụng phần mềm, bạn xác nhận đã đọc và đồng ý với mọi quy định trên, và tạo ra chữ ký điện tử có giá trị pháp lý tương tự chữ ký tay.",
+                "Cập nhật gần nhất: 25/11/2025"
+            }
+        }
+    };
+}
+
+<link rel="stylesheet" href="~/css/TC/QĐ.css" />
+
+<body class="page-sudung">
+
+    <header class="usage-hero">
+        <div class="container">
+            <img src="~/images/logo.png" alt="HealthMeet Logo" class="logo">
+            <h1>Quy định Sử dụng Phần mềm HEALTHMEET</h1>
+        </div>
+    </header>
+
+    <main class="container usage-content">
+
+        @foreach (var itemSection in sections)
+        {
+            <section>
+                <h2>@itemSection.Key</h2>
+
+                <ul>
+                    @foreach (var item in itemSection.Value)
+                    {
+                        <li>@item</li>
+                    }
+                </ul>
+            </section>
+        }
+
+    </main>
+
+</body>
