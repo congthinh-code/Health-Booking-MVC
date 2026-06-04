@@ -6,15 +6,19 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using BCrypt.Net;
+using Health_Booking_MVC.Services;
 
 namespace Health_Booking_MVC.Controllers
 {
     public class AccountController : Controller
     {
         private readonly HealthBookingDbContext _context;
-        public AccountController(HealthBookingDbContext context)
+        private readonly NotificationService _notificationService;
+        public AccountController(HealthBookingDbContext context,
+                                 NotificationService notificationService)
         {
             _context = context;
+            _notificationService = notificationService;
         }
 
         public IActionResult Register()
@@ -23,7 +27,7 @@ namespace Health_Booking_MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -81,14 +85,32 @@ namespace Health_Booking_MVC.Controllers
                     Gender = "Chưa cập nhật" // Bổ sung giá trị mặc định tránh lỗi NOT NULL trong DB
                 };
                 _context.Patients.Add(patient);
+
             }
 
             _context.SaveChanges();
 
+            if (user.Role == "doctor")
+            {
+                await _notificationService.CreateNotification(
+                        user.UserId,
+                        $"🎉 Chào mừng bác sĩ {model.HoTen} đến với HealthMeet"
+                );
+            }
+            else
+            {
+                await _notificationService.CreateNotification(
+                        user.UserId,
+                        $"🎉 Chào mừng bạn {model.HoTen} đến với HealthMeet"
+                );
+            }
+
             HttpContext.Session.SetString("OTP_Code", verifyCode);
 
-            TempData["SuccessMessage"] = $"✅ Đăng ký thành công! Mã xác thực: {verifyCode}";
-            return RedirectToAction("Verify", new { email = model.Email });
+            TempData["SuccessMessage"] = 
+                $"✅ Đăng ký thành công! Mã xác thực: {verifyCode}";
+            return RedirectToAction("Verify", 
+                new { email = model.Email });
         }
 
         [HttpGet]
@@ -241,6 +263,11 @@ namespace Health_Booking_MVC.Controllers
                 };
                 _context.Patients.Add(patient);
                 _context.SaveChanges();
+
+                await _notificationService.CreateNotification(
+                    user.UserId,
+                    "Chào mừng bạn đến với HealthMeet!"
+                );
             }
 
             // TRƯỜNG HỢP 2: Tài khoản đã có trong hệ thống (Hoặc vừa tạo xong ở trên)
