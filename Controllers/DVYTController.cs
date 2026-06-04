@@ -15,19 +15,7 @@ namespace Health_Booking_MVC.Controllers
 
         public IActionResult ĐKBS(int? id)
         {
-            var doctors = _context.Doctors
-                .Include(d => d.Specialization)
-                .Include(d => d.Hospital)
-                .ToList();
-
-            if (id.HasValue)
-            {
-                doctors = doctors
-                    .Where(d => d.DoctorId == id.Value)
-                    .ToList();
-            }
-
-            return View(doctors);
+            return View();
         }
 
         public IActionResult ĐKCS()
