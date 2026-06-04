@@ -68,7 +68,7 @@ namespace Health_Booking_MVC.Models
                 {
                     UserId = 4,
                     Email = "nguyenphucthien@healthbooking.com",
-                    Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                    Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                     Role = "Doctor",
                     CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
@@ -76,7 +76,7 @@ namespace Health_Booking_MVC.Models
                 {
                     UserId = 5,
                     Email = "dodangkhoa@healthbooking.com",
-                    Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                    Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                     Role = "Doctor",
                     CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
@@ -84,7 +84,7 @@ namespace Health_Booking_MVC.Models
                 {
                     UserId = 6,
                     Email = "levutan@healthbooking.com",
-                    Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                    Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                     Role = "Doctor",
                     CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
@@ -92,7 +92,7 @@ namespace Health_Booking_MVC.Models
                 {
                     UserId = 7,
                     Email = "baduykhuong@healthbooking.com",
-                    Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                    Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                     Role = "Doctor",
                     CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
@@ -100,7 +100,7 @@ namespace Health_Booking_MVC.Models
                 {
                     UserId = 8,
                     Email = "nguyenvanhoa@healthbooking.com",
-                    Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                    Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                     Role = "Doctor",
                     CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
@@ -108,7 +108,7 @@ namespace Health_Booking_MVC.Models
                 {
                     UserId = 9,
                     Email = "lethilan@healthbooking.com",
-                    Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                    Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                     Role = "Doctor",
                     CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
@@ -116,7 +116,7 @@ namespace Health_Booking_MVC.Models
                 {
                     UserId = 10,
                     Email = "nguyenhuuphong@healthbooking.com",
-                    Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                    Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                     Role = "Doctor",
                     CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
@@ -124,7 +124,7 @@ namespace Health_Booking_MVC.Models
                 {
                     UserId = 11,
                     Email = "tranduchuy@healthbooking.com",
-                    Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                    Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                     Role = "Doctor",
                     CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
@@ -132,7 +132,7 @@ namespace Health_Booking_MVC.Models
                 {
                     UserId = 12,
                     Email = "dominhquan@healthbooking.com",
-                    Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                    Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                     Role = "Doctor",
                     CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
@@ -140,7 +140,7 @@ namespace Health_Booking_MVC.Models
                 {
                     UserId = 13,
                     Email = "vongocthanh@healthbooking.com",
-                    Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                    Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                     Role = "Doctor",
                     CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
@@ -148,7 +148,7 @@ namespace Health_Booking_MVC.Models
                 {
                     UserId = 14,
                     Email = "nguyentanphat@healthbooking.com",
-                    Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                    Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                     Role = "Doctor",
                     CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
@@ -156,7 +156,7 @@ namespace Health_Booking_MVC.Models
                 {
                     UserId = 15,
                     Email = "tranhongnhung@healthbooking.com",
-                    Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                    Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                     Role = "Doctor",
                     CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
@@ -164,7 +164,7 @@ namespace Health_Booking_MVC.Models
                 {
                     UserId = 16,
                     Email = "phamminhquan@healthbooking.com",
-                    Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                    Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                     Role = "Doctor",
                     CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
@@ -172,7 +172,7 @@ namespace Health_Booking_MVC.Models
                 {
                     UserId = 17,
                     Email = "vuthingoc@healthbooking.com",
-                    Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                    Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                     Role = "Doctor",
                     CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
@@ -180,7 +180,7 @@ namespace Health_Booking_MVC.Models
                 {
                     UserId = 18,
                     Email = "nguyenhuudung@healthbooking.com",
-                    Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                    Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                     Role = "Doctor",
                     CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
@@ -188,7 +188,7 @@ namespace Health_Booking_MVC.Models
                 {
                     UserId = 19,
                     Email = "tranthithuhang@healthbooking.com",
-                    Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                    Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                     Role = "Doctor",
                     CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
@@ -196,7 +196,7 @@ namespace Health_Booking_MVC.Models
                 {
                     UserId = 20,
                     Email = "patienta@gmail.com",
-                    Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                    Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                     Role = "Patient",
                     CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
@@ -204,7 +204,7 @@ namespace Health_Booking_MVC.Models
                 {
                     UserId = 21,
                     Email = "patientb@gmail.com",
-                    Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                    Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                     Role = "Patient",
                     CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 }
