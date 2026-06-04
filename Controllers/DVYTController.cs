@@ -1,7 +1,7 @@
 using Health_Booking_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using System.Threading.Tasks;
 
 namespace Health_Booking_MVC.Controllers
 {
@@ -14,29 +14,44 @@ namespace Health_Booking_MVC.Controllers
             _context = context;
         }
 
-        public IActionResult ĐKBS(int? id)
+        public async Task<IActionResult> ĐKBS(int? id)
         {
-            return View();
+
+            var doctors = await _context.Doctors
+    .Include(d => d.Specialization)
+    .Include(d => d.Hospital)
+    .ToListAsync();
+
+            return View(doctors);
         }
 
-        public IActionResult ĐKCS()
+       
+        public async Task<IActionResult> ĐKCS()
         {
-            return View();
+            var hospitals = await _context.Hospitals.ToListAsync();
+            return View(hospitals);
         }
 
-        public IActionResult ĐKCK()
+       
+        public async Task<IActionResult> ĐKCK()
         {
-            return View();
+            var specializations = await _context.Specializations.ToListAsync();
+            return View(specializations);
         }
 
-        public IActionResult ĐKNG()
+        
+        public async Task<IActionResult> ĐKNG()
         {
-            return View();
+            
+            var hospitals = await _context.Hospitals.ToListAsync();
+            return View(hospitals);
         }
 
-        public IActionResult TTVP()
+
+        public async Task<IActionResult> TTVP()
         {
-            return View();
+            var hospitals = await _context.Hospitals.ToListAsync();
+            return View(hospitals);
         }
     }
 }

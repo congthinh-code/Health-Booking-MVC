@@ -1,4 +1,4 @@
-/* ===================== RESET ===================== */
+﻿/* ===================== RESET ===================== */
 * {
     margin: 0;
     padding: 0;
@@ -60,88 +60,17 @@ h3 {
     text-align: center;
     color: #d93ba2;
     margin: 20px 0 35px;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 700;
+    text-transform: uppercase;
 }
-
-/* ===================== DOCTOR DETAIL ===================== */
-.doctor-detail {
-    background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
-    padding: 40px 20px;
-    margin-bottom: 40px;
-}
-
-.detail-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 40px;
-    align-items: start;
-    background: #fff;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(214,51,132,.2);
-}
-
-.detail-avatar img {
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
-    border-radius: 16px;
-}
-
-.detail-info {
-    display: flex;
-    flex-direction: column;
-}
-
-    .detail-info h2 {
-        color: #d93ba2;
-        font-size: 28px;
-        margin-bottom: 16px;
-    }
-
-    .detail-info p {
-        color: #666;
-        margin-bottom: 10px;
-        line-height: 1.6;
-    }
-
-.specialty,
-.treatment,
-.price,
-.rating {
-    font-weight: 700;
-}
-
-.contact {
-    color: #888;
-}
-
-.btn-book-detail {
-    background: linear-gradient(90deg, #fbc2eb, #a6c1ee);
-    color: #000;
-    border: none;
-    padding: 16px;
-    border-radius: 40px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 16px;
-    margin-top: 25px;
-    transition: .3s;
-}
-
-    .btn-book-detail:hover {
-        transform: translateY(-2px);
-    }
 
 /* ===================== GRID ===================== */
 .grid {
     width: 85%;
-    margin: 40px auto;
+    margin: 0 auto 50px auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 25px;
 }
 
@@ -149,9 +78,11 @@ h3 {
 .doctor-card {
     background: #fff;
     border-radius: 18px;
+    padding-bottom: 20px;
     overflow: hidden;
     box-shadow: 0 6px 16px rgba(214,51,132,.12);
     transition: .3s;
+    text-align: center;
 }
 
     .doctor-card:hover {
@@ -161,285 +92,186 @@ h3 {
 
     .doctor-card img {
         width: 100%;
-        height: 220px;
+        height: 250px;
         object-fit: cover;
         display: block;
+        margin-bottom: 15px;
     }
 
-.doctor-info {
-    padding: 18px;
-}
-
-.doctor-card h4 {
-    color: #d93ba2;
-    font-size: 20px;
-    margin-bottom: 10px;
-    font-weight: 700;
-}
-
-.doctor-card p {
-    color: #666;
-    margin-bottom: 10px;
-    line-height: 1.6;
-}
-
-.rating {
-    color: #f5b301;
-    margin-bottom: 16px;
-    font-size: 15px;
-}
-
-.icon-sponsor {
-    color: #d93ba2;
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-/* ===================== BUTTON ===================== */
-.btn-book {
-    width: 100%;
-    border: none;
-    padding: 12px;
-    border-radius: 30px;
-    background: linear-gradient(90deg, #fbc2eb, #a6c1ee);
-    color: #000;
-    font-weight: 600;
-    cursor: pointer;
-    transition: .3s;
-}
-
-    .btn-book:hover {
-        transform: translateY(-2px);
-    }
-
-/* ===================== PAGINATION ===================== */
-.pagination {
-    text-align: center;
-    margin: 30px 0;
-}
-
-    .pagination a {
-        display: inline-block;
-        margin: 0 5px;
-        padding: 8px 14px;
-        text-decoration: none;
-        border-radius: 30px;
-        border: 1px solid #f3c8de;
-        color: #4c24a8;
-        transition: .3s;
-    }
-
-        .pagination a:hover,
-        .pagination a.active {
-            background: linear-gradient(90deg, #fbc2eb, #a6c1ee);
-            color: #000;
-        }
-
-/* ===================== SUPPORT ===================== */
-.support-container {
-    width: 90%;
-    margin: 40px auto;
-    display: flex;
-    align-items: center;
-    background: linear-gradient(90deg, #fbc2eb, #a6c1ee);
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 8px 20px rgba(214,51,132,.15);
-}
-
-.support-left,
-.support-right {
-    flex: 1;
-}
-
-.doctor-img {
-    width: 100%;
-    border-radius: 18px;
-}
-
-.support-right {
-    text-align: center;
-}
-
-    .support-right h2 {
-        font-size: 24px;
+    .doctor-card h4 {
+        color: #d93ba2;
+        font-size: 20px;
         margin-bottom: 10px;
         font-weight: 700;
     }
 
-.hotline {
-    font-size: 48px;
-    color: #d93ba2;
-    font-weight: 700;
-    margin: 15px 0;
-}
-
-.qr-group {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-}
-
-.qr-item {
-    text-align: center;
-}
-
-    .qr-item img {
-        width: 130px;
-        background: #fff;
-        padding: 8px;
-        border-radius: 16px;
+    .doctor-card p {
+        color: #666;
+        margin-bottom: 8px;
+        font-size: 15px;
+        padding: 0 15px;
     }
 
-    .qr-item p {
-        margin-top: 8px;
+        .doctor-card p b {
+            color: #4c24a8;
+        }
+
+    .doctor-card .btn-book {
+        width: 80%;
+        margin: 15px auto 0 auto;
+        display: block;
+        border: none;
+        padding: 12px;
+        border-radius: 30px;
+        background: linear-gradient(90deg, #fbc2eb, #a6c1ee);
+        color: #000;
         font-weight: 600;
+        cursor: pointer;
+        transition: .3s;
     }
 
-/* ===================== BOOKING MODAL ===================== */
-.booking-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.4);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+        .doctor-card .btn-book:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(214,51,132,.3);
+        }
+
+/* ===================== CLINIC CARD ===================== */
+.clinic-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 25px 20px;
+    text-align: center;
+    box-shadow: 0 6px 16px rgba(214,51,132,.12);
+    transition: .3s;
 }
 
-    .booking-overlay.show {
-        display: flex;
+    .clinic-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 24px rgba(214,51,132,.2);
     }
 
-.booking-modal {
+    .clinic-card h4 {
+        color: #d93ba2;
+        font-size: 18px;
+        margin-bottom: 10px;
+        font-weight: 700;
+    }
+
+    .clinic-card p {
+        color: #666;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+    .clinic-card .rating {
+        color: #f5b301;
+        font-size: 15px;
+    }
+
+/* ===================== MODAL (FORM BẬT LÊN) ===================== */
+.modal {
+    display: none; /* Mặc định ẩn */
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Nền mờ */
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 20px;
     width: 90%;
     max-width: 450px;
-    background: #fff;
-    border-radius: 20px;
-    padding: 30px;
     position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    animation: fadeIn 0.3s ease;
 }
 
-.booking-close {
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close {
     position: absolute;
-    right: 15px;
-    top: 10px;
+    right: 20px;
+    top: 15px;
     font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
     cursor: pointer;
-    color: #888;
-    border: none;
-    background: none;
+    transition: 0.3s;
 }
 
-    .booking-close:hover {
+    .close:hover {
         color: #d93ba2;
     }
 
-.booking-modal h3 {
+.modal-content h2 {
     color: #d93ba2;
-    margin-bottom: 15px;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 22px;
 }
 
-.booking-subtitle {
-    color: #666;
-    margin-bottom: 20px;
-}
-
-.form-field {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-}
-
-    .form-field label {
-        margin-bottom: 6px;
-        font-weight: 600;
-    }
-
-    .form-field input {
-        padding: 12px 14px;
-        border: 2px solid #f3c8de;
-        border-radius: 12px;
-    }
-
-        .form-field input:focus {
-            border-color: #d93ba2;
-            outline: none;
-        }
-
-.btn-submit {
+#bookingForm input {
     width: 100%;
-    border: none;
-    padding: 14px;
+    padding: 12px 14px;
+    margin-bottom: 15px;
+    border: 2px solid #f3c8de;
     border-radius: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    background: linear-gradient(90deg, #fbc2eb, #a6c1ee);
+    font-size: 15px;
+    font-family: inherit;
+    transition: 0.3s;
 }
 
-    .btn-submit:hover {
+    #bookingForm input:focus {
+        border-color: #d93ba2;
+        outline: none;
+    }
+
+    /* Đổi màu ô Tên Bác Sĩ (readonly) cho có cảm giác khóa */
+    #bookingForm input[readonly] {
+        background-color: #f8f9fa;
+        color: #d93ba2;
+        font-weight: bold;
+    }
+
+#bookingForm button[type="submit"] {
+    width: 100%;
+    background: linear-gradient(90deg, #fbc2eb, #a6c1ee);
+    color: #000;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+    #bookingForm button[type="submit"]:hover {
         transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(214,51,132,.3);
     }
 
 /* ===================== RESPONSIVE ===================== */
 @media(max-width:768px) {
-
-    .tab-container {
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .detail-container {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .detail-avatar img {
-        height: 260px;
-    }
-
     .grid {
-        width: 95%;
         grid-template-columns: 1fr;
-    }
-
-    .support-container {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .hotline {
-        font-size: 38px;
-    }
-
-    .qr-group {
-        gap: 20px;
-    }
-
-    .doctor-card {
-        width: 100%;
-    }
-}
-
-@media(max-width:480px) {
-
-    .detail-container {
-        padding: 20px;
-    }
-
-    .detail-info h2 {
-        font-size: 22px;
-    }
-
-    .doctor-card img {
-        height: 180px;
-    }
-
-    .btn-book-detail {
-        font-size: 14px;
-    }
-
-    .qr-item img {
-        width: 100px;
     }
 }

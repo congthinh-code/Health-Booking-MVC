@@ -1,49 +1,6 @@
-﻿@{
+﻿@model IEnumerable<Health_Booking_MVC.Models.Specialization>
+@{
     ViewData["Title"] = "Đặt khám chuyên khoa";
-
-var specialties = new[]
-{
-    new {
-        Name = "Bác sĩ Gia Đình",
-        Icon = "Bác sĩ gia đình.png",
-        Link = "https://medpro.vn/tim-kiem?kw=Bác%20sĩ%20Gia%20Đình&tab=subject&page=1"
-    },
-    new {
-        Name = "Tiêu Hóa Gan Mật",
-        Icon = "Tiêu hoá gan mật.png",
-        Link = "https://medpro.vn/tim-kiem?kw=Tiêu%20Hóa%20Gan%20Mật&tab=subject&page=1"
-    },
-    new {
-        Name = "Nội Tổng Quát",
-        Icon = "Nội tổng quát.png",
-        Link = "https://medpro.vn/tim-kiem?kw=Nội%20Tổng%20Quát&tab=subject&page=1"
-    },
-    new {
-        Name = "Nội Tiết",
-        Icon = "Nội tiết.png",
-        Link = "https://medpro.vn/tim-kiem?kw=Nội%20Tiết&tab=subject&page=1"
-    },
-    new {
-        Name = "Da liễu",
-        Icon = "Da liễu.png",
-        Link = "https://medpro.vn/tim-kiem?kw=Da%20Liễu&tab=subject&page=1"
-    },
-    new {
-        Name = "Nội Tim Mạch",
-        Icon = "Nội tim mạch.png",
-        Link = "https://medpro.vn/tim-kiem?kw=Nội%20Tim%20Mạch&tab=subject&page=1"
-    },
-    new {
-        Name = "Tai Mũi Họng",
-        Icon = "Tai mũi họng.png",
-        Link = "https://medpro.vn/tim-kiem?kw=Tai%20Mũi%20Họng&tab=subject&page=1"
-    },
-    new {
-        Name = "Mắt",
-        Icon = "Mắt.png",
-        Link = "https://medpro.vn/tim-kiem?kw=Mắt&tab=subject&page=1"
-    }
-};
 }
 
 <link rel="stylesheet" href="~/css/DVYT/ĐKCK.css" asp-append-version="true" />
@@ -61,18 +18,11 @@ var specialties = new[]
 <h1 class="title">Danh sách chuyên khoa</h1>
 
 <div class="department-grid">
-    @foreach (var item in specialties)
+    @foreach (var item in Model)
     {
-        <a href="@item.Link"
-           class="department-card"
-           target="_blank">
-
-           <img src="~/images/iconchuyenkhoa/@item.Icon"
-                 alt="@item.Name" />
-
+        <a href="#" class="department-card">
+            <img src="~/images/iconchuyenkhoa/@(item.Name).png" alt="@item.Name" onerror="this.src='/images/logo.png'" />
             <p>@item.Name</p>
-
         </a>
     }
-
 </div>

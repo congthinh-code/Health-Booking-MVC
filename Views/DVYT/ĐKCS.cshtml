@@ -1,54 +1,7 @@
-﻿@{
+﻿@model IEnumerable<Health_Booking_MVC.Models.Hospital>
+@{
     ViewData["Title"] = "Đặt khám tại cơ sở";
-var benhviens = new[]
-{
-    new {
-        Id = 1,
-        Ten = "Bệnh viện Đa khoa tỉnh Bình Định",
-        DiaChi = "106 Nguyễn Huệ, TP. Quy Nhơn",
-        Sao = 5,
-        Anh = "/images/anhbenhvien/bvdk.jpg",
-        Url = "https://benhvienbinhdinh.com.vn/benh-vien-da-khoa-tinh-binh-dinh-diem-sang-ve-phat-trien-cac-ky-thuat-moi-chuyen-sau-va-xa-hoi-hoa-y-te-2/"
-    },
-
-    new {
-        Id = 2,
-        Ten = "Bệnh viện Quân Y 13",
-        DiaChi = "01 Nguyễn Thái Học, TP. Quy Nhơn",
-        Sao = 4,
-        Anh = "/images/anhbenhvien/quany13.jpg",
-        Url = "https://benhvienquany13.vn/"
-    },
-
-    new {
-        Id = 3,
-        Ten = "Bệnh viện Mắt Bình Định",
-        DiaChi = "12 Lê Lợi, TP. Quy Nhơn",
-        Sao = 5,
-        Anh = "/images/anhbenhvien/bvmat.jpg",
-        Url = "https://www.bvmatbinhdinh.vn/ "
-    },
-
-    new {
-        Id = 4,
-        Ten = "Bệnh viện đa khoa Thu Phúc",
-        DiaChi = "08 Trần Hưng Đạo, TP. Quy Nhơn",
-        Sao = 4,
-        Anh = "/images/anhbenhvien/dktp.jpg",
-        Url = "https://thuphuc.vn/"
-    }
-};
-
-    var specialties = new[]
-    {
-    new { Id = 1, Name = "Tim mạch" },
-    new { Id = 2, Name = "Da liễu" },
-    new { Id = 3, Name = "Tai Mũi Họng" },
-    new { Id = 4, Name = "Mắt" },
-    new { Id = 5, Name = "Nội tổng quát" }
-};
-
-
+    var specialties = ViewBag.Specialties as IEnumerable<Health_Booking_MVC.Models.Specialization> ?? new List<Health_Booking_MVC.Models.Specialization>();
 }
 
 <link rel="stylesheet" href="~/css/DVYT/ĐKCS.css" />
@@ -66,119 +19,64 @@ var benhviens = new[]
     <h1>ĐẶT KHÁM TẠI CƠ SỞ Y TẾ - BÌNH ĐỊNH</h1>
 
     <div class="benhvien-list">
-
-        @foreach (var bv in benhviens)
+        @foreach (var bv in Model)
         {
             <div class="benhvien-card">
-
-                <img src="@bv.Anh"
-                     class="benhvien-img"
-                     alt="@bv.Ten" />
-
+                <img src="/@bv.Image" class="benhvien-img" alt="@bv.Name" />
                 <div class="benhvien-info">
-
-                    <h2>@bv.Ten</h2>
-
+                    <h2>@bv.Name</h2>
                     <p>
                         <i class="fa-solid fa-location-dot"></i>
-                        @bv.DiaChi
+                        @bv.Address
                     </p>
-
                     <div class="rating">
-                        @for (int i = 0; i < bv.Sao; i++)
+                        @for (int i = 0; i < bv.Rating; i++)
                         {
                             <i class="fa-solid fa-star"></i>
                         }
                     </div>
-
                     <div class="benhvien-btns">
-
-                        <a class="xem"
-                           href="@bv.Url"
-                           target="_blank">
+                        <a class="xem" href="@bv.WebsiteUrl" target="_blank">
                             <i class="fa-solid fa-eye"></i>
                             Xem chi tiết
                         </a>
-
-                        <button class="dat"
-                                onclick="openBookingFromHospital(@bv.Id)">
+                        <button class="dat" onclick="openBookingFromHospital(@bv.HospitalId)">
                             <i class="fa-solid fa-calendar-check"></i>
                             Đặt khám ngay
                         </button>
-
                     </div>
-
                 </div>
-
             </div>
         }
-
     </div>
-   
 </div>
 
 <div id="bookingModal" class="modal">
     <div class="modal-content">
-
-        <span class="close"
-              onclick="closeBooking()">
-            &times;
-        </span>
-
+        <span class="close" onclick="closeBooking()">&times;</span>
         <h2>Đặt lịch khám</h2>
-
         <form id="bookingForm">
-
-            <input type="text"
-                   placeholder="Họ và tên"
-                   required />
-
-            <input type="tel"
-                   placeholder="Số điện thoại"
-                   required />
-
+            <input type="text" placeholder="Họ và tên" required />
+            <input type="tel" placeholder="Số điện thoại" required />
             <select id="hospitalSelect">
-
-                <option value="">
-                    -- Chọn bệnh viện --
-                </option>
-
-                @foreach (var bv in benhviens)
+                <option value="">-- Chọn bệnh viện --</option>
+                @foreach (var bv in Model)
                 {
-                    <option value="@bv.Id">
-                        @bv.Ten
-                    </option>
+                    <option value="@bv.HospitalId">@bv.Name</option>
                 }
-
             </select>
-
             <select>
-
-                <option value="">
-                    -- Chọn chuyên khoa --
-                </option>
-
+                <option value="">-- Chọn chuyên khoa --</option>
                 @foreach (var s in specialties)
                 {
-                    <option value="@s.Id">
-                        @s.Name
-                    </option>
+                    <option value="@s.SpecializationId">@s.Name</option>
                 }
-
             </select>
-
             <input type="date" required />
-
             <input type="time" required />
-
-            <button type="submit">
-                Xác nhận đặt khám
-            </button>
-
+            <button type="submit">Xác nhận đặt khám</button>
         </form>
-
     </div>
-
 </div>
 
 <script>
@@ -193,18 +91,14 @@ var benhviens = new[]
 
     window.onclick = function (e) {
         const modal = document.getElementById("bookingModal");
-
         if (e.target == modal) {
             closeBooking();
         }
     }
 
-    document.getElementById("bookingForm")
-    .addEventListener("submit", function (e) {
-
+    document.getElementById("bookingForm").addEventListener("submit", function (e) {
         e.preventDefault();
-
         alert("Đặt lịch khám thành công!");
         closeBooking();
     });
-</script>
+</script>s
