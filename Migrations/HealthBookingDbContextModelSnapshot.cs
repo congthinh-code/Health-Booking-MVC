@@ -121,14 +121,218 @@ namespace Health_Booking_MVC.Migrations
                         new
                         {
                             DoctorId = 1,
-                            Avatar = "anhbs1.jpg",
+                            Avatar = "anhbs3.jpg",
                             Description = "Chuyên khoa Tim Mạch",
                             ExperienceYears = 10,
-                            FullName = "BS. Nguyễn Văn A",
+                            FullName = "BS CKII. Ngô Trung Nam",
                             HospitalId = 1,
-                            Phone = "0901 234 567",
+                            Phone = "0901 234 501",
                             SpecializationId = 6,
                             UserId = 2
+                        },
+                        new
+                        {
+                            DoctorId = 2,
+                            Avatar = "anhbs1.jpg",
+                            Description = "Chuyên khoa Tim mạch",
+                            ExperienceYears = 5,
+                            FullName = "BS CKI. Nguyễn Thị Thanh Minh",
+                            HospitalId = 3,
+                            Phone = "0901 234 502",
+                            SpecializationId = 6,
+                            UserId = 3
+                        },
+                        new
+                        {
+                            DoctorId = 3,
+                            Avatar = "anhbs5.jpg",
+                            Description = "Chuyên khoa Tai Mũi Họng",
+                            ExperienceYears = 8,
+                            FullName = "BS CKI. Nguyễn Phúc Thiện",
+                            HospitalId = 2,
+                            Phone = "0901 234 503",
+                            SpecializationId = 9,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            DoctorId = 4,
+                            Avatar = "anhbs6.jpg",
+                            Description = "Chuyên khoa Sản - Phụ khoa",
+                            ExperienceYears = 7,
+                            FullName = "BS CKI. Đỗ Đăng Khoa",
+                            HospitalId = 1,
+                            Phone = "0901 234 504",
+                            SpecializationId = 15,
+                            UserId = 5
+                        },
+                        new
+                        {
+                            DoctorId = 5,
+                            Avatar = "anhbs7.jpg",
+                            Description = "Chuyên khoa Da liễu",
+                            ExperienceYears = 10,
+                            FullName = "ThS BS. Lê Vũ Tân",
+                            HospitalId = 5,
+                            Phone = "0901 234 505",
+                            SpecializationId = 5,
+                            UserId = 6
+                        },
+                        new
+                        {
+                            DoctorId = 6,
+                            Avatar = "anhbs8.jpg",
+                            Description = "Chuyên khoa Tai Mũi Họng",
+                            ExperienceYears = 9,
+                            FullName = "BS CKI. Bá Duy Khương",
+                            HospitalId = 9,
+                            Phone = "0901 234 506",
+                            SpecializationId = 9,
+                            UserId = 7
+                        },
+                        new
+                        {
+                            DoctorId = 7,
+                            Avatar = "anhbs10.jpg",
+                            Description = "Chuyên khoa Thần Kinh",
+                            ExperienceYears = 12,
+                            FullName = "PGS TS. Nguyễn Văn Hoà",
+                            HospitalId = 6,
+                            Phone = "0901 234 507",
+                            SpecializationId = 7,
+                            UserId = 8
+                        },
+                        new
+                        {
+                            DoctorId = 8,
+                            Avatar = "anhbs9.jpg",
+                            Description = "Chuyên khoa Da liễu",
+                            ExperienceYears = 15,
+                            FullName = "BS CKII. Lê Thị Lan",
+                            HospitalId = 5,
+                            Phone = "0901 234 508",
+                            SpecializationId = 5,
+                            UserId = 9
+                        },
+                        new
+                        {
+                            DoctorId = 9,
+                            Avatar = "anhbs11.jpg",
+                            Description = "Chuyên khoa Tim mạch",
+                            ExperienceYears = 7,
+                            FullName = "ThS BS. Nguyễn Hữu Phong",
+                            HospitalId = 7,
+                            Phone = "0901 234 509",
+                            SpecializationId = 6,
+                            UserId = 10
+                        },
+                        new
+                        {
+                            DoctorId = 10,
+                            Avatar = "anhbs12.jpg",
+                            Description = "Chuyên khoa Nội tiết niệu",
+                            ExperienceYears = 20,
+                            FullName = "BS CKI. Trần Đức Huy",
+                            HospitalId = 3,
+                            Phone = "0901 234 510",
+                            SpecializationId = 13,
+                            UserId = 11
+                        },
+                        new
+                        {
+                            DoctorId = 11,
+                            Avatar = "anhbs13.jpg",
+                            Description = "Chuyên khoa Ngoại cơ xương khớp",
+                            ExperienceYears = 15,
+                            FullName = "ThS BS. Đỗ Minh Quân",
+                            HospitalId = 1,
+                            Phone = "0901 234 511",
+                            SpecializationId = 14,
+                            UserId = 12
+                        },
+                        new
+                        {
+                            DoctorId = 12,
+                            Avatar = "anhbs2.jpg",
+                            Description = "Chuyên khoa Sản",
+                            ExperienceYears = 10,
+                            FullName = "BS CKII. Võ Ngọc Thanh",
+                            HospitalId = 6,
+                            Phone = "0901 234 512",
+                            SpecializationId = 15,
+                            UserId = 13
+                        },
+                        new
+                        {
+                            DoctorId = 13,
+                            Avatar = "anhbs14.jpg",
+                            Description = "Chuyên khoa Nội hô hấp",
+                            ExperienceYears = 10,
+                            FullName = "BS CKI. Nguyễn Tấn Phát",
+                            HospitalId = 8,
+                            Phone = "0901 234 513",
+                            SpecializationId = 12,
+                            UserId = 14
+                        },
+                        new
+                        {
+                            DoctorId = 14,
+                            Avatar = "anhbs4.jpg",
+                            Description = "Chuyên khoa Mắt",
+                            ExperienceYears = 8,
+                            FullName = "BS CKII. Trần Hồng Nhung",
+                            HospitalId = 5,
+                            Phone = "0901 234 514",
+                            SpecializationId = 10,
+                            UserId = 15
+                        },
+                        new
+                        {
+                            DoctorId = 15,
+                            Avatar = "anhbs15.jpg",
+                            Description = "Chuyên khoa Tai Mũi Họng",
+                            ExperienceYears = 15,
+                            FullName = "ThS BS. Phạm Minh Quân",
+                            HospitalId = 6,
+                            Phone = "0901 234 515",
+                            SpecializationId = 9,
+                            UserId = 16
+                        },
+                        new
+                        {
+                            DoctorId = 16,
+                            Avatar = "anhbs2.jpg",
+                            Description = "Chuyên khoa Da liễu",
+                            ExperienceYears = 10,
+                            FullName = "BS CKI. Võ Thị Ngọc",
+                            HospitalId = 5,
+                            Phone = "0901 234 516",
+                            SpecializationId = 5,
+                            UserId = 17
+                        },
+                        new
+                        {
+                            DoctorId = 17,
+                            Avatar = "anhbs18.jpg",
+                            Description = "Chuyên khoa Tim mạch",
+                            ExperienceYears = 15,
+                            FullName = "ThS BS. Nguyễn Hữu Dũng",
+                            HospitalId = 6,
+                            Phone = "0901 234 517",
+                            SpecializationId = 6,
+                            UserId = 18
+                        },
+                        new
+                        {
+                            DoctorId = 18,
+                            Avatar = "anhbs1.jpg",
+                            Description = "Chuyên khoa Nội tiêu hoá ",
+                            ExperienceYears = 10,
+                            FullName = "ThS BS. Trần Thị Thu Hằng",
+                            HospitalId = 7,
+                            Phone = "0901 234 518",
+                            SpecializationId = 11,
+                            UserId = 19
                         });
                 });
 
@@ -223,7 +427,7 @@ namespace Health_Booking_MVC.Migrations
                             Address = "106 Nguyễn Huệ, Phường Quy Nhơn, Tỉnh Gia Lai",
                             Description = "Bệnh viện công",
                             Hotline = "056 3820 289",
-                            Image = "bvdk.jpg",
+                            Image = "images/anhbenhvien/bvdk.jpg",
                             Name = "Bệnh viện đa khoa tỉnh Bình Định",
                             Rating = 0
                         },
@@ -233,7 +437,7 @@ namespace Health_Booking_MVC.Migrations
                             Address = "78 Trần Hưng Đạo, Quy Nhơn, Gia Lai",
                             Description = "Bệnh viện công",
                             Hotline = "0256 3893 247",
-                            Image = "bvmat.jpg",
+                            Image = "images/anhbenhvien/bvmat.jpg",
                             Name = "Bệnh viện Mắt Bình Định",
                             Rating = 0
                         },
@@ -243,7 +447,7 @@ namespace Health_Booking_MVC.Migrations
                             Address = "114 Trần Hưng Đạo, phường Quy Nhơn, tỉnh Gia Lai",
                             Description = "Bệnh viện công",
                             Hotline = "0269 6566 366",
-                            Image = "bvquynhon.jpg",
+                            Image = "images/anhbenhvien/bvquynhon.jpg",
                             Name = "Trung tâm Y tế Quy Nhơn",
                             Rating = 0
                         },
@@ -253,18 +457,58 @@ namespace Health_Booking_MVC.Migrations
                             Address = "Tổ 05, KV05, Phường Quy Nhơn Bắc, tỉnh Gia Lai",
                             Description = "Bệnh viện công",
                             Hotline = "0965 071 919",
-                            Image = "yhoccotruyen.jpg",
+                            Image = "images/anhbenhvien/yhoccotruyen.jpg",
                             Name = "Bệnh viện Y học cổ truyền & PHCN Bình Định",
                             Rating = 0
                         },
                         new
                         {
                             HospitalId = 5,
-                            Address = "355 Trần Hưng Đạo, Phường Quy Nhơn, Gia Lai",
+                            Address = "05A Đường Chế Lan Viên, Quy Nhơn Nam, Gia Lai",
                             Description = "Bệnh viện công",
+                            Hotline = "0256 3532 536",
+                            Image = "images/anhbenhvien/bvquyhoa.jpg",
+                            Name = "Bệnh viện Phong - Da liễu Trung ương Quy Hoà",
+                            Rating = 0
+                        },
+                        new
+                        {
+                            HospitalId = 6,
+                            Address = "355 Trần Hưng Đạo, Phường Quy Nhơn, Gia Lai",
+                            Description = "Bệnh viện tư",
                             Hotline = "0256 3822 900",
-                            Image = "bvhoabinh.jpg",
+                            Image = "images/anhbenhvien/bvhoabinh.jpg",
                             Name = "Bệnh viện đa khoa Hoà Bình",
+                            Rating = 0
+                        },
+                        new
+                        {
+                            HospitalId = 7,
+                            Address = "66 Đào Tấn, Xã Tuy Phước, Gia Lai",
+                            Description = "Bệnh viện công",
+                            Hotline = "0256 3833 315",
+                            Image = "images/anhbenhvien/bvtuyphuoc.jpg",
+                            Name = "Trung tâm Y tế huyện Tuy Phước",
+                            Rating = 0
+                        },
+                        new
+                        {
+                            HospitalId = 8,
+                            Address = "54 An Dương Vương, Phường Quy Nhơn Nam, Gia Lai",
+                            Description = "Bệnh viện công",
+                            Hotline = "0256 3846 363",
+                            Image = "images/anhbenhvien/quany13.jpg",
+                            Name = "Bệnh viện Quân y 13",
+                            Rating = 0
+                        },
+                        new
+                        {
+                            HospitalId = 9,
+                            Address = "420 Nguyễn Thái Học, Quy Nhơn Nam, Gia Lai",
+                            Description = "Bệnh viện tư",
+                            Hotline = "0256 3686 115",
+                            Image = "images/anhbenhvien/dktp.jpg",
+                            Name = "Bệnh viện đa khoa Thu Phúc",
                             Rating = 0
                         });
                 });
@@ -394,7 +638,17 @@ namespace Health_Booking_MVC.Migrations
                             FullName = "Lê Thị B",
                             Gender = "Nữ",
                             Phone = "0911223344",
-                            UserId = 3
+                            UserId = 20
+                        },
+                        new
+                        {
+                            PatientId = 2,
+                            Address = "Phường Quy Nhơn Nam, Gia Lai",
+                            DateOfBirth = new DateTime(1990, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FullName = "Nguyễn Văn B",
+                            Gender = "Nam",
+                            Phone = "0911223345",
+                            UserId = 21
                         });
                 });
 
@@ -473,26 +727,21 @@ namespace Health_Booking_MVC.Migrations
                         new
                         {
                             SpecializationId = 12,
-                            Name = "Nội truyền nhiễm"
-                        },
-                        new
-                        {
-                            SpecializationId = 13,
                             Name = "Nội hô hấp"
                         },
                         new
                         {
-                            SpecializationId = 14,
+                            SpecializationId = 13,
                             Name = "Nội tiết niệu"
                         },
                         new
                         {
-                            SpecializationId = 15,
-                            Name = "Khoa Nhi"
+                            SpecializationId = 14,
+                            Name = "Ngoại cơ xương khớp"
                         },
                         new
                         {
-                            SpecializationId = 16,
+                            SpecializationId = 15,
                             Name = "Sản - Phụ khoa"
                         });
                 });
@@ -528,25 +777,169 @@ namespace Health_Booking_MVC.Migrations
                         new
                         {
                             UserId = 1,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "admin@healthbooking.com",
-                            Password = "AQAAAAIAAYagAAAAEJz9bWfS27vGxPhBToTfXmP5KzEwNk8d/V+Sg7XbVmxN6F1v==",
+                            Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                             Role = "Admin"
                         },
                         new
                         {
                             UserId = 2,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "bacsitest@gmail.com",
-                            Password = "AQAAAAIAAYagAAAAEOfkM98uXvPlFhGfT0YmX7Z8KwW1Nk6d/M9Xg8bVmxN5F2v==",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "ngotrungnam@healthbooking.com",
+                            Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                             Role = "Doctor"
                         },
                         new
                         {
                             UserId = 3,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "benhnhantest@gmail.com",
-                            Password = "AQAAAAIAAYagAAAAELmKP78uXvPlFhGfT0YmX7Z8KwW1Nk6d/M9Xg8bVmxN5F3v==",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "nguyenthithanhminh@healthbooking.com",
+                            Password = "$2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                            Role = "Doctor"
+                        },
+                        new
+                        {
+                            UserId = 4,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "nguyenphucthien@healthbooking.com",
+                            Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                            Role = "Doctor"
+                        },
+                        new
+                        {
+                            UserId = 5,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "dodangkhoa@healthbooking.com",
+                            Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                            Role = "Doctor"
+                        },
+                        new
+                        {
+                            UserId = 6,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "levutan@healthbooking.com",
+                            Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                            Role = "Doctor"
+                        },
+                        new
+                        {
+                            UserId = 7,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "baduykhuong@healthbooking.com",
+                            Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                            Role = "Doctor"
+                        },
+                        new
+                        {
+                            UserId = 8,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "nguyenvanhoa@healthbooking.com",
+                            Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                            Role = "Doctor"
+                        },
+                        new
+                        {
+                            UserId = 9,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "lethilan@healthbooking.com",
+                            Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                            Role = "Doctor"
+                        },
+                        new
+                        {
+                            UserId = 10,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "nguyenhuuphong@healthbooking.com",
+                            Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                            Role = "Doctor"
+                        },
+                        new
+                        {
+                            UserId = 11,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "tranduchuy@healthbooking.com",
+                            Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                            Role = "Doctor"
+                        },
+                        new
+                        {
+                            UserId = 12,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "dominhquan@healthbooking.com",
+                            Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                            Role = "Doctor"
+                        },
+                        new
+                        {
+                            UserId = 13,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "vongocthanh@healthbooking.com",
+                            Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                            Role = "Doctor"
+                        },
+                        new
+                        {
+                            UserId = 14,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "nguyentanphat@healthbooking.com",
+                            Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                            Role = "Doctor"
+                        },
+                        new
+                        {
+                            UserId = 15,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "tranhongnhung@healthbooking.com",
+                            Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                            Role = "Doctor"
+                        },
+                        new
+                        {
+                            UserId = 16,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "phamminhquan@healthbooking.com",
+                            Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                            Role = "Doctor"
+                        },
+                        new
+                        {
+                            UserId = 17,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "vuthingoc@healthbooking.com",
+                            Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                            Role = "Doctor"
+                        },
+                        new
+                        {
+                            UserId = 18,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "nguyenhuudung@healthbooking.com",
+                            Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                            Role = "Doctor"
+                        },
+                        new
+                        {
+                            UserId = 19,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "tranthithuhang@healthbooking.com",
+                            Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                            Role = "Doctor"
+                        },
+                        new
+                        {
+                            UserId = 20,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "patienta@gmail.com",
+                            Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
+                            Role = "Patient"
+                        },
+                        new
+                        {
+                            UserId = 21,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "patientb@gmail.com",
+                            Password = "2a$11$.IaAh9ncKKq/7u608sBTKOIEUTv2hWuEy/AVXnLttucniyNC1rKtC",
                             Role = "Patient"
                         });
                 });

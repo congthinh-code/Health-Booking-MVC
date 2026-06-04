@@ -33,6 +33,22 @@ namespace Health_Booking_MVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Notifications",
+                columns: table => new
+                {
+                    NotificationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsRead = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifications", x => x.NotificationId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Specializations",
                 columns: table => new
                 {
@@ -72,7 +88,7 @@ namespace Health_Booking_MVC.Migrations
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ExperienceYears = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SpecializationId = table.Column<int>(type: "int", nullable: false),
                     HospitalId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -213,11 +229,15 @@ namespace Health_Booking_MVC.Migrations
                 columns: new[] { "HospitalId", "Address", "Description", "Hotline", "Image", "Name", "Rating", "WebsiteUrl" },
                 values: new object[,]
                 {
-                    { 1, "106 Nguyễn Huệ, Phường Quy Nhơn, Tỉnh Gia Lai", "Bệnh viện công", "056 3820 289", "bvdk.jpg", "Bệnh viện đa khoa tỉnh Bình Định", 0, null },
-                    { 2, "78 Trần Hưng Đạo, Quy Nhơn, Gia Lai", "Bệnh viện công", "0256 3893 247", "bvmat.jpg", "Bệnh viện Mắt Bình Định", 0, null },
-                    { 3, "114 Trần Hưng Đạo, phường Quy Nhơn, tỉnh Gia Lai", "Bệnh viện công", "0269 6566 366", "bvquynhon.jpg", "Trung tâm Y tế Quy Nhơn", 0, null },
-                    { 4, "Tổ 05, KV05, Phường Quy Nhơn Bắc, tỉnh Gia Lai", "Bệnh viện công", "0965 071 919", "yhoccotruyen.jpg", "Bệnh viện Y học cổ truyền & PHCN Bình Định", 0, null },
-                    { 5, "355 Trần Hưng Đạo, Phường Quy Nhơn, Gia Lai", "Bệnh viện công", "0256 3822 900", "bvhoabinh.jpg", "Bệnh viện đa khoa Hoà Bình", 0, null }
+                    { 1, "106 Nguyễn Huệ, Phường Quy Nhơn, Tỉnh Gia Lai", "Bệnh viện công", "056 3820 289", "images/anhbenhvien/bvdk.jpg", "Bệnh viện đa khoa tỉnh Bình Định", 0, null },
+                    { 2, "78 Trần Hưng Đạo, Quy Nhơn, Gia Lai", "Bệnh viện công", "0256 3893 247", "images/anhbenhvien/bvmat.jpg", "Bệnh viện Mắt Bình Định", 0, null },
+                    { 3, "114 Trần Hưng Đạo, phường Quy Nhơn, tỉnh Gia Lai", "Bệnh viện công", "0269 6566 366", "images/anhbenhvien/bvquynhon.jpg", "Trung tâm Y tế Quy Nhơn", 0, null },
+                    { 4, "Tổ 05, KV05, Phường Quy Nhơn Bắc, tỉnh Gia Lai", "Bệnh viện công", "0965 071 919", "images/anhbenhvien/yhoccotruyen.jpg", "Bệnh viện Y học cổ truyền & PHCN Bình Định", 0, null },
+                    { 5, "05A Đường Chế Lan Viên, Quy Nhơn Nam, Gia Lai", "Bệnh viện công", "0256 3532 536", "images/anhbenhvien/bvquyhoa.jpg", "Bệnh viện Phong - Da liễu Trung ương Quy Hoà", 0, null },
+                    { 6, "355 Trần Hưng Đạo, Phường Quy Nhơn, Gia Lai", "Bệnh viện tư", "0256 3822 900", "images/anhbenhvien/bvhoabinh.jpg", "Bệnh viện đa khoa Hoà Bình", 0, null },
+                    { 7, "66 Đào Tấn, Xã Tuy Phước, Gia Lai", "Bệnh viện công", "0256 3833 315", "images/anhbenhvien/bvtuyphuoc.jpg", "Trung tâm Y tế huyện Tuy Phước", 0, null },
+                    { 8, "54 An Dương Vương, Phường Quy Nhơn Nam, Gia Lai", "Bệnh viện công", "0256 3846 363", "images/anhbenhvien/quany13.jpg", "Bệnh viện Quân y 13", 0, null },
+                    { 9, "420 Nguyễn Thái Học, Quy Nhơn Nam, Gia Lai", "Bệnh viện tư", "0256 3686 115", "images/anhbenhvien/dktp.jpg", "Bệnh viện đa khoa Thu Phúc", 0, null }
                 });
 
             migrationBuilder.InsertData(
@@ -236,11 +256,10 @@ namespace Health_Booking_MVC.Migrations
                     { 9, "Tai mũi họng" },
                     { 10, "Mắt" },
                     { 11, "Nội tiêu hoá" },
-                    { 12, "Nội truyền nhiễm" },
-                    { 13, "Nội hô hấp" },
-                    { 14, "Nội tiết niệu" },
-                    { 15, "Khoa Nhi" },
-                    { 16, "Sản - Phụ khoa" }
+                    { 12, "Nội hô hấp" },
+                    { 13, "Nội tiết niệu" },
+                    { 14, "Ngoại cơ xương khớp" },
+                    { 15, "Sản - Phụ khoa" }
                 });
 
             migrationBuilder.InsertData(
@@ -248,20 +267,62 @@ namespace Health_Booking_MVC.Migrations
                 columns: new[] { "UserId", "CreatedAt", "Email", "Password", "Role" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@healthbooking.com", "AQAAAAIAAYagAAAAEJz9bWfS27vGxPhBToTfXmP5KzEwNk8d/V+Sg7XbVmxN6F1v==", "Admin" },
-                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "bacsitest@gmail.com", "AQAAAAIAAYagAAAAEOfkM98uXvPlFhGfT0YmX7Z8KwW1Nk6d/M9Xg8bVmxN5F2v==", "Doctor" },
-                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "benhnhantest@gmail.com", "AQAAAAIAAYagAAAAELmKP78uXvPlFhGfT0YmX7Z8KwW1Nk6d/M9Xg8bVmxN5F3v==", "Patient" }
+                    { 1, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "admin@healthbooking.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Admin" },
+                    { 2, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "ngotrungnam@healthbooking.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Doctor" },
+                    { 3, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "nguyenthithanhminh@healthbooking.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Doctor" },
+                    { 4, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "nguyenphucthien@healthbooking.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Doctor" },
+                    { 5, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "dodangkhoa@healthbooking.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Doctor" },
+                    { 6, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "levutan@healthbooking.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Doctor" },
+                    { 7, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "baduykhuong@healthbooking.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Doctor" },
+                    { 8, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "nguyenvanhoa@healthbooking.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Doctor" },
+                    { 9, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "lethilan@healthbooking.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Doctor" },
+                    { 10, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "nguyenhuuphong@healthbooking.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Doctor" },
+                    { 11, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "tranduchuy@healthbooking.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Doctor" },
+                    { 12, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "dominhquan@healthbooking.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Doctor" },
+                    { 13, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "vongocthanh@healthbooking.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Doctor" },
+                    { 14, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "nguyentanphat@healthbooking.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Doctor" },
+                    { 15, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "tranhongnhung@healthbooking.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Doctor" },
+                    { 16, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "phamminhquan@healthbooking.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Doctor" },
+                    { 17, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "vuthingoc@healthbooking.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Doctor" },
+                    { 18, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "nguyenhuudung@healthbooking.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Doctor" },
+                    { 19, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "tranthithuhang@healthbooking.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Doctor" },
+                    { 20, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "patienta@gmail.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Patient" },
+                    { 21, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "patientb@gmail.com", "$2a$11$mC8m7LqC9rQo3JvFpUqRBeL1fK8bVmxN5F2v==H7e5z6x8y9z0u1v2w3x4", "Patient" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Doctors",
                 columns: new[] { "DoctorId", "Avatar", "Description", "ExperienceYears", "FullName", "HospitalId", "Phone", "SpecializationId", "UserId" },
-                values: new object[] { 1, "anhbs1.jpg", "Chuyên khoa Tim Mạch", 10, "BS. Nguyễn Văn A", 1, "0901 234 567", 6, 2 });
+                values: new object[,]
+                {
+                    { 1, "anhbs3.jpg", "Chuyên khoa Tim Mạch", 10, "BS CKII. Ngô Trung Nam", 1, "0901 234 501", 6, 2 },
+                    { 2, "anhbs1.jpg", "Chuyên khoa Tim mạch", 5, "BS CKI. Nguyễn Thị Thanh Minh", 3, "0901 234 502", 6, 3 },
+                    { 3, "anhbs5.jpg", "Chuyên khoa Tai Mũi Họng", 8, "BS CKI. Nguyễn Phúc Thiện", 2, "0901 234 503", 9, 4 },
+                    { 4, "anhbs6.jpg", "Chuyên khoa Sản - Phụ khoa", 7, "BS CKI. Đỗ Đăng Khoa", 1, "0901 234 504", 15, 5 },
+                    { 5, "anhbs7.jpg", "Chuyên khoa Da liễu", 10, "ThS BS. Lê Vũ Tân", 5, "0901 234 505", 5, 6 },
+                    { 6, "anhbs8.jpg", "Chuyên khoa Tai Mũi Họng", 9, "BS CKI. Bá Duy Khương", 9, "0901 234 506", 9, 7 },
+                    { 7, "anhbs10.jpg", "Chuyên khoa Thần Kinh", 12, "PGS TS. Nguyễn Văn Hoà", 6, "0901 234 507", 7, 8 },
+                    { 8, "anhbs9.jpg", "Chuyên khoa Da liễu", 15, "BS CKII. Lê Thị Lan", 5, "0901 234 508", 5, 9 },
+                    { 9, "anhbs11.jpg", "Chuyên khoa Tim mạch", 7, "ThS BS. Nguyễn Hữu Phong", 7, "0901 234 509", 6, 10 },
+                    { 10, "anhbs12.jpg", "Chuyên khoa Nội tiết niệu", 20, "BS CKI. Trần Đức Huy", 3, "0901 234 510", 13, 11 },
+                    { 11, "anhbs13.jpg", "Chuyên khoa Ngoại cơ xương khớp", 15, "ThS BS. Đỗ Minh Quân", 1, "0901 234 511", 14, 12 },
+                    { 12, "anhbs2.jpg", "Chuyên khoa Sản", 10, "BS CKII. Võ Ngọc Thanh", 6, "0901 234 512", 15, 13 },
+                    { 13, "anhbs14.jpg", "Chuyên khoa Nội hô hấp", 10, "BS CKI. Nguyễn Tấn Phát", 8, "0901 234 513", 12, 14 },
+                    { 14, "anhbs4.jpg", "Chuyên khoa Mắt", 8, "BS CKII. Trần Hồng Nhung", 5, "0901 234 514", 10, 15 },
+                    { 15, "anhbs15.jpg", "Chuyên khoa Tai Mũi Họng", 15, "ThS BS. Phạm Minh Quân", 6, "0901 234 515", 9, 16 },
+                    { 16, "anhbs2.jpg", "Chuyên khoa Da liễu", 10, "BS CKI. Võ Thị Ngọc", 5, "0901 234 516", 5, 17 },
+                    { 17, "anhbs18.jpg", "Chuyên khoa Tim mạch", 15, "ThS BS. Nguyễn Hữu Dũng", 6, "0901 234 517", 6, 18 },
+                    { 18, "anhbs1.jpg", "Chuyên khoa Nội tiêu hoá ", 10, "ThS BS. Trần Thị Thu Hằng", 7, "0901 234 518", 11, 19 }
+                });
 
             migrationBuilder.InsertData(
                 table: "Patients",
                 columns: new[] { "PatientId", "Address", "Avatar", "DateOfBirth", "FullName", "Gender", "Phone", "UserId" },
-                values: new object[] { 1, "Phường Quy Nhơn Bắc, Gia Lai", null, new DateTime(1995, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lê Thị B", "Nữ", "0911223344", 3 });
+                values: new object[,]
+                {
+                    { 1, "Phường Quy Nhơn Bắc, Gia Lai", null, new DateTime(1995, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lê Thị B", "Nữ", "0911223344", 20 },
+                    { 2, "Phường Quy Nhơn Nam, Gia Lai", null, new DateTime(1990, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nguyễn Văn B", "Nam", "0911223345", 21 }
+                });
 
             migrationBuilder.InsertData(
                 table: "DoctorSchedules",
@@ -332,6 +393,9 @@ namespace Health_Booking_MVC.Migrations
         {
             migrationBuilder.DropTable(
                 name: "MedicalRecords");
+
+            migrationBuilder.DropTable(
+                name: "Notifications");
 
             migrationBuilder.DropTable(
                 name: "Appointments");
