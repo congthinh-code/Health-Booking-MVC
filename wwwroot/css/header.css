@@ -295,3 +295,56 @@ header .social a {
 header .btn-outline {
     color: #00a6ea !important;
 }
+
+/* ===== THÔNG BÁO ===== */
+
+.notification-dropdown {
+    position: relative;
+}
+
+.btn-notification {
+    position: relative;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+    font-size: 22px;
+    color: #333;
+}
+
+.btn-notification i {
+    font-size: 22px;
+}
+
+#notification-badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    width: 18px;
+    height: 18px;
+    background: #ff4444;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    font-weight: bold;
+    border: 2px solid white;
+}
+
+.notification-menu {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    width: 320px;
+    max-height: 400px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 9999;
+}

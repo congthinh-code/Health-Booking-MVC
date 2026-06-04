@@ -39,6 +39,23 @@
                             Xin chào, @HttpContextAccessor.HttpContext.Session.GetString("Name")
                         </span>
 
+                        <div class="notification-dropdown">
+                            <button id="notification-btn" class="btn-notification">
+                                <i class="fa-solid fa-bell"></i>
+                                <span id="notification-badge">0</span>
+                            </button>
+
+                            <div id="notification-menu" class="notification-menu">
+                                <div class="notification-header">
+                                    Thông báo
+                                </div>
+
+                                <div id="notification-list">
+                                    Đang tải...
+                                </div>
+                            </div>
+                        </div>
+
                         @* Kiểm tra nếu là bác sĩ thì có thể hiện thêm nút vào trang quản lý *@
                         @if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "doctor")
                         {
