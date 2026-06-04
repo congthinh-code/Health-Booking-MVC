@@ -71,6 +71,13 @@
                                 <i class="fa-solid fa-user"></i> Trang cá nhân
                             </a>
                         }
+                        @* Kiểm tra nếu là Admin thì có thể hiện thêm nút vào trang quản lý *@
+                        @if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "admin")
+                        {
+                            <a asp-controller="Admin" asp-action="Profile" class="btn-outline" style="font-size: 13px;">
+                                <i class="fa-solid fa-user"></i> Quản lý trang
+                            </a>
+                        }
 
                         <a asp-controller="Account" asp-action="Logout" class="btn-outline" style="color: #dc3545; border-color: #dc3545;">
                             <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất

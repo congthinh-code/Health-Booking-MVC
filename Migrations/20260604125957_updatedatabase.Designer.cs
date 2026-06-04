@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Health_Booking_MVC.Migrations
 {
     [DbContext(typeof(HealthBookingDbContext))]
-    [Migration("20260604124417_fixdb")]
-    partial class fixdb
+    [Migration("20260604125957_updatedatabase")]
+    partial class updatedatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
