@@ -1,8 +1,43 @@
-﻿@{
+@{
     ViewData["Title"] = "Bệnh viện công lập";
 
     var benhViens = new[]
     {
+https://github.com/congthinh-code/Health-Booking-MVC/pull/23/conflict?name=Views%252FCSYT%252FBVTu.cshtml&ancestor_oid=e1dd794fdb1c82fa6e1e2d5e8b869af1cf03b34c&base_oid=98e9949fbb946fddf52f4b9f5ed961ad0813ab86&head_oid=bed86ec8f4179394f376700af5fb9d2d7de65592
+        new {
+            Name = "Bệnh viện đa khoa tỉnh Bình Định",
+            Address = "106 Nguyễn Huệ, Phường Quy Nhơn, Tỉnh Gia Lai",
+            Rating = 5,
+            Image = "bvdk.jpg",
+            Url = ""
+        },
+        new {
+            Name = "Bệnh viện Mắt Bình Định",
+            Address = "78 Trần Hưng Đạo, Quy Nhơn, Gia Lai",
+            Rating = 5,
+            Image = "bvmat.jpg",
+            Url = ""
+        },
+        new {
+            Name = "Trung tâm Y tế Quy Nhơn",
+            Address = "114 Trần Hưng Đạo, Phường Quy Nhơn, Tỉnh Gia Lai",
+            Rating = 4,
+            Image = "bvquynhon.jpg",
+            Url = ""
+        },
+        new {
+            Name = "Bệnh viện Y học cổ truyền & PHCN Bình Định",
+            Address = "Tổ 05, KV05, Phường Quy Nhơn Bắc, Tỉnh Gia Lai",
+            Rating = 4,
+            Image = "yhoccotruyen.jpg",
+            Url = ""
+        },
+        new {
+            Name = "Bệnh viện đa khoa Hoà Bình",
+            Address = "355 Trần Hưng Đạo, Phường Quy Nhơn, Tỉnh Gia Lai",
+            Rating = 5,
+            Image = "bvhoabinh.jpg",
+
         new
         {
             Ten = "Bệnh viện Đa khoa tỉnh Bình Định",
@@ -27,10 +62,26 @@
             DiaChi = "TP. Quy Nhơn, Bình Định",
             Sao = 4,
             Anh = "/images/anhbenhvien/yhoccotruyen.jpg",
+
             Url = ""
         }
     };
 }
+
+
+<link rel="stylesheet" href="~/css/CSYT/BVCong.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<div class="tab-container">
+    <a asp-controller="CSYT" asp-action="BVCong" class="tab-item active">
+        Bệnh viện công lập
+    </a>
+
+    <a asp-controller="CSYT" asp-action="BVTu" class="tab-item">
+        Bệnh viện tư
+    </a>
+</div>
+
 
 <div class="tab-container">
     <a asp-controller="CSYT"
@@ -50,6 +101,21 @@
 <h3 class="subtitle">Danh sách các bệnh viện công lập tại Bình Định</h3>
 
 <div class="container">
+
+
+    @foreach (var bv in benhViens)
+    {
+        <div class="card">
+
+            <img src="~/images/@bv.Image" alt="@bv.Name">
+
+            <h3 class="name">@bv.Name</h3>
+
+            <p class="address">@bv.Address</p>
+
+            <div class="stars">
+                @for (int i = 0; i < bv.Rating; i++)
+
     @foreach (var bv in benhViens)
     {
         <div class="card">
@@ -61,11 +127,18 @@
 
             <div class="stars">
                 @for (int i = 0; i < bv.Sao; i++)
-                {
+     {
                     <span>⭐</span>
                 }
             </div>
 
+
+            <a class="btn" href="#">
+                Xem chi tiết
+            </a>
+
+        </div>
+    }
             @if (!string.IsNullOrEmpty(bv.Url))
             {
                 <a class="btn"
@@ -83,4 +156,5 @@
             }
         </div>
     }
+
 </div>
