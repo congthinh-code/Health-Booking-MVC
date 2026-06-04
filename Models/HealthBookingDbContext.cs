@@ -17,6 +17,7 @@ namespace Health_Booking_MVC.Models
         public DbSet<DoctorSchedule> DoctorSchedules { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<MedicalRecord> MedicalRecords { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

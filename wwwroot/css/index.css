@@ -345,48 +345,28 @@ body {
 
     .specialties .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(5,1fr);
         gap: 20px;
     }
 
     .specialties .item {
         background: rgba(255, 255, 255, 0.75);
         backdrop-filter: blur(12px);
-        padding: 20px;
+        padding: 15px;
         border-radius: 20px;
         font-weight: bold;
         box-shadow: 0 5px 15px rgba(0,0,0,0.08);
         transition: transform .3s ease;
     }
 
-        .specialties .item:hover {
-            transform: translateY(-6px);
-        }
+   .specialties .item:hover {
+         transform: translateY(-6px);
+   }
 
     .specialties img {
-        height: 70px;
+        height: 55px;
         margin-bottom: 10px;
     }
-
-.specialties .see-more {
-    display: inline-block;
-    margin-top: 20px;
-
-    border: none;
-    background: transparent;
-    outline: none;
-
-    color: #f48fb1;
-    font-weight: bold;
-    font-size: 15px;
-
-    cursor: pointer;
-}
-
-.specialties .see-more:focus {
-    outline: none;
-    box-shadow: none;
-}
 
 /* ADS SECTION */
 .ads-section {
@@ -469,13 +449,6 @@ body {
     margin: 0;
 }
 
-.extra-item {
-    display: none;
-}
-
-.extra-item.show {
-    display: block;
-}
 /* Responsive cho quảng cáo */
 @media (max-width: 768px) {
     .ads-container {
@@ -553,4 +526,22 @@ body {
 .search-subtitle {
     font-size: 13px;
     color: #777;
+}
+
+@media (max-width: 992px) {
+    .specialties .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .specialties .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .specialties .grid {
+        grid-template-columns: 1fr;
+    }
 }

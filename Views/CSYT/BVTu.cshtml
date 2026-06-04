@@ -1,4 +1,5 @@
-﻿@{
+@{
+
     ViewData["Title"] = "Bệnh viện tư";
 
     var benhViens = new[]
@@ -30,6 +31,40 @@
 <link rel="stylesheet" href="~/css/CSYT/BVTu.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+
+    ViewData["Title"] = "Bệnh viện tư nhân";
+
+    var benhViens = new[]
+    {
+        new
+        {
+            Ten = "Bệnh viện Bình Định",
+            DiaChi = "39A Phạm Ngọc Thạch, TP Quy Nhơn",
+            Sao = 5,
+            Anh = "/images/anhbenhvien/bvbinhdinh.jpg",
+            Url = "https://benhvienbinhdinh.com.vn"
+        },
+
+        new
+        {
+            Ten = "Bệnh viện Hòa Bình",
+            DiaChi = "01 Trần Hưng Đạo, TP Quy Nhơn",
+            Sao = 4,
+            Anh = "/images/anhbenhvien/bvhoabinh.jpg",
+            Url = "https://hoabinhhospital.com.vn/  "
+        },
+
+        new
+        {
+            Ten = "Bệnh viện Đa khoa Thu Phúc",
+            DiaChi = "418-420 Nguyễn Thái Học, TP Quy Nhơn",
+            Sao = 5,
+            Anh = "/images/anhbenhvien/dktp.jpg",
+            Url = "https://thuphuc.vn/"
+        }
+    };
+}
+
 <div class="tab-container">
     <a asp-controller="CSYT"
        asp-action="BVCong"
@@ -44,10 +79,12 @@
     </a>
 </div>
 
+<link rel="stylesheet" href="~/css/CSYT/BVTu.css" asp-append-version="true" />
 <h2 class="title">Bệnh viện tư nhân</h2>
 <h3 class="subtitle">Danh sách các bệnh viện tư nhân tại Bình Định</h3>
 
 <div class="container">
+
 
     @foreach (var bv in benhViens)
     {
@@ -62,11 +99,22 @@
 
             <div class="stars">
                 @for (int i = 0; i < bv.Rating; i++)
+
+    @foreach (var bv in benhViens)
+    {
+        <div class="card">
+            <img src="@bv.Anh" alt="Ảnh bệnh viện" />
+
+            <h3 class="name">@bv.Ten</h3>
+
+            <p class="address">@bv.DiaChi</p>
+
+            <div class="stars">
+                @for (int i = 0; i < bv.Sao; i++)
                 {
                     <span>⭐</span>
                 }
             </div>
-
             <a class="btn"
                href="@bv.Url"
                target="_blank">
@@ -75,5 +123,21 @@
 
         </div>
     }
-
+            @if (!string.IsNullOrEmpty(bv.Url))
+            {
+                <a class="btn"
+                   href="@bv.Url"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Xem chi tiết
+                </a>
+            }
+            else
+            {
+                <a class="btn" href="#">
+                    Xem chi tiết
+                </a>
+            }
+        </div>
+    }
 </div>

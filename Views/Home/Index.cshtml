@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Health_Booking_MVC.Models.ViewModels.BookingViewModel
+@{
     ViewData["Title"] = "Trang Chủ";
 }
 
@@ -36,47 +37,43 @@
     </div>
 </section>
 
-<!-- Modal Đặt lịch -->
+@* Modal đặt lịch *@
 <div id="bookingModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeBooking()">&times;</span>
         <h2>Đặt Lịch Khám</h2>
         <form id="bookingForm">
-
             <label>Họ và Tên:</label>
-            <input type="text" required>
-
+            <input type="text" name="patient_name" id="patient_name" required>
             <label>Số điện thoại:</label>
-            <input type="tel"
-                   required
-                   pattern="[0-9]{10,11}"
-                   placeholder="0123456789">
-
+            <input type="tel" name="phone" id="phone" required pattern="[0-9]{10,11}" placeholder="0123456789">
             <label>Bệnh viện:</label>
-            <select>
-                <option>-- Chọn bệnh viện --</option>
-                <option>Bệnh viện Chợ Rẫy</option>
-                <option>Bệnh viện Đại học Y Dược</option>
-                <option>Bệnh viện Nhi Đồng</option>
-            </select>
+            <select name="hospital_id" id="hospital_id">
+                <option value="">-- Chọn bệnh viện --</option>
 
+                @foreach (var item in Model.Hospitals)
+                {
+                    <option value="@item.HospitalId">
+                        @item.Name
+                    </option>
+                }
+            </select>
             <label>Chuyên khoa:</label>
-            <select>
-                <option>-- Chọn chuyên khoa --</option>
-                <option>Tim mạch</option>
-                <option>Da liễu</option>
-                <option>Nội tổng quát</option>
+            <select name="specialization_id" id="specialization_id">
+                <option value="">-- Chọn chuyên khoa --</option>
+
+                @foreach (var item in Model.Specializations)
+                {
+                    <option value="@item.SpecializationId">
+                        @item.Name
+                    </option>
+                }
             </select>
-
             <label>Ngày khám:</label>
-            <input type="date" required>
-
+            <input type="date" name="appointment_date" id="appointment_date" required min="<?= date('Y-m-d') ?>">
             <label>Giờ khám:</label>
-            <input type="time" required>
-
-            <button type="submit" class="btn-submit">
-                Xác nhận đặt lịch
-            </button>
+            <input type="time" name="appointment_time" id="appointment_time" required>
+            <button type="submit" class="btn-submit">Xác nhận đặt lịch</button>
         </form>
     </div>
 </div>
@@ -169,51 +166,26 @@
         </a>
 
         <a class="item" href="#">
-            <img src="~/images/iconchuyenkhoa/Nội truyền nhiễm.png">
-            <p>Nội Truyền Nhiễm</p>
-        </a>
-
-        <a class="item extra-item" href="#">
             <img src="~/images/iconchuyenkhoa/Nội hô hấp.png">
             <p>Nội Hô Hấp</p>
         </a>
 
-        <a class="item extra-item" href="#">
+        <a class="item" href="#">
             <img src="~/images/iconchuyenkhoa/Nội tiết niệu.png">
             <p>Nội Tiết Niệu</p>
         </a>
 
-        <a class="item extra-item" href="#">
+        <a class="item" href="#">
             <img src="~/images/iconchuyenkhoa/Ngoại cơ xương khớp.png">
             <p>Ngoại Cơ Xương Khớp</p>
         </a>
 
-        <a class="item extra-item" href="#">
+        <a class="item" href="#">
             <img src="~/images/iconchuyenkhoa/Sản - phụ khoa.png">
             <p>Sản - Phụ Khoa</p>
         </a>
     </div>
-
-    <button id="toggleSpecialties" class="see-more">
-        Xem tất cả ⌄
-    </button>
 </section>
 
-<script>
-    const btn = document.getElementById("toggleSpecialties");
-    const extraItems = document.querySelectorAll(".extra-item");
-
-    btn.onclick = function () {
-
-        extraItems.forEach(item => {
-            item.classList.toggle("show");
-        });
-
-        if (btn.innerText.includes("Xem")) {
-            btn.innerHTML = "Thu gọn ▲";
-        } else {
-            btn.innerHTML = "Xem tất cả ⌄";
-        }
-    };
-</script>
 <script src="~/js/search.js"></script>
+<script src="~/js/home.js"></script>

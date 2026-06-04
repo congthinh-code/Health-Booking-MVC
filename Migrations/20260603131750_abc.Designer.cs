@@ -4,6 +4,7 @@ using Health_Booking_MVC.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Health_Booking_MVC.Migrations
 {
     [DbContext(typeof(HealthBookingDbContext))]
-    partial class HealthBookingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260603131750_abc")]
+    partial class abc
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -317,32 +320,6 @@ namespace Health_Booking_MVC.Migrations
                             Symptoms = "Ho, sốt nhẹ",
                             Treatment = "Uống thuốc ấm"
                         });
-                });
-
-            modelBuilder.Entity("Health_Booking_MVC.Models.Notification", b =>
-                {
-                    b.Property<int>("NotificationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NotificationId"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("NotificationId");
-
-                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("Health_Booking_MVC.Models.Patient", b =>

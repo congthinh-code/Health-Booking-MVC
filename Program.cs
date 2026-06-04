@@ -1,4 +1,5 @@
 using Health_Booking_MVC.Models;
+using Health_Booking_MVC.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,8 @@ builder.Services.AddDbContext<HealthBookingDbContext>(options =>
     options.UseSqlServer(connectionString));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<NotificationService>();
 
 //session
 builder.Services.AddDistributedMemoryCache(); // Cần thiết để lưu bộ nhớ tạm cho Session

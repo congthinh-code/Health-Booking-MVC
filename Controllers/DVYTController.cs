@@ -1,6 +1,7 @@
-﻿using Health_Booking_MVC.Models;
+using Health_Booking_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace Health_Booking_MVC.Controllers
 {
