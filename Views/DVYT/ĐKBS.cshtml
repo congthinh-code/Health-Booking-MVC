@@ -6,99 +6,196 @@
         new {
             FullName = "BS. Nguyễn Văn An",
             Specialization = "Nội Tim Mạch",
-            Hospital = "Bệnh viện Đa khoa Bình Định",
-            Phone = "0901234567",
-            ExperienceYears = 15,
-            Avatar = "/images/doctors/doctor1.jpg",
-            Description = "Chuyên điều trị các bệnh lý tim mạch."
+            Treatment = "Điều trị các bệnh lý tim mạch",
+            Price = "300.000 VNĐ",
+            Rating = 4.9,
+            Reviews = 120,
+            Avatar = "/images/doctors/doctor1.jpg"
         },
 
         new {
             FullName = "BS. Trần Thị Mai",
             Specialization = "Da Liễu",
-            Hospital = "Bệnh viện Da Liễu Bình Định",
-            Phone = "0902345678",
-            ExperienceYears = 12,
-            Avatar = "/images/doctors/doctor2.jpg",
-            Description = "Khám và điều trị các bệnh về da."
+            Treatment = "Khám và điều trị bệnh da liễu",
+            Price = "250.000 VNĐ",
+            Rating = 4.8,
+            Reviews = 98,
+            Avatar = "/images/doctors/doctor2.jpg"
         },
 
         new {
             FullName = "BS. Lê Hoàng Nam",
             Specialization = "Tai Mũi Họng",
-            Hospital = "Bệnh viện Đa khoa Bình Định",
-            Phone = "0903456789",
-            ExperienceYears = 10,
-            Avatar = "/images/doctors/doctor3.jpg",
-            Description = "Chuyên khoa Tai Mũi Họng."
+            Treatment = "Khám Tai Mũi Họng",
+            Price = "280.000 VNĐ",
+            Rating = 4.7,
+            Reviews = 75,
+            Avatar = "/images/doctors/doctor3.jpg"
         },
 
         new {
             FullName = "BS. Phạm Minh Tuấn",
             Specialization = "Nội Tiêu Hóa",
-            Hospital = "Bệnh viện Quân Y 13",
-            Phone = "0904567890",
-            ExperienceYears = 18,
-            Avatar = "/images/doctors/doctor4.jpg",
-            Description = "Điều trị các bệnh lý tiêu hóa."
+            Treatment = "Điều trị bệnh tiêu hóa",
+            Price = "350.000 VNĐ",
+            Rating = 4.9,
+            Reviews = 150,
+            Avatar = "/images/doctors/doctor4.jpg"
+        }
+    };
+
+    var hospitals = new[]
+    {
+        new {
+            Name = "Bệnh viện Đa khoa Bình Định",
+            Address = "106 Nguyễn Huệ, Quy Nhơn",
+            Rating = 5
+        },
+
+        new {
+            Name = "Bệnh viện Quân Y 13",
+            Address = "01 Nguyễn Thái Học, Quy Nhơn",
+            Rating = 4
+        },
+
+        new {
+            Name = "Bệnh viện Da Liễu Bình Định",
+            Address = "08 Trần Hưng Đạo, Quy Nhơn",
+            Rating = 5
+        },
+
+        new {
+            Name = "Bệnh viện Mắt Bình Định",
+            Address = "12 Lê Lợi, Quy Nhơn",
+            Rating = 4
         }
     };
 }
+<link rel="stylesheet" href="~/css/DVYT/ĐKBS.css" asp-append-version="true" />
 
-<link rel="stylesheet" href="~/css/dkbs.css" />
+<!-- MENU -->
+<div class="tab-container">
+    <a asp-controller="DVYT" asp-action="ĐKCS" class="tab-item">
+        Đặt khám cơ sở
+    </a>
 
-<div class="container">
-    <h2 class="text-center mb-4">Danh sách bác sĩ</h2>
+    <a asp-controller="DVYT" asp-action="ĐKCK" class="tab-item">
+        Đặt khám chuyên khoa
+    </a>
 
-    <div class="row">
+    <a asp-controller="DVYT" asp-action="ĐKBS" class="tab-item active">
+        Đặt khám bác sĩ
+    </a>
+
+    <a asp-controller="DVYT" asp-action="ĐKNG" class="tab-item">
+        Đặt khám ngoài giờ
+    </a>
+
+    <a asp-controller="DVYT" asp-action="TTVP" class="tab-item">
+        Thanh toán viện phí
+    </a>
+</div>
+
+<!-- DANH SÁCH BÁC SĨ -->
+<section class="doctor-list">
+    <h3>DANH SÁCH BÁC SĨ</h3>
+
+    <div class="grid">
+
         @foreach (var doctor in doctors)
         {
-            <div class="col-md-4 mb-4">
-                <div class="card shadow-sm h-100">
+            <div class="doctor-card">
 
-                    <img src="@doctor.Avatar"
-                         class="card-img-top"
-                         alt="@doctor.FullName"
-                         style="height:250px;object-fit:cover;"
-                         onerror="this.src='/images/doctor.png'" />
+                <img src="@doctor.Avatar"
+                     alt="@doctor.FullName"
+                     onerror="this.src='/images/doctor.png'" />
 
-                    <div class="card-body">
+                <h4>@doctor.FullName</h4>
 
-                        <h5 class="card-title">
-                            @doctor.FullName
-                        </h5>
+                <p>
+                    <b>Chuyên khoa:</b>
+                    @doctor.Specialization
+                </p>
 
-                        <p>
-                            <strong>Chuyên khoa:</strong>
-                            @doctor.Specialization
-                        </p>
+                <p>
+                    <b>Chuyên trị:</b>
+                    @doctor.Treatment
+                </p>
 
-                        <p>
-                            <strong>Bệnh viện:</strong>
-                            @doctor.Hospital
-                        </p>
+                <p>
+                    <b>Giá khám:</b>
+                    @doctor.Price
+                </p>
 
-                        <p>
-                            <strong>SĐT:</strong>
-                            @doctor.Phone
-                        </p>
-
-                        <p>
-                            <strong>Kinh nghiệm:</strong>
-                            @doctor.ExperienceYears năm
-                        </p>
-
-                        <p>
-                            @doctor.Description
-                        </p>
-
-                        <button class="btn btn-primary">
-                            Đặt lịch khám
-                        </button>
-
-                    </div>
+                <div class="rating">
+                    ⭐ @doctor.Rating (@doctor.Reviews lượt)
                 </div>
+
+                <button class="btn-book">
+                    Đặt khám với bác sĩ
+                </button>
+
             </div>
         }
+
     </div>
+</section>
+
+<!-- DANH SÁCH CƠ SỞ Y TẾ -->
+<section class="clinic-list">
+    <h3>Danh sách cơ sở y tế</h3>
+
+    <div class="grid">
+
+        @foreach (var hospital in hospitals)
+        {
+            <div class="clinic-card">
+
+                <h4>@hospital.Name</h4>
+
+                <p>@hospital.Address</p>
+
+                <div class="rating">
+                    ⭐ @hospital.Rating
+                </div>
+
+            </div>
+        }
+
+    </div>
+</section>
+
+<!-- HỖ TRỢ -->
+<div class="support-container">
+
+    <div class="support-left">
+        <img src="/images/support-doctor.jpg"
+             class="doctor-img"
+             alt="Hỗ trợ" />
+    </div>
+
+    <div class="support-right">
+
+        <h2>Tổng đài hỗ trợ</h2>
+
+        <div class="hotline">
+            1900 2005
+        </div>
+
+        <div class="qr-group">
+
+            <div class="qr-item">
+                <img src="/images/qr-android.png" />
+                <p>Android</p>
+            </div>
+
+            <div class="qr-item">
+                <img src="/images/qr-ios.png" />
+                <p>iOS</p>
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
