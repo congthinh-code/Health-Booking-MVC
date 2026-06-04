@@ -1,269 +1,105 @@
-﻿@{
+﻿@model IEnumerable<Health_Booking_MVC.Models.Hospital>
+@{
     ViewData["Title"] = "Thanh toán viện phí";
-
-    var hospitals = new[]
-    {
-        new {
-            HospitalId = 1,
-            Name = "Bệnh viện Đa khoa Bình Định",
-            Address = "106 Nguyễn Huệ, TP. Quy Nhơn",
-            Rating = 5,
-            Image = "/images/anhbenhvien/bvdk.jpg",
-            WebsiteUrl = "https://benhvienbinhdinh.com.vn/benh-vien-da-khoa-tinh-binh-dinh-diem-sang-ve-phat-trien-cac-ky-thuat-moi-chuyen-sau-va-xa-hoi-hoa-y-te-2/"
-        },
-
-        new {
-            HospitalId = 2,
-            Name = "Bệnh viện Quân Y 13",
-            Address = "01 Nguyễn Thái Học, TP. Quy Nhơn",
-            Rating = 4,
-            Image = "/images/anhbenhvien/quany13.jpg",
-            WebsiteUrl = "https://benhvienquany13.vn/"
-        },
-
-        new {
-            HospitalId = 3,
-            Name = "Bệnh viện Mắt Bình Định",
-            Address = "12 Lê Lợi, TP. Quy Nhơn",
-            Rating = 5,
-            Image = "/images/anhbenhvien/bvmat.jpg",
-            WebsiteUrl = "https://www.bvmatbinhdinh.vn/ "
-        },
-
-        new {
-            HospitalId = 4,
-            Name = "Bệnh viện Đa khoa Thu Phúc",
-            Address = "418-420 Nguyễn Thái Học, TP. Quy Nhơn",
-            Rating = 4,
-            Image = "/images/anhbenhvien/dktp.jpg",
-            WebsiteUrl = "https://thuphuc.vn/"
-        }
-    };
 }
 
 <link rel="stylesheet" href="~/css/DVYT/TTVP.css" />
 
-<!-- MENU -->
 <div class="tab-container">
-    <a asp-controller="DVYT" asp-action="ĐKCS" class="tab-item">
-        Đặt khám cơ sở
-    </a>
-
-    <a asp-controller="DVYT" asp-action="ĐKCK" class="tab-item">
-        Đặt khám chuyên khoa
-    </a>
-
-    <a asp-controller="DVYT" asp-action="ĐKBS" class="tab-item">
-        Đặt khám bác sĩ
-    </a>
-
-    <a asp-controller="DVYT" asp-action="ĐKNG" class="tab-item">
-        Đặt khám ngoài giờ
-    </a>
-
-    <a asp-controller="DVYT" asp-action="TTVP" class="tab-item active">
-        Thanh toán viện phí
-    </a>
+    <a asp-controller="DVYT" asp-action="ĐKCS" class="tab-item">Đặt khám cơ sở</a>
+    <a asp-controller="DVYT" asp-action="ĐKCK" class="tab-item">Đặt khám chuyên khoa</a>
+    <a asp-controller="DVYT" asp-action="ĐKBS" class="tab-item">Đặt khám bác sĩ</a>
+    <a asp-controller="DVYT" asp-action="ĐKNG" class="tab-item">Đặt khám ngoài giờ</a>
+    <a asp-controller="DVYT" asp-action="TTVP" class="tab-item active">Thanh toán viện phí</a>
 </div>
 
-<!-- BANNER -->
 <div class="banner">
     <h1>Thanh toán viện phí</h1>
 </div>
 
-<!-- SEARCH -->
 <div class="search-box">
-    <input type="text"
-           id="search"
-           placeholder="🔍 Tìm bệnh viện..." />
+    <input type="text" id="search" placeholder="🔍 Tìm bệnh viện..." />
 </div>
 
-<!-- DANH SÁCH BỆNH VIỆN -->
 <div id="list" class="benhvien-list">
-
-    @foreach (var h in hospitals)
+    @foreach (var h in Model)
     {
         <div class="benhvien-card">
-
-            <img src="@h.Image"
-                 alt="@h.Name"
-                 class="benhvien-img" />
-
+            <img src="/@h.Image" alt="@h.Name" class="benhvien-img" />
             <div class="benhvien-info">
-
                 <h2>@h.Name</h2>
-
                 <p>@h.Address</p>
-
-                <div class="rating">
-                    ⭐ @h.Rating / 5
-                </div>
-
+                <div class="rating">⭐ @h.Rating / 5</div>
                 <div class="benhvien-btns">
-
-                    <a href="@h.WebsiteUrl"
-                       target="_blank"
-                       class="xem">
-                        Xem chi tiết
-                    </a>
-
-                    <button class="dat"
-                            onclick="openModal(@h.HospitalId,'@h.Name')">
+                    <a href="@h.WebsiteUrl" target="_blank" class="xem">Xem chi tiết</a>
+                    <button class="dat" onclick="openModal(@h.HospitalId,'@h.Name')">
                         Thanh toán viện phí
                     </button>
-
                 </div>
-
             </div>
-
         </div>
     }
-
 </div>
 
-<!-- MODAL -->
 <div id="modal" class="modal">
-
     <div class="modal-content">
-
-        <span class="close"
-              onclick="closeModal()">
-            &times;
-        </span>
-
+        <span class="close" onclick="closeModal()">&times;</span>
         <h2>Thanh toán viện phí</h2>
-
         <form id="paymentForm">
-
-            <input type="text"
-                   id="patientName"
-                   placeholder="Họ và tên"
-                   required />
-
-            <input type="tel"
-                   id="phone"
-                   placeholder="Số điện thoại"
-                   required />
-
-            <input type="hidden"
-                   id="hospitalId" />
-
-            <input type="text"
-                   id="hospitalName"
-                   placeholder="Bệnh viện"
-                   readonly />
-
-            <input type="text"
-                   id="billNumber"
-                   placeholder="Mã hóa đơn"
-                   required />
-
-            <input type="number"
-                   id="amount"
-                   placeholder="Số tiền cần thanh toán"
-                   required />
-
-            <button type="button"
-                    onclick="payNow()">
-                Xác nhận thanh toán
-            </button>
-
+            <input type="text" id="patientName" placeholder="Họ và tên" required />
+            <input type="tel" id="phone" placeholder="Số điện thoại" required />
+            <input type="hidden" id="hospitalId" />
+            <input type="text" id="hospitalName" placeholder="Bệnh viện" readonly />
+            <input type="text" id="billNumber" placeholder="Mã hóa đơn" required />
+            <input type="number" id="amount" placeholder="Số tiền cần thanh toán" required />
+            <button type="button" onclick="payNow()">Xác nhận thanh toán</button>
         </form>
-
     </div>
-
 </div>
 
 <script>
-
     function openModal(id, name) {
-
         document.getElementById("hospitalId").value = id;
         document.getElementById("hospitalName").value = name;
-
-        document
-            .getElementById("modal")
-            .classList.add("show");
+        document.getElementById("modal").classList.add("show");
     }
 
     function closeModal() {
-
-        document
-            .getElementById("modal")
-            .classList.remove("show");
-
-        document
-            .getElementById("paymentForm")
-            .reset();
+        document.getElementById("modal").classList.remove("show");
+        document.getElementById("paymentForm").reset();
     }
 
     function payNow() {
+        let patientName = document.getElementById("patientName").value;
+        let phone = document.getElementById("phone").value;
+        let billNumber = document.getElementById("billNumber").value;
+        let amount = document.getElementById("amount").value;
 
-        let patientName =
-            document.getElementById("patientName").value;
-
-        let phone =
-            document.getElementById("phone").value;
-
-        let billNumber =
-            document.getElementById("billNumber").value;
-
-        let amount =
-            document.getElementById("amount").value;
-
-        if (!patientName ||
-            !phone ||
-            !billNumber ||
-            !amount) {
-
+        if (!patientName || !phone || !billNumber || !amount) {
             alert("Vui lòng nhập đầy đủ thông tin!");
             return;
         }
 
-        alert(
-            "Thanh toán thành công!\n\n" +
-            "Bệnh nhân: " + patientName + "\n" +
-            "Mã hóa đơn: " + billNumber + "\n" +
-            "Số tiền: " + amount + " VNĐ"
-        );
-
+        alert("Thanh toán thành công!\n\nBệnh nhân: " + patientName + "\nMã hóa đơn: " + billNumber + "\nSố tiền: " + amount + " VNĐ");
         closeModal();
     }
 
-    document
-        .getElementById("search")
-        .addEventListener("keyup", function () {
-
-            let keyword =
-                this.value.toLowerCase();
-
-            document
-                .querySelectorAll(".benhvien-card")
-                .forEach(card => {
-
-                    let hospitalName =
-                        card.querySelector("h2")
-                            .innerText
-                            .toLowerCase();
-
-                    if (hospitalName.includes(keyword)) {
-                        card.style.display = "";
-                    }
-                    else {
-                        card.style.display = "none";
-                    }
-                });
+    document.getElementById("search").addEventListener("keyup", function () {
+        let keyword = this.value.toLowerCase();
+        document.querySelectorAll(".benhvien-card").forEach(card => {
+            let hospitalName = card.querySelector("h2").innerText.toLowerCase();
+            if (hospitalName.includes(keyword)) {
+                card.style.display = "";
+            } else {
+                card.style.display = "none";
+            }
         });
+    });
 
     window.onclick = function (event) {
-
-        let modal =
-            document.getElementById("modal");
-
+        let modal = document.getElementById("modal");
         if (event.target === modal) {
-
             closeModal();
         }
     };
-
 </script>

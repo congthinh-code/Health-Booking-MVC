@@ -1,166 +1,109 @@
-﻿@{
+@model IEnumerable<Health_Booking_MVC.Models.Doctor>
+@{
     ViewData["Title"] = "Đặt khám bác sĩ";
-
-    var doctors = new[]
-    {
-        new {
-            FullName = "BS. Nguyễn Văn An",
-            Specialization = "Nội Tim Mạch",
-            Treatment = "Điều trị các bệnh lý tim mạch",
-            Price = "300.000 VNĐ",
-            Rating = 4.9,
-            Reviews = 120,
-            Avatar = "images/anhbacsi/anhbs5.jpg"
-        },
-
-        new {
-            FullName = "BS. Trần Thị Mai",
-            Specialization = "Da Liễu",
-            Treatment = "Khám và điều trị bệnh da liễu",
-            Price = "250.000 VNĐ",
-            Rating = 4.8,
-            Reviews = 98,
-            Avatar = "images/anhbacsi/anhbs1.jpg"
-        },
-
-        new {
-            FullName = "BS. Lê Hoàng Nam",
-            Specialization = "Tai Mũi Họng",
-            Treatment = "Khám Tai Mũi Họng",
-            Price = "280.000 VNĐ",
-            Rating = 4.7,
-            Reviews = 75,
-            Avatar = "images/anhbacsi/anhbs6.jpg"
-        },
-
-        new {
-            FullName = "BS. Phạm Minh Tuấn",
-            Specialization = "Nội Tiêu Hóa",
-            Treatment = "Điều trị bệnh tiêu hóa",
-            Price = "350.000 VNĐ",
-            Rating = 4.9,
-            Reviews = 150,
-            Avatar = "images/anhbacsi/anhbs7.jpg"
-        }
-    };
-
-    var hospitals = new[]
-    {
-        new {
-            Name = "Bệnh viện Đa khoa Bình Định",
-            Address = "106 Nguyễn Huệ, Quy Nhơn",
-            Rating = 5
-        },
-
-        new {
-            Name = "Bệnh viện Quân Y 13",
-            Address = "01 Nguyễn Thái Học, Quy Nhơn",
-            Rating = 4
-        },
-
-        new {
-            Name = "Bệnh viện Da Liễu Bình Định",
-            Address = "08 Trần Hưng Đạo, Quy Nhơn",
-            Rating = 5
-        },
-
-        new {
-            Name = "Bệnh viện Mắt Bình Định",
-            Address = "12 Lê Lợi, Quy Nhơn",
-            Rating = 4
-        }
-    };
+    var hospitals = ViewBag.Hospitals as IEnumerable<Health_Booking_MVC.Models.Hospital> ?? new List<Health_Booking_MVC.Models.Hospital>();
 }
 <link rel="stylesheet" href="~/css/DVYT/ĐKBS.css" asp-append-version="true" />
 
-<!-- MENU -->
 <div class="tab-container">
-    <a asp-controller="DVYT" asp-action="ĐKCS" class="tab-item">
-        Đặt khám cơ sở
-    </a>
-
-    <a asp-controller="DVYT" asp-action="ĐKCK" class="tab-item">
-        Đặt khám chuyên khoa
-    </a>
-
-    <a asp-controller="DVYT" asp-action="ĐKBS" class="tab-item active">
-        Đặt khám bác sĩ
-    </a>
-
-    <a asp-controller="DVYT" asp-action="ĐKNG" class="tab-item">
-        Đặt khám ngoài giờ
-    </a>
-
-    <a asp-controller="DVYT" asp-action="TTVP" class="tab-item">
-        Thanh toán viện phí
-    </a>
+    <a asp-controller="DVYT" asp-action="ĐKCS" class="tab-item">Đặt khám cơ sở</a>
+    <a asp-controller="DVYT" asp-action="ĐKCK" class="tab-item">Đặt khám chuyên khoa</a>
+    <a asp-controller="DVYT" asp-action="ĐKBS" class="tab-item active">Đặt khám bác sĩ</a>
+    <a asp-controller="DVYT" asp-action="ĐKNG" class="tab-item">Đặt khám ngoài giờ</a>
+    <a asp-controller="DVYT" asp-action="TTVP" class="tab-item">Thanh toán viện phí</a>
 </div>
 
-<!-- DANH SÁCH BÁC SĨ -->
 <section class="doctor-list">
     <h3>DANH SÁCH BÁC SĨ</h3>
-
     <div class="grid">
-
-        @foreach (var doctor in doctors)
+        @foreach (var doctor in Model)
         {
             <div class="doctor-card">
-
-                <img src="@doctor.Avatar"
-                     alt="@doctor.FullName"
-                     onerror="this.src='/images/doctor.png'" />
-
+                <img src="/images/anhbacsi/@doctor.Avatar" alt="@doctor.FullName" onerror="this.src='/images/doctor.png'" />
                 <h4>@doctor.FullName</h4>
+                <p><b>Chuyên khoa:</b> @(doctor.Specialization?.Name)</p>
+                <p><b>Kinh nghiệm:</b> @doctor.ExperienceYears năm</p>
+                <p><b>Chuyên môn:</b> @doctor.Description</p>
 
-                <p>
-                    <b>Chuyên khoa:</b>
-                    @doctor.Specialization
-                </p>
+                @if (doctor.Hospital != null)
+                {
+                    <p><b>Nơi công tác:</b> @doctor.Hospital.Name</p>
+                }
 
-                <p>
-                    <b>Chuyên trị:</b>
-                    @doctor.Treatment
-                </p>
-
-                <p>
-                    <b>Giá khám:</b>
-                    @doctor.Price
-                </p>
-
-                <div class="rating">
-                    ⭐ @doctor.Rating (@doctor.Reviews lượt)
-                </div>
-
-                <button class="btn-book">
+                <!-- Gọi sự kiện openModal truyền ID và Tên bác sĩ vào -->
+                <button class="btn-book" onclick="openModal(@doctor.DoctorId, '@doctor.FullName')">
                     Đặt khám với bác sĩ
                 </button>
-
             </div>
         }
-
     </div>
 </section>
 
-<!-- DANH SÁCH CƠ SỞ Y TẾ -->
 <section class="clinic-list">
     <h3>Danh sách cơ sở y tế</h3>
-
     <div class="grid">
-
         @foreach (var hospital in hospitals)
         {
             <div class="clinic-card">
-
                 <h4>@hospital.Name</h4>
-
                 <p>@hospital.Address</p>
-
-                <div class="rating">
-                    ⭐ @hospital.Rating
-                </div>
-
+                <div class="rating">⭐ @hospital.Rating</div>
             </div>
         }
-
     </div>
 </section>
+
+<div id="bookingModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Đặt lịch khám Bác Sĩ</h2>
+        <form id="bookingForm">
+
+            <input type="text" id="patientName" placeholder="Họ và tên bệnh nhân" required />
+            <input type="tel" id="phone" placeholder="Số điện thoại" required />
+
+            <input type="hidden" id="doctorId" />
+            <!-- Textbox hiện tên bác sĩ đã chọn (chỉ đọc) -->
+            <input type="text" id="doctorName" readonly />
+
+            <input type="date" required />
+            <input type="time" required />
+
+            <button type="submit">Xác nhận đặt khám</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Hàm mở form và gắn tên bác sĩ
+    function openModal(id, name) {
+        document.getElementById("bookingModal").style.display = "flex";
+        document.getElementById("doctorId").value = id;
+        document.getElementById("doctorName").value = name;
+    }
+
+    // Hàm đóng form
+    function closeModal() {
+        document.getElementById("bookingModal").style.display = "none";
+        document.getElementById("bookingForm").reset();
+    }
+
+    // Bấm ra ngoài rìa đen cũng tự đóng form
+    window.onclick = function (e) {
+        const modal = document.getElementById("bookingModal");
+        if (e.target == modal) {
+            closeModal();
+        }
+    }
+
+    // Xử lý khi ấn nút "Xác nhận đặt khám"
+    document.getElementById("bookingForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        let doctor = document.getElementById("doctorName").value;
+        let patient = document.getElementById("patientName").value;
+
+        alert("Đặt lịch thành công!\n\nBệnh nhân: " + patient + "\nBác sĩ: " + doctor);
+        closeModal();
+    });
+</script>
