@@ -67,8 +67,8 @@
                         @* Kiểm tra nếu là bệnh nhân thì có thể hiện thêm nút vào trang cá nhân *@
                         @if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "patient")
                         {
-                            <a asp-controller="Doctor" asp-action="Dashboard" class="btn-outline" style="font-size: 13px;">
-                                <i class="fa-solid fa-chart-line"></i> Trang cá nhân
+                            <a asp-controller="Patient" asp-action="Profile" class="btn-outline" style="font-size: 13px;">
+                                <i class="fa-solid fa-user"></i> Trang cá nhân
                             </a>
                         }
 
