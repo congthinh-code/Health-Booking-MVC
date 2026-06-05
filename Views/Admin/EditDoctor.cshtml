@@ -1,0 +1,45 @@
+﻿@model Health_Booking_MVC.Models.Doctor
+@{
+    Layout = "~/Views/Admin/_Admin.cshtml";
+    ViewData["Title"] = "Chỉnh sửa thông tin Bác sĩ";
+}
+
+<div class="container-fluid">
+    <div class="card card-custom bg-white p-4" style="max-width: 600px; margin: 0 auto;">
+        <h5 class="fw-bold mb-4 text-dark"><i class="fa fa-plus text-primary me-2"></i> Thêm mới Bác sĩ</h5>
+
+        <form asp-action="EditDoctor" method="post">
+            <div asp-validation-summary="All" class="text-danger mb-3" style="font-size: 14px; font-weight: 500;"></div>
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Họ và Tên</label>
+                <input asp-for="FullName" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Số điện thoại</label>
+                <input asp-for="Phone" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Số năm kinh nghiệm</label>
+                <input asp-for="ExperienceYears" type="number" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Chuyên khoa</label>
+                <select asp-for="SpecializationId" class="form-select" asp-items="@(new SelectList(ViewBag.Specializations, "SpecializationId", "Name"))"></select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Bệnh viện công tác</label>
+                <select asp-for="HospitalId" class="form-select" asp-items="@(new SelectList(ViewBag.Hospitals, "HospitalId", "Name"))"></select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Mô tả/Tiểu sử</label>
+                <textarea asp-for="Description" class="form-control" rows="3" required></textarea>
+            </div>
+
+            <div class="text-end">
+                <a asp-action="Doctor" class="btn btn-sm btn-secondary me-2">Quay lại</a>
+                <button type="submit" class="btn btn-sm text-white" style="background-color: #f4978e;">Lưu thông tin</button>
+            </div>
+        </form>
+        <input type="hidden" asp-for="DoctorId" />
+    </div>
+</div>
