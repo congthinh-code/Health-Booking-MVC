@@ -6,10 +6,13 @@
 
 <div class="container-fluid">
     <div class="card card-custom bg-white p-4" style="max-width: 600px; margin: 0 auto;">
-        <h5 class="fw-bold mb-4 text-dark"><i class="fa fa-plus text-primary me-2"></i> Thêm mới Bác sĩ</h5>
+        <h5 class="fw-bold mb-4 text-dark"><i class="fa fa-pen text-primary me-2"></i> Chỉnh sửa thông tin Bác sĩ</h5>
 
         <form asp-action="EditDoctor" method="post">
+            <input type="hidden" asp-for="DoctorId" />
+
             <div asp-validation-summary="All" class="text-danger mb-3" style="font-size: 14px; font-weight: 500;"></div>
+
             <div class="mb-3">
                 <label class="form-label fw-semibold">Họ và Tên</label>
                 <input asp-for="FullName" class="form-control" required />
@@ -37,9 +40,8 @@
 
             <div class="text-end">
                 <a asp-action="Doctor" class="btn btn-sm btn-secondary me-2">Quay lại</a>
-                <button type="submit" class="btn btn-sm text-white" style="background-color: #f4978e;">Lưu thông tin</button>
+                <button type="submit" class="btn btn-sm text-white" style="background-color: #f4978e;">Lưu thay đổi</button>
             </div>
         </form>
-        <input type="hidden" asp-for="DoctorId" />
     </div>
 </div>
