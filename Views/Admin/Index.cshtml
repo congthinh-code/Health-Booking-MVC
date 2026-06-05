@@ -1,0 +1,55 @@
+﻿@{
+    Layout = "~/Views/Admin/_Admin.cshtml";
+    ViewData["Title"] = "Tổng quan quản trị";
+}
+
+<div class="container-fluid">
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="card card-custom bg-white p-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted text-uppercase small font-weight-bold">Tổng số Bác sĩ</h6>
+                        <h2 class="fw-bold m-0 text-primary">@ViewBag.TotalDoctors</h2>
+                    </div>
+                    <div class="p-3 rounded-circle" style="background-color: #ffebe9; color: #f4978e;">
+                        <i class="fa-solid fa-user-md fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-custom bg-white p-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted text-uppercase small">Tổng số Bệnh nhân</h6>
+                        <h2 class="fw-bold m-0 text-success">@ViewBag.TotalPatients</h2>
+                    </div>
+                    <div class="p-3 rounded-circle" style="background-color: #e6f4ea; color: #137333;">
+                        <i class="fa-solid fa-user-injured fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-custom bg-white p-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted text-uppercase small">Tài khoản hệ thống</h6>
+                        <h2 class="fw-bold m-0 text-info">@ViewBag.TotalUsers</h2>
+                    </div>
+                    <div class="p-3 rounded-circle" style="background-color: #e8f0fe; color: #1a73e8;">
+                        <i class="fa-solid fa-users fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-custom bg-white p-4">
+        <h5 class="fw-bold text-dark mb-3"><i class="fa-solid fa-circle-check text-success me-2"></i> Trạng thái hệ thống</h5>
+        <p class="text-muted">Hệ thống website đặt lịch khám HealthMeet đang vận hành ổn định. Phiên làm việc của bạn đang được bảo mật.</p>
+    </div>
+</div>
