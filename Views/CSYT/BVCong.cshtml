@@ -18,7 +18,7 @@
 <h2 class="title">Bệnh viện công lập</h2>
 <h3 class="subtitle">Danh sách các bệnh viện công lập tại Bình Định</h3>
 
-<div class="container">
+<div class="container" id="hospitalGrid">
     @foreach (var bv in Model)
     {
         <div class="card">
@@ -50,3 +50,51 @@
         </div>
     }
 </div>
+
+<!-- Thêm thanh phân trang ở cuối -->
+<div id="hospitalPagination" class="pagination"></div>
+
+<script>
+    // ===================== CODE PHÂN TRANG BVCONG =====================
+    document.addEventListener("DOMContentLoaded", function () {
+        const itemsPerPage = 4; // Cấu hình trang 1 hiện 4 bệnh viện, trang 2 hiện 3 bệnh viện
+        const cards = Array.from(document.querySelectorAll("#hospitalGrid .card"));
+        const paginationContainer = document.getElementById("hospitalPagination");
+        let currentPage = 1;
+
+        function showPage(page) {
+            currentPage = page;
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+
+            cards.forEach((card, index) => {
+                if (index >= startIndex && index < endIndex) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            updatePagination();
+        }
+
+        function updatePagination() {
+            paginationContainer.innerHTML = "";
+            const totalPages = Math.ceil(cards.length / itemsPerPage);
+            if (totalPages <= 1) return;
+
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement("button");
+                btn.innerText = i;
+                btn.className = (i === currentPage) ? "active" : "";
+                btn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    showPage(i);
+                });
+                paginaationContainer.appendChild(btn);
+            }
+        }
+
+        showPage(1);
+    });
+</script>

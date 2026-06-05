@@ -39,11 +39,15 @@ namespace Health_Booking_MVC.Controllers
             return View(specializations);
         }
 
-        
+
         public async Task<IActionResult> ĐKNG()
         {
-            
             var hospitals = await _context.Hospitals.ToListAsync();
+            // Lấy danh sách bác sĩ kèm chuyên khoa và cơ sở y tế
+            ViewBag.Doctors = await _context.Doctors
+                .Include(d => d.Specialization)
+                .Include(d => d.Hospital)
+                .ToListAsync();
             return View(hospitals);
         }
 

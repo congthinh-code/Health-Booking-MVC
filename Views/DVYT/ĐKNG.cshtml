@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Health_Booking_MVC.Models.Hospital>
+@model IEnumerable<Health_Booking_MVC.Models.Hospital>
 @{
     ViewData["Title"] = "Đặt khám ngoài giờ";
     var doctors = ViewBag.Doctors as IEnumerable<Health_Booking_MVC.Models.Doctor> ?? new List<Health_Booking_MVC.Models.Doctor>();
@@ -17,74 +17,110 @@
     <h1 class="page-title">ĐẶT LỊCH KHÁM NGOÀI GIỜ</h1>
 </div>
 
-<div class="grid">
-    @foreach (var bv in Model)
-    {
-        <div class="card">
-            <div class="card-left">
-                <img src="/@bv.Image" class="logo" alt="@bv.Name" />
-            </div>
-            <div class="card-right">
-                <h3 class="title">
-                    @bv.Name
-                    <span class="verified">✓</span>
-                </h3>
-                <p class="address">@bv.Address</p>
-                <div class="rating">
-                    <span class="score">(@bv.Rating)</span>
-                    <span class="stars">
-                        @for (int i = 0; i < bv.Rating; i++)
-                        {
-                            @:★
-                        }
-                    </span>
-                </div>
-                <div class="actions">
-                    <a href="#" class="btn outline">Xem chi tiết</a>
-                    <button type="button" class="btn primary" onclick="openModal(@bv.HospitalId,'@bv.Name')">
-                        Đặt khám
-                    </button>
-                </div>
-            </div>
-        </div>
-    }
-</div>
+<!-- ===================== DANH SÁCH BỆNH VIỆN ===================== -->
+<section class="hospital-list">
+    <!-- Tiêu đề Danh sách bệnh viện  -->
+    <h3 class="page-title">Danh sách bệnh viện</h3>
 
+    <div id="hospitalGrid" class="grid">
+        @foreach (var bv in Model)
+        {
+            <div class="card">
+                <div class="card-left">
+                    <img src="/@bv.Image" class="logo" alt="@bv.Name" />
+                </div>
+                <div class="card-right">
+                    <h3 class="title">
+                        @bv.Name
+                        <span class="verified">✓</span>
+                    </h3>
+                    <p class="address">@bv.Address</p>
+                    <div class="rating">
+                        <span class="score">(@bv.Rating)</span>
+                        <span class="stars">
+                            @for (int i = 0; i < bv.Rating; i++)
+                            {
+                                @:★
+                            }
+                        </span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="#" class="btn outline">Xem chi tiết</a>
+                        <button type="button" class="btn primary" onclick="openModal(@bv.HospitalId,'@bv.Name')">
+                            Đặt khám
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- ===================== MODAL ĐẶT LỊCH ===================== -->
 <div id="modal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
         <h2>Đặt lịch khám ngoài giờ</h2>
         <form id="bookingForm">
-            <input type="text" id="patientName" placeholder="Họ và tên" required />
-            <input type="tel" id="phone" placeholder="Số điện thoại" required />
             <input type="hidden" id="hospital_id" />
-            <input type="text" id="hospital_name" readonly />
-            <select id="doctorSelect" required>
-                <option value="">-- Chọn bác sĩ --</option>
-                @foreach (var doctor in doctors)
-                {
-                    <option value="@doctor.DoctorId">@doctor.FullName</option>
-                }
-            </select>
-            <input type="date" required />
-            <input type="time" required />
+
+            <div class="form-group">
+                <label for="hospital_name">Cơ sở y tế</label>
+                <input type="text" id="hospital_name" readonly />
+            </div>
+
+            <div class="form-group">
+                <label for="patientName">Họ và tên bệnh nhân</label>
+                <input type="text" id="patientName" placeholder="Họ và tên" required />
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Số điện thoại</label>
+                <input type="tel" id="phone" placeholder="Số điện thoại" required />
+            </div>
+
+            <div class="form-group">
+                <label for="doctorSelect">Chọn bác sĩ khám</label>
+                <select id="doctorSelect" required>
+                    <option value="">-- Chọn bác sĩ --</option>
+                    @foreach (var doctor in doctors)
+                    {
+                        <option value="@doctor.DoctorId">@doctor.FullName</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Ngày khám</label>
+                    <input type="date" required />
+                </div>
+                <div class="form-group">
+                    <label>Giờ khám</label>
+                    <input type="time" required />
+                </div>
+            </div>
+
             <button type="submit">Xác nhận đặt khám</button>
         </form>
     </div>
 </div>
 
 <script>
+    // Hàm mở form từ danh sách Bệnh viện
     function openModal(id, name) {
         document.getElementById("hospital_id").value = id;
         document.getElementById("hospital_name").value = name;
         document.getElementById("modal").style.display = "flex";
     }
 
+    // Hàm đóng form
     function closeModal() {
         document.getElementById("modal").style.display = "none";
         document.getElementById("bookingForm").reset();
     }
 
+    // Gửi form đặt khám
     document.getElementById("bookingForm").addEventListener("submit", function (e) {
         e.preventDefault();
         let patient = document.getElementById("patientName").value;
