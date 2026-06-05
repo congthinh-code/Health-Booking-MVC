@@ -20,7 +20,7 @@
 <div class="department-grid">
     @foreach (var item in Model)
     {
-        <a href="#" class="department-card">
+        <a href="https://medpro.vn/tim-kiem?kw=@(item.Name.Replace(" - ", " "))&tab=subject&page=1" target="_blank" rel="noopener noreferrer" class="department-card">
             <img src="~/images/iconchuyenkhoa/@(item.Name).png" alt="@item.Name" onerror="this.src='/images/logo.png'" />
             <p>@item.Name</p>
         </a>

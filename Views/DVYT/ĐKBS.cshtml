@@ -37,20 +37,8 @@
             </div>
         }
     </div>
-</section>
-
-<section class="clinic-list">
-    <h3>Danh sách cơ sở y tế</h3>
-    <div class="grid">
-        @foreach (var hospital in hospitals)
-        {
-            <div class="clinic-card">
-                <h4>@hospital.Name</h4>
-                <p>@hospital.Address</p>
-                <div class="rating">⭐ @hospital.Rating</div>
-            </div>
-        }
-    </div>
+    <!-- Thêm thanh phân trang vào đây -->
+    <div id="doctorPagination" class="pagination"></div>
 </section>
 
 <div id="bookingModal" class="modal">
@@ -105,5 +93,50 @@
 
         alert("Đặt lịch thành công!\n\nBệnh nhân: " + patient + "\nBác sĩ: " + doctor);
         closeModal();
+    });
+
+    // ===================== CODE XỬ LÝ PHÂN TRANG BÁC SĨ=====================
+    document.addEventListener("DOMContentLoaded", function () {
+        const itemsPerPage = 4; // Cấu hình hiển thị 4 bác sĩ trên 1 trang
+        const cards = Array.from(document.querySelectorAll(".doctor-card"));
+        const paginationContainer = document.getElementById("doctorPagination");
+        let currentPage = 1;
+
+        function showPage(page) {
+            currentPage = page;
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+
+            cards.forEach((card, index) => {
+                if (index >= startIndex && index < endIndex) {
+                    card.style.display = ""; // Hiển thị card hợp lệ
+                } else {
+                    card.style.display = "none"; 
+                }
+            });
+
+            updatePaginationButtons();
+        }
+
+        function updatePaginationButtons() {
+            paginationContainer.innerHTML = "";
+            const totalPages = Math.ceil(cards.length / itemsPerPage);
+
+            if (totalPages <= 1) return; // Không cần phân trang nếu số bác sĩ ít hơn hoặc bằng 4
+
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement("button");
+                btn.innerText = i;
+                btn.className = (i === currentPage) ? "active" : "";
+                btn.addEventListener("click", function (e) {
+                    e.preventDefault(); // Ngăn hành vi tải lại trang mặc định
+                    showPage(i);
+                });
+                paginationContainer.appendChild(btn);
+            }
+        }
+
+        // Khởi động trang đầu tiên
+        showPage(1);
     });
 </script>

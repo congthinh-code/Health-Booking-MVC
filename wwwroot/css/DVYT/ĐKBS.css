@@ -168,105 +168,121 @@ h3 {
         font-size: 15px;
     }
 
-/* ===================== MODAL (FORM BẬT LÊN) ===================== */
+/* ===================== MODAL (FORM ĐỒNG BỘ RỘNG HƠN) ===================== */
 .modal {
-    display: none; /* Mặc định ẩn */
+    display: none;
     position: fixed;
     z-index: 9999;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Nền mờ */
+    background: rgba(76, 36, 168, 0.35);
+    backdrop-filter: blur(8px);
     align-items: center;
     justify-content: center;
 }
 
 .modal-content {
     background-color: #fff;
-    padding: 30px;
-    border-radius: 20px;
+    padding: 35px 40px;
+    border-radius: 24px;
     width: 90%;
-    max-width: 450px;
+    max-width: 600px; /* Đồng bộ kích thước form rộng */
     position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    animation: fadeIn 0.3s ease;
+    box-shadow: 0 20px 40px rgba(76, 36, 168, 0.15);
+    border: 1px solid rgba(243, 200, 222, 0.5);
+    animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(-20px) scale(0.95);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 }
 
 .close {
     position: absolute;
     right: 20px;
-    top: 15px;
+    top: 20px;
     font-size: 28px;
-    font-weight: bold;
-    color: #aaa;
+    font-weight: 300;
     cursor: pointer;
-    transition: 0.3s;
+    color: #a68cb6;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #fdf6fa;
+    transition: all 0.25s ease;
 }
 
     .close:hover {
-        color: #d93ba2;
+        color: #fff;
+        background: #d93ba2;
+        transform: rotate(90deg);
     }
 
 .modal-content h2 {
-    color: #d93ba2;
+    color: #4c24a8;
     text-align: center;
     margin-bottom: 25px;
-    font-size: 22px;
+    font-size: 24px;
+    font-weight: 700;
 }
 
 #bookingForm input {
     width: 100%;
-    padding: 12px 14px;
-    margin-bottom: 15px;
-    border: 2px solid #f3c8de;
+    padding: 13px 16px;
+    margin-bottom: 16px;
+    border: 1.5px solid #efb4d7;
     border-radius: 12px;
     font-size: 15px;
+    color: #4c24a8;
     font-family: inherit;
-    transition: 0.3s;
+    transition: 0.25s ease;
 }
 
     #bookingForm input:focus {
         border-color: #d93ba2;
         outline: none;
+        box-shadow: 0 0 0 4px rgba(217, 59, 162, 0.12);
     }
 
-    /* Đổi màu ô Tên Bác Sĩ (readonly) cho có cảm giác khóa */
     #bookingForm input[readonly] {
-        background-color: #f8f9fa;
-        color: #d93ba2;
-        font-weight: bold;
+        background-color: #fdf5f8;
+        border-color: #f3c8de;
+        color: #8a64ad;
+        font-weight: 500;
+        cursor: not-allowed;
     }
 
 #bookingForm button[type="submit"] {
     width: 100%;
-    background: linear-gradient(90deg, #fbc2eb, #a6c1ee);
-    color: #000;
-    padding: 14px;
+    background: linear-gradient(135deg, #d93ba2 0%, #4c24a8 100%);
+    color: #fff;
+    padding: 15px;
     border: none;
-    border-radius: 12px;
+    border-radius: 14px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
-    transition: 0.3s;
+    box-shadow: 0 6px 20px rgba(217, 59, 162, 0.25);
+    transition: 0.3s ease;
     margin-top: 10px;
 }
 
     #bookingForm button[type="submit"]:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(214,51,132,.3);
+        box-shadow: 0 8px 25px rgba(217, 59, 162, 0.35);
     }
 
 /* ===================== RESPONSIVE ===================== */
@@ -275,3 +291,38 @@ h3 {
         grid-template-columns: 1fr;
     }
 }
+/* ===================== PAGINATION ===================== */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 30px 0;
+    width: 100%;
+}
+
+    .pagination button {
+        padding: 10px 18px;
+        border-radius: 25px;
+        border: 2px solid #d93ba2;
+        background: #fce4f1;
+        color: #d93ba2;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+        transition: 0.25s ease;
+        box-shadow: 0 4px 10px rgba(217, 59, 162, 0.15);
+        outline: none;
+    }
+
+        .pagination button:hover {
+            background: #d93ba2;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .pagination button.active {
+            background: #d93ba2 !important;
+            color: white !important;
+            border-color: #d93ba2;
+            box-shadow: 0 4px 14px rgba(217, 59, 162, 0.35);
+        }

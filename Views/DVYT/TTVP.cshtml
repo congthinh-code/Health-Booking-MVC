@@ -41,17 +41,42 @@
     }
 </div>
 
+<!-- Phân trang bệnh viện -->
+<div id="hospitalPagination" class="pagination"></div>
+
 <div id="modal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
         <h2>Thanh toán viện phí</h2>
         <form id="paymentForm">
-            <input type="text" id="patientName" placeholder="Họ và tên" required />
-            <input type="tel" id="phone" placeholder="Số điện thoại" required />
             <input type="hidden" id="hospitalId" />
-            <input type="text" id="hospitalName" placeholder="Bệnh viện" readonly />
-            <input type="text" id="billNumber" placeholder="Mã hóa đơn" required />
-            <input type="number" id="amount" placeholder="Số tiền cần thanh toán" required />
+
+            <div class="form-group">
+                <label for="hospitalName">Bệnh viện</label>
+                <input type="text" id="hospitalName" readonly />
+            </div>
+
+            <div class="form-group">
+                <label for="patientName">Họ và tên bệnh nhân</label>
+                <input type="text" id="patientName" placeholder="Họ và tên" required />
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Số điện thoại</label>
+                <input type="tel" id="phone" placeholder="Số điện thoại" required />
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="billNumber">Mã hóa đơn</label>
+                    <input type="text" id="billNumber" placeholder="Mã hóa đơn" required />
+                </div>
+                <div class="form-group">
+                    <label for="amount">Số tiền cần thanh toán (VNĐ)</label>
+                    <input type="number" id="amount" placeholder="Nhập số tiền..." required />
+                </div>
+            </div>
+
             <button type="button" onclick="payNow()">Xác nhận thanh toán</button>
         </form>
     </div>
@@ -84,16 +109,24 @@
         closeModal();
     }
 
+    // Xử lý tìm kiếm bệnh viện
     document.getElementById("search").addEventListener("keyup", function () {
         let keyword = this.value.toLowerCase();
+        let matchedCards = [];
+
         document.querySelectorAll(".benhvien-card").forEach(card => {
             let hospitalName = card.querySelector("h2").innerText.toLowerCase();
             if (hospitalName.includes(keyword)) {
-                card.style.display = "";
+                card.classList.add("search-match");
+                matchedCards.push(card);
             } else {
+                card.classList.remove("search-match");
                 card.style.display = "none";
             }
         });
+
+        // Cập nhật lại phân trang dựa trên kết quả tìm kiếm
+        initPagination(matchedCards);
     });
 
     window.onclick = function (event) {
@@ -102,4 +135,54 @@
             closeModal();
         }
     };
+
+    // ===================== CODE PHÂN TRANG TTVP (4 bệnh viện / trang) =====================
+    const itemsPerPage = 4; // Thay đổi từ 3 thành 4 bệnh viện / trang theo yêu cầu
+    let currentPage = 1;
+    let activeCards = [];
+
+    function initPagination(cardsArray) {
+        activeCards = cardsArray;
+        currentPage = 1;
+        showPage(1);
+    }
+
+    function showPage(page) {
+        currentPage = page;
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+        // Ẩn toàn bộ bệnh viện trước
+        document.querySelectorAll(".benhvien-card").forEach(card => card.style.display = "none");
+
+        // Chỉ hiển thị các bệnh viện nằm trong trang hiện tại của danh sách đang active
+        activeCards.slice(startIndex, endIndex).forEach(card => {
+            card.style.display = "";
+        });
+
+        updatePagination();
+    }
+
+    function updatePagination() {
+        const paginationContainer = document.getElementById("hospitalPagination");
+        paginationContainer.innerHTML = "";
+        const totalPages = Math.ceil(activeCards.length / itemsPerPage);
+        if (totalPages <= 1) return;
+
+        for (let i = 1; i <= totalPages; i++) {
+            const btn = document.createElement("button");
+            btn.innerText = i;
+            btn.className = (i === currentPage) ? "active" : "";
+            btn.addEventListener("click", function (e) {
+                e.preventDefault();
+                showPage(i);
+            });
+            paginationContainer.appendChild(btn);
+        }
+    }
+
+    // Chạy phân trang ban đầu
+    document.addEventListener("DOMContentLoaded", function() {
+        initPagination(Array.from(document.querySelectorAll(".benhvien-card")));
+    });
 </script>

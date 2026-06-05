@@ -110,80 +110,13 @@
 <section class="specialties">
     <h2>CHUYÊN KHOA</h2>
     <div class="grid">
-        <a class="item" href="#">
-            <img src="~/images/iconchuyenkhoa/Bác sĩ gia đình.png">
-            <p>Bác sĩ Gia Đình</p>
-        </a>
-
-        <a class="item" href="#">
-            <img src="~/images/iconchuyenkhoa/Tiêu hoá gan mật.png">
-            <p>Tiêu Hóa Gan Mật</p>
-        </a>
-
-        <a class="item" href="#">
-            <img src="~/images/iconchuyenkhoa/Nội tổng quát.png">
-            <p>Nội Tổng Quát</p>
-        </a>
-
-        <a class="item" href="#">
-            <img src="~/images/iconchuyenkhoa/Nội tiết.png">
-            <p>Nội Tiết</p>
-        </a>
-
-        <a class="item" href="#">
-            <img src="~/images/iconchuyenkhoa/Da liễu.png">
-            <p>Da Liễu</p>
-        </a>
-
-        <a class="item" href="#">
-            <img src="~/images/iconchuyenkhoa/Nội tim mạch.png">
-            <p>Nội Tim Mạch</p>
-        </a>
-
-        <a class="item" href="#">
-            <img src="~/images/iconchuyenkhoa/Nội thần kinh.png">
-            <p>Nội Thần Kinh</p>
-        </a>
-
-        <a class="item" href="#">
-            <img src="~/images/iconchuyenkhoa/Nội cơ xương khớp.png">
-            <p>Nội Cơ Xương Khớp</p>
-        </a>
-
-        <a class="item" href="#">
-            <img src="~/images/iconchuyenkhoa/Tai mũi họng.png">
-            <p>Tai Mũi Họng</p>
-        </a>
-
-        <a class="item" href="#">
-            <img src="~/images/iconchuyenkhoa/Mắt.png">
-            <p>Mắt</p>
-        </a>
-
-        <a class="item" href="#">
-            <img src="~/images/iconchuyenkhoa/Nội tiêu hoá.png">
-            <p>Nội Tiêu Hóa</p>
-        </a>
-
-        <a class="item" href="#">
-            <img src="~/images/iconchuyenkhoa/Nội hô hấp.png">
-            <p>Nội Hô Hấp</p>
-        </a>
-
-        <a class="item" href="#">
-            <img src="~/images/iconchuyenkhoa/Nội tiết niệu.png">
-            <p>Nội Tiết Niệu</p>
-        </a>
-
-        <a class="item" href="#">
-            <img src="~/images/iconchuyenkhoa/Ngoại cơ xương khớp.png">
-            <p>Ngoại Cơ Xương Khớp</p>
-        </a>
-
-        <a class="item" href="#">
-            <img src="~/images/iconchuyenkhoa/Sản - phụ khoa.png">
-            <p>Sản - Phụ Khoa</p>
-        </a>
+        @foreach (var item in Model.Specializations)
+        {
+            <a class="item" href="https://medpro.vn/tim-kiem?kw=@(item.Name.Replace(" - ", " "))&tab=subject&page=1" target="_blank" rel="noopener noreferrer">
+                <img src="~/images/iconchuyenkhoa/@(item.Name).png" alt="@item.Name" onerror="this.src='/images/logo.png'">
+                <p>@item.Name</p>
+            </a>
+        }
     </div>
 </section>
 
