@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Hệ thống Quản trị HealthMeet</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="~/css/Admin/admin.css" asp-append-version="true" />
+</head>
+<body>
+
+    <div class="admin-sidebar">
+        <div class="sidebar-brand text-center">
+            <i class="fa-solid fa-hand-holding-medical" style="color: var(--primary-color);"></i>
+            <span style="margin-left: 5px;">HealthMeet</span>
+        </div>
+        <ul class="sidebar-menu">
+            <li>
+                <a asp-controller="Admin" asp-action="Index"><i class="fa-solid fa-chart-pie"></i> Tổng quan</a>
+            </li>
+            <li>
+                <a asp-controller="Admin" asp-action="Doctor"><i class="fa-solid fa-user-md"></i> Quản lý Bác sĩ</a>
+            </li>
+            <li>
+                <a asp-controller="Admin" asp-action="Patient"><i class="fa-solid fa-user-injured"></i> Quản lý Bệnh nhân</a>
+            </li>
+            <li>
+                <a asp-controller="Admin" asp-action="Appointments"><i class="fa-solid fa-calendar-check"></i> Lịch hẹn khám</a>
+            </li>
+            <li class="mt-4">
+                <a asp-controller="Home" asp-action="Index" target="_blank"><i class="fa-solid fa-earth-asia"></i> Xem Trang chủ</a>
+            </li>
+            <li>
+                <a asp-controller="Account" asp-action="Logout" class="text-danger"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="admin-main">
+        <div class="admin-header">
+            <h5 class="m-0 fw-bold text-secondary">Hệ thống Admin</h5>
+            <div class="user-info">
+                <i class="fa-solid fa-bell me-3 text-muted fs-5" style="cursor: pointer;"></i>
+                <span class="fw-semibold"><i class="fa-solid fa-user-shield text-dark me-1"></i> Xin chào, @HttpContextAccessor.HttpContext?.Session.GetString("Name")</span>
+            </div>
+        </div>
+
+        @RenderBody()
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

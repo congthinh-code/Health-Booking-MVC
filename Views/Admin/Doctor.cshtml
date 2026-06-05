@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Health_Booking_MVC.Models.Doctor>
+@{
+    Layout = "~/Views/Admin/_Admin.cshtml";
+    ViewData["Title"] = "Danh sách Bác sĩ";
+}
+
+<div class="container-fluid">
+    <div class="card card-custom bg-white p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="fw-bold m-0 text-dark"><i class="fa-solid fa-user-md me-2 text-primary"></i> Đội ngũ Bác sĩ</h5>
+            <a asp-controller="Admin" asp-action="CreateDoctor" class="btn btn-sm text-white" style="background-color: #f4978e;">
+                <i class="fa fa-plus"></i> Thêm Bác sĩ
+            </a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Mã BS</th>
+                        <th>Họ và Tên</th>
+                        <th>Số điện thoại</th>
+                        <th>Kinh nghiệm</th>
+                        <th>Chuyên khoa</th>
+                        <th>Bệnh viện</th>
+                        <th class="text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var doc in Model)
+                    {
+                        <tr>
+                            <td><strong>#@doc.DoctorId</strong></td>
+                            <td class="fw-semibold">@doc.FullName</td>
+                            <td>@doc.Phone</td>
+                            <td><span class="badge bg-secondary">@doc.ExperienceYears năm</span></td>
+                            <td><span class="badge bg-info text-dark">@doc.Specialization?.Name</span></td>
+                            <td><small class="text-muted">@doc.Hospital?.Name</small></td>
+                            <td class="text-center">
+                                <a asp-controller="Admin" asp-action="EditDoctor" asp-route-id="@doc.DoctorId" class="btn btn-sm btn-outline-primary me-1">
+                                    <i class="fa-solid fa-pen"></i>
+                                </a>
+
+                                <form asp-controller="Admin" asp-action="DeleteDoctor" asp-route-id="@doc.DoctorId" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa bác sĩ này không?');">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

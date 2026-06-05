@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Admin\" />
     <Folder Include="wwwroot\images\iconchuyenkhoa\" />
     <Folder Include="wwwroot\uploads\avatars\" />
     <Folder Include="wwwroot\video\" />
