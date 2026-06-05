@@ -19,7 +19,7 @@ namespace Health_Booking_MVC.Controllers
             _environment = environment;
         }
 
-        public IActionResult Profile()
+        public IActionResult Profile(string status = "all")
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
 
@@ -27,6 +27,8 @@ namespace Health_Booking_MVC.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+
+            ViewBag.Status = status;
 
             var patient = _context.Patients
                 .FirstOrDefault(p => p.UserId == userId);
@@ -88,9 +90,7 @@ namespace Health_Booking_MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditProfile(
-                    PatientProfileViewModel model,
-                    IFormFile? avatarFile)
+        public async Task<IActionResult> EditProfile(PatientProfileViewModel model)
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
 
@@ -116,32 +116,6 @@ namespace Health_Booking_MVC.Controllers
             patient.DateOfBirth = model.DateOfBirth;
 
             user.Email = model.Email;
-
-            // Upload avatar
-            if (avatarFile != null && avatarFile.Length > 0)
-            {
-                string folder =
-                    Path.Combine(_environment.WebRootPath, "uploads");
-
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
-
-                string fileName =
-                    Guid.NewGuid().ToString() +
-                    Path.GetExtension(avatarFile.FileName);
-
-                string filePath =
-                    Path.Combine(folder, fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await avatarFile.CopyToAsync(stream);
-                }
-
-                patient.Avatar = "/uploads/" + fileName;
-            }
 
             // Đổi mật khẩu
             if (!string.IsNullOrEmpty(model.NewPassword))
@@ -176,6 +150,64 @@ namespace Health_Booking_MVC.Controllers
 
             TempData["Success"] =
                 "Cập nhật hồ sơ thành công";
+
+            return RedirectToAction("Profile");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadAvatar(IFormFile avatarFile)
+        {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var patient = _context.Patients
+                .FirstOrDefault(p => p.UserId == userId);
+
+            if (patient == null)
+            {
+                return NotFound();
+            }
+
+            if (avatarFile != null && avatarFile.Length > 0)
+            {
+                string folder =
+                    Path.Combine(
+                        _environment.WebRootPath,
+                        "uploads",
+                        "avatars");
+
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+
+                string fileName =
+                    Guid.NewGuid().ToString()
+                    + Path.GetExtension(avatarFile.FileName);
+
+                string filePath =
+                    Path.Combine(folder, fileName);
+
+                using (var stream =
+                    new FileStream(filePath, FileMode.Create))
+                {
+                    await avatarFile.CopyToAsync(stream);
+                }
+
+                patient.Avatar =
+                    "/uploads/avatars/" + fileName;
+
+                _context.SaveChanges();
+
+                HttpContext.Session.SetString(
+                    "Avatar",
+                    patient.Avatar
+                );
+            }
 
             return RedirectToAction("Profile");
         }

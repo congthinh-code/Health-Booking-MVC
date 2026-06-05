@@ -34,9 +34,28 @@
                     @if (HttpContextAccessor.HttpContext?.Session.GetInt32("UserId") != null)
                     {
                         @* NẾU ĐÃ ĐĂNG NHẬP: Hiển thị tên và nút Đăng xuất *@
-                        <span class="user-name-display" style="font-weight: 500; color: #333; margin-right: 10px;">
-                            <i class="fa-solid fa-circle-user" style="color: #f4978e;"></i>
-                            Xin chào, @HttpContextAccessor.HttpContext.Session.GetString("Name")
+                        <span class="user-name-display">
+
+                            @{
+                                var avatar =
+                                HttpContextAccessor.HttpContext
+                                ?.Session.GetString("Avatar");
+                            }
+
+                            @if (!string.IsNullOrEmpty(avatar))
+                            {
+                                <img src="@avatar"
+                                     class="header-avatar" />
+                            }
+                            else
+                            {
+                                <img src="~/images/default-avatar.png"
+                                     class="header-avatar" />
+                            }
+
+                            Xin chào,
+                            @HttpContextAccessor.HttpContext.Session.GetString("Name")
+
                         </span>
 
                         <div class="notification-dropdown">

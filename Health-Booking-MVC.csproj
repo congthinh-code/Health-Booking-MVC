@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\uploads\patients\**" />
+    <Content Remove="wwwroot\uploads\patients\**" />
+    <EmbeddedResource Remove="wwwroot\uploads\patients\**" />
+    <None Remove="wwwroot\uploads\patients\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="10.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.8">
@@ -27,7 +34,6 @@
     <Folder Include="wwwroot\video\" />
     <Folder Include="wwwroot\uploads\doctors\" />
     <Folder Include="wwwroot\uploads\hospitals\" />
-    <Folder Include="wwwroot\uploads\patients\" />
   </ItemGroup>
 
 </Project>

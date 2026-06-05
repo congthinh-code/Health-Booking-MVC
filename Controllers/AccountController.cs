@@ -146,6 +146,18 @@ namespace Health_Booking_MVC.Controllers
 
             HttpContext.Session.SetString("Name", displayName);
 
+            string avatar = "";
+
+            if (user.Role == "patient")
+            {
+                var patient = _context.Patients
+                    .FirstOrDefault(p => p.UserId == user.UserId);
+
+                avatar = patient?.Avatar ?? "";
+            }
+
+            HttpContext.Session.SetString("Avatar", avatar);
+
             return RedirectToAction("Index", "Home");
         }
 
