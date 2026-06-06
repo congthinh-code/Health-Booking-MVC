@@ -248,5 +248,60 @@ namespace Health_Booking_MVC.Controllers
             // Xóa xong quay lại tải lại trang danh sách bệnh nhân
             return RedirectToAction("Patient");
         }
+        // =======================================================
+        // 6. TRANG QUẢN LÝ LỊCH HẸN KHÁM (READ)
+        // =======================================================
+        public IActionResult Appointments()
+        {
+            if (!IsAuthorized()) return RedirectToAction("Login", "Account");
+
+            // Lấy danh sách lịch hẹn, kèm theo thông tin Bệnh nhân và Bác sĩ để hiển thị ra bảng
+            var appointments = _context.Appointments
+                .Include(a => a.Patient)
+                .Include(a => a.Doctor)
+                .Include(a => a.Schedule)
+                .OrderByDescending(a => a.AppointmentDate) // Lịch hẹn mới nhất xếp lên đầu
+                .ToList();
+
+            return View(appointments); // Trả về tệp Views/Admin/Appointments.cshtml
+        }
+
+        // =======================================================
+        // 7. XỬ LÝ XÁC NHẬN ĐẶT LỊCH KHÁM (UPDATE STATUS)
+        // =======================================================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ConfirmAppointment(int id)
+        {
+            if (!IsAuthorized()) return RedirectToAction("Login", "Account");
+
+            // 1. Tìm thông tin lịch hẹn theo mã ID gửi lên
+            var appointment = _context.Appointments.Find(id);
+
+            if (appointment != null)
+            {
+                // 🔥 ĐÃ SỬA: So sánh trực tiếp với Enum AppointmentStatus.Pending
+                if (appointment.Status == AppointmentStatus.Pending)
+                {
+                    // 🔥 ĐÃ SỬA: Gán trạng thái mới bằng Enum AppointmentStatus.Confirmed
+                    appointment.Status = AppointmentStatus.Confirmed;
+
+                    _context.Appointments.Update(appointment);
+                    _context.SaveChanges();
+
+                    TempData["SuccessMessage"] = $"Đã xác nhận thành công lịch hẹn mã #{id}!";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Lịch hẹn này đã được xử lý hoặc không ở trạng thái chờ duyệt.";
+                }
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Không tìm thấy thông tin lịch hẹn.";
+            }
+
+            return RedirectToAction("Appointments");
+        }
     }
 }
