@@ -208,16 +208,32 @@
                                 </p>
                             </div>
 
-                            <span class="status-badge">
-                                Đang Chờ Duyệt
-                            </span>
-
+                            @if (item.Status == Health_Booking_MVC.Models.AppointmentStatus.Pending)
+                            {
+                                <span class="status-badge pending">
+                                    Đang Chờ Duyệt
+                                </span>
+                            }
+                            else if (item.Status == Health_Booking_MVC.Models.AppointmentStatus.Confirmed)
+                            {
+                                <span class="status-badge confirmed">
+                                    Đã Xác Nhận
+                                </span>
+                            }
                         </div>
 
-                        <p class="booking-note">
-                            Yêu cầu của bạn đang được đội ngũ chăm sóc khách hàng xử lý.
-                        </p>
-
+                        @if (item.Status == Health_Booking_MVC.Models.AppointmentStatus.Pending)
+                        {
+                            <p class="booking-note">
+                                Yêu cầu của bạn đang được đội ngũ chăm sóc khách hàng xử lý.
+                            </p>
+                        }
+                        else if (item.Status == Health_Booking_MVC.Models.AppointmentStatus.Confirmed)
+                        {
+                            <p class="booking-note success">
+                                Lịch khám của bạn đã được xác nhận. Vui lòng đến đúng giờ theo lịch hẹn.
+                            </p>
+                        }
                     </div>
                 }
             }

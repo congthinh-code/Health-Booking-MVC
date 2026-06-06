@@ -1,17 +1,21 @@
 ﻿using Health_Booking_MVC.Models;
+using Health_Booking_MVC.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
 
 namespace Health_Booking_MVC.Controllers
 {
     public class AdminController : Controller
     {
         private readonly HealthBookingDbContext _context;
-
-        public AdminController(HealthBookingDbContext context)
+        private readonly NotificationService _notificationService;
+        public AdminController(
+            HealthBookingDbContext context,
+            NotificationService notificationService)
         {
             _context = context;
+            _notificationService = notificationService;
         }
 
         // Hàm Filter kiểm tra quyền Admin/Doctor trước khi thực thi
@@ -291,6 +295,17 @@ namespace Health_Booking_MVC.Controllers
 
                     _context.Appointments.Update(appointment);
                     _context.SaveChanges();
+
+                    var patient = _context.Patients
+                        .FirstOrDefault(p => p.PatientId == appointment.PatientId);
+
+                    if (patient != null)
+                    {
+                        _notificationService.CreateNotification(
+                            patient.UserId,
+                            $"✅ Lịch khám ngày {appointment.AppointmentDate:dd/MM/yyyy HH:mm} đã được xác nhận."
+                        ).Wait();
+                    }
 
                     TempData["SuccessMessage"] = $"Đã xác nhận thành công lịch hẹn mã #{id}!";
                 }

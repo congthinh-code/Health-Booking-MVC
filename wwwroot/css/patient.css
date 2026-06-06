@@ -683,6 +683,15 @@ h1, h2, h3, h4, .page-header h1, .section-header h2, .profile-info h3, .appointm
     font-weight: 600;
 }
 
+
+.pending {
+    background: #6c757d;
+}
+
+.confirmed {
+    background: #198754;
+}
+
 .booking-note {
     margin-top: 20px;
     color: #666;
