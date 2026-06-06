@@ -1,4 +1,5 @@
-﻿using Health_Booking_MVC.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Health_Booking_MVC.Models;
 using Health_Booking_MVC.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using BCrypt.Net;
@@ -40,6 +41,57 @@ namespace Health_Booking_MVC.Controllers
 
             var user = _context.Users
                 .FirstOrDefault(u => u.UserId == userId);
+
+            // Lấy danh sách lịch hẹn
+            var appointments = _context.Appointments
+                .Include(a => a.Doctor)
+                .Where(a => a.PatientId == patient.PatientId)
+                .OrderByDescending(a => a.AppointmentDate)
+                .ToList();
+
+            // Bộ lọc trạng thái
+            if (status == "pending")
+            {
+                appointments = appointments
+                    .Where(a => a.Status == AppointmentStatus.Pending)
+                    .ToList();
+            }
+            else if (status == "completed")
+            {
+                appointments = appointments
+                    .Where(a => a.Status == AppointmentStatus.Completed
+                             || a.Status == AppointmentStatus.Confirmed)
+                    .ToList();
+            }
+            else if (status == "cancelled")
+            {
+                appointments = appointments
+                    .Where(a => a.Status == AppointmentStatus.Cancelled)
+                    .ToList();
+            }
+
+            // Thống kê
+            var allAppointments = _context.Appointments
+                .Where(a => a.PatientId == patient.PatientId)
+                .ToList();
+
+            ViewBag.TotalAppointments = allAppointments.Count;
+
+            ViewBag.PendingAppointments =
+                allAppointments.Count(a =>
+                    a.Status == AppointmentStatus.Pending);
+
+            ViewBag.CompletedAppointments =
+                allAppointments.Count(a =>
+                    a.Status == AppointmentStatus.Completed ||
+                    a.Status == AppointmentStatus.Confirmed);
+
+            ViewBag.CancelledAppointments =
+                allAppointments.Count(a =>
+                    a.Status == AppointmentStatus.Cancelled);
+
+            // Danh sách lịch hẹn gửi sang View
+            ViewBag.Appointments = appointments;
 
             var model = new PatientProfileViewModel
             {
