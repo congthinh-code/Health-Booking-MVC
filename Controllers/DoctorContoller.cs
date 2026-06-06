@@ -1,4 +1,4 @@
-﻿using Health_Booking_MVC.Models;
+using Health_Booking_MVC.Models;
 using Health_Booking_MVC.Models.ViewModels;
 using Health_Booking_MVC.Services; // Thêm dòng này để gọi service thông báo
 using Microsoft.AspNetCore.Hosting;
@@ -193,6 +193,47 @@ namespace Health_Booking_MVC.Controllers
             _context.SaveChanges();
 
             TempData["Success"] = "Cập nhật hồ sơ bác sĩ thành công!";
+
+            return RedirectToAction("Dashboard");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadAvatar(IFormFile avatarFile)
+        {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var doctor = _context.Doctors.FirstOrDefault(d => d.UserId == userId);
+            if (doctor == null)
+            {
+                return NotFound();
+            }
+
+            if (avatarFile != null && avatarFile.Length > 0)
+            {
+                string folder = Path.Combine(_environment.WebRootPath, "images", "userAvatar");
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(avatarFile.FileName);
+                string filePath = Path.Combine(folder, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await avatarFile.CopyToAsync(stream);
+                }
+
+                doctor.Avatar = fileName;
+                _context.SaveChanges();
+
+                HttpContext.Session.SetString("Avatar", "/images/userAvatar/" + fileName);
+            }
 
             return RedirectToAction("Dashboard");
         }
