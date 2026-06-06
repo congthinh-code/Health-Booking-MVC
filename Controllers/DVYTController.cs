@@ -19,12 +19,25 @@ namespace Health_Booking_MVC.Controllers
             _notificationService = notificationService;
         }
 
-        public async Task<IActionResult> ĐKBS(int? id)
+        public async Task<IActionResult> ĐKBS(int? id, int? doctor_id)
         {
+            int? targetId = id ?? doctor_id;
+
             var doctors = await _context.Doctors
                 .Include(d => d.Specialization)
                 .Include(d => d.Hospital)
                 .ToListAsync();
+
+            if (targetId.HasValue)
+            {
+                var selectedDoctor = await _context.Doctors
+                    .Include(d => d.Specialization)
+                    .Include(d => d.Hospital)
+                    .Include(d => d.User)
+                    .FirstOrDefaultAsync(d => d.DoctorId == targetId.Value);
+
+                ViewBag.SelectedDoctor = selectedDoctor;
+            }
 
             return View(doctors);
         }
@@ -134,7 +147,7 @@ namespace Health_Booking_MVC.Controllers
                 await _notificationService.CreateNotification(doctor.UserId, msg);
             }
 
-            return Json(new { success = true, message = "Đặt lịch khám thành công!" });
+            return Json(new { success = true, message = "Đặt lịch khám thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất." });
         }
     }
 }

@@ -63,4 +63,11 @@ app.MapControllerRoute(
     .WithStaticAssets();
 
 
+// Tự động chạy Migration cập nhật Database khi khởi động ứng dụng
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<HealthBookingDbContext>();
+    dbContext.Database.Migrate();
+}
+
 app.Run();

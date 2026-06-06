@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Health_Booking_MVC.Models;
 using Health_Booking_MVC.Services;
@@ -29,6 +29,23 @@ namespace Health_Booking_MVC.Controllers
                 return Json(new { success = false, message = "Quý khách chưa đăng nhập tài khoản. Vui lòng đăng nhập để tiếp tục." });
             }
 
+            // Lấy thông tin hồ sơ Bệnh nhân dựa theo tài khoản đang đăng nhập
+            var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == sessionUserId);
+            if (patient == null)
+            {
+                return Json(new { success = false, message = "Không tìm thấy hồ sơ bệnh nhân tương ứng với tài khoản này." });
+            }
+
+            // Nếu người dùng không điền tên hoặc SĐT (ví dụ đặt lịch nhanh từ cơ sở), lấy mặc định từ Profile của họ
+            if (string.IsNullOrEmpty(patient_name))
+            {
+                patient_name = patient.FullName;
+            }
+            if (string.IsNullOrEmpty(phone))
+            {
+                phone = patient.Phone;
+            }
+
             // 2. Validation dữ liệu trống
             if (string.IsNullOrEmpty(patient_name) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(appointment_date) || string.IsNullOrEmpty(appointment_time))
             {
@@ -42,7 +59,8 @@ namespace Health_Booking_MVC.Controllers
             }
 
             // 4. Validate ngày giờ không ở quá khứ (Backend Security)
-            if (DateTime.TryParse($"{appointment_date} {appointment_time}", out DateTime appointmentDateTime))
+            DateTime appointmentDateTime;
+            if (DateTime.TryParse($"{appointment_date} {appointment_time}", out appointmentDateTime))
             {
                 if (appointmentDateTime < DateTime.Now)
                 {
@@ -52,13 +70,6 @@ namespace Health_Booking_MVC.Controllers
             else
             {
                 return Json(new { success = false, message = "Định dạng ngày giờ không hợp lệ" });
-            }
-
-            // Lấy thông tin hồ sơ Bệnh nhân dựa theo tài khoản đang đăng nhập
-            var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == sessionUserId);
-            if (patient == null)
-            {
-                return Json(new { success = false, message = "Không tìm thấy hồ sơ bệnh nhân tương ứng với tài khoản này." });
             }
 
             try
@@ -154,7 +165,8 @@ namespace Health_Booking_MVC.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = "Có lỗi xảy ra khi đặt lịch: " + ex.Message });
+                var innerMsg = ex.InnerException != null ? " | Chi tiết: " + ex.InnerException.Message : "";
+                return Json(new { success = false, message = "Có lỗi xảy ra khi đặt lịch: " + ex.Message + innerMsg });
             }
         }
     }

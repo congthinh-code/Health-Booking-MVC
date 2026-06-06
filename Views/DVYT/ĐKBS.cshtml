@@ -17,6 +17,155 @@
     <a asp-controller="DVYT" asp-action="TTVP" class="tab-item">Thanh toán viện phí</a>
 </div>
 
+@{
+    var selectedDoctor = ViewBag.SelectedDoctor as Health_Booking_MVC.Models.Doctor;
+}
+
+@if (selectedDoctor != null)
+{
+    <style>
+        .selected-doctor-container {
+            width: 85%;
+            margin: 0 auto 35px auto;
+        }
+
+        .selected-doctor-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 35px;
+            display: flex;
+            gap: 40px;
+            box-shadow: 0 10px 30px rgba(214, 51, 132, 0.15);
+            border: 2px solid #efb4d7;
+            align-items: center;
+        }
+
+        .sd-left {
+            flex: 1;
+            max-width: 250px;
+            text-align: center;
+        }
+
+        .sd-left img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 18px;
+            box-shadow: 0 8px 20px rgba(76, 36, 168, 0.15);
+        }
+
+        .sd-right {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .sd-right h2 {
+            color: #d93ba2;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-align: left;
+            text-transform: none;
+        }
+
+        .sd-right p {
+            font-size: 16px;
+            color: #444;
+            margin: 0;
+            text-align: left;
+        }
+
+        .sd-right p b {
+            color: #4c24a8;
+            font-weight: 600;
+        }
+
+        .price-tag {
+            color: #d93ba2;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .rating-stars {
+            color: #f5b301;
+            font-weight: 700;
+        }
+
+        .btn-book-large {
+            margin-top: 15px;
+            width: 100%;
+            max-width: 450px;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(95deg, #fbc2eb 0%, #a6c1ee 100%);
+            color: #4c24a8;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(214, 51, 132, 0.2);
+            transition: 0.3s ease;
+            text-align: center;
+        }
+
+        .btn-book-large:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(214, 51, 132, 0.35);
+        }
+
+        @@media (max-width: 768px) {
+            .selected-doctor-card {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                padding: 20px;
+            }
+            .sd-left {
+                max-width: 100%;
+            }
+            .sd-left img {
+                height: 250px;
+            }
+            .btn-book-large {
+                max-width: 100%;
+            }
+        }
+    </style>
+
+    <div class="selected-doctor-container">
+        <div class="selected-doctor-card">
+            <div class="sd-left">
+                @{
+                    var sdAvatarPath = string.IsNullOrEmpty(selectedDoctor.Avatar)
+                        ? "/images/doctor.png"
+                        : (selectedDoctor.Avatar.Contains("anhbs")
+                            ? $"/images/anhbacsi/{selectedDoctor.Avatar}"
+                            : $"/images/userAvatar/{selectedDoctor.Avatar}");
+                }
+                <img src="@sdAvatarPath" alt="@selectedDoctor.FullName" onerror="this.src='/images/doctor.png'" />
+            </div>
+            <div class="sd-right">
+                <h2>@selectedDoctor.FullName</h2>
+                <p><b>Chuyên khoa:</b> @(selectedDoctor.Specialization?.Name)</p>
+                <p><b>Chuyên trị:</b> @selectedDoctor.Description</p>
+                <p><b>Giá khám:</b> <span class="price-tag">230.000đ</span></p>
+                <p><b>Đánh giá:</b> <span class="rating-stars">⭐ 4.9</span> (111 lượt đánh giá)</p>
+                <p><b>Email:</b> @(selectedDoctor.User?.Email ?? "nguyenhuudung@healthmeet.com")</p>
+                <p><b>Điện thoại:</b> @selectedDoctor.Phone</p>
+                <p><b>Địa chỉ:</b> @(selectedDoctor.Hospital?.Address ?? "Bình Định")</p>
+                
+                <button class="btn-book-large" onclick="openModal(@selectedDoctor.DoctorId, '@selectedDoctor.FullName')">
+                    Đặt khám với bác sĩ
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
 <section class="doctor-list">
     <h3>DANH SÁCH BÁC SĨ</h3>
     <div class="grid">
