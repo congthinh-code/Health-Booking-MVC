@@ -19,7 +19,15 @@
         @foreach (var doctor in Model)
         {
             <div class="doctor-card">
-                <img src="/images/anhbacsi/@doctor.Avatar" alt="@doctor.FullName" onerror="this.src='/images/doctor.png'" />
+                @{
+                    // Tự động chọn đúng thư mục chứa ảnh bác sĩ
+                    var avatarPath = string.IsNullOrEmpty(doctor.Avatar)
+                        ? "/images/doctor.png"
+                        : (doctor.Avatar.Contains("anhbs")
+                            ? $"/images/anhbacsi/{doctor.Avatar}"
+                            : $"/images/userAvatar/{doctor.Avatar}");
+                }
+                <img src="@avatarPath" alt="@doctor.FullName" onerror="this.src='/images/doctor.png'" />
                 <h4>@doctor.FullName</h4>
                 <p><b>Chuyên khoa:</b> @(doctor.Specialization?.Name)</p>
                 <p><b>Kinh nghiệm:</b> @doctor.ExperienceYears năm</p>
@@ -54,8 +62,8 @@
             <!-- Textbox hiện tên bác sĩ đã chọn (chỉ đọc) -->
             <input type="text" id="doctorName" readonly />
 
-            <input type="date" required />
-            <input type="time" required />
+            <input type="date" id="bookingDate" required />
+            <input type="time" id="bookingTime" required />
 
             <button type="submit">Xác nhận đặt khám</button>
         </form>
@@ -85,16 +93,44 @@
     }
 
     // Xử lý khi ấn nút "Xác nhận đặt khám"
+         // Xử lý khi ấn nút "Xác nhận đặt khám" (Gửi dữ liệu lên Server)
     document.getElementById("bookingForm").addEventListener("submit", function (e) {
         e.preventDefault();
 
-        let doctor = document.getElementById("doctorName").value;
-        let patient = document.getElementById("patientName").value;
+        let doctorId = document.getElementById("doctorId").value;
+        let patientName = document.getElementById("patientName").value;
+        let phone = document.getElementById("phone").value;
+        let date = document.getElementById("bookingDate").value;
+        let time = document.getElementById("bookingTime").value;
 
-        alert("Đặt lịch thành công!\n\nBệnh nhân: " + patient + "\nBác sĩ: " + doctor);
-        closeModal();
+        fetch('/DVYT/Book', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                doctorId: doctorId,
+                patientName: patientName,
+                phone: phone,
+                date: date,
+                time: time
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                closeModal();
+                window.location.reload(); // Reload lại trang sau khi đặt thành công
+            } else {
+                alert("Lỗi: " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Có lỗi hệ thống xảy ra khi đặt khám!");
+        });
     });
-
     // ===================== CODE XỬ LÝ PHÂN TRANG BÁC SĨ=====================
     document.addEventListener("DOMContentLoaded", function () {
         const itemsPerPage = 4; // Cấu hình hiển thị 4 bác sĩ trên 1 trang

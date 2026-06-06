@@ -17,19 +17,19 @@ namespace Health_Booking_MVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var model = new BookingViewModel
-            {
-                Hospitals = await _context.Hospitals
-                    .OrderBy(h => h.Name)
-                    .ToListAsync(),
+            var model = new BookingViewModel();
 
-                Specializations = await _context.Specializations
-                    .OrderBy(s => s.Name)
-                    .ToListAsync()
-            };
+            model.Hospitals = await _context.Hospitals
+                .OrderBy(h => h.Name)
+                .ToListAsync();
+
+            model.Specializations = await _context.Specializations
+                .OrderBy(s => s.Name)
+                .ToListAsync();
 
             return View(model);
         }
+
 
         public IActionResult Privacy()
         {
