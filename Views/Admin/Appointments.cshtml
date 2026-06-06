@@ -34,7 +34,6 @@
                     <tr>
                         <th>Mã LH</th>
                         <th>Bệnh nhân</th>
-                        @* <th>Bác sĩ khám</th> *@
                         <th>Chuyên khoa / Bệnh viện</th>
                         <th>Ngày hẹn</th>
                         <th>Giờ khám</th>
@@ -56,17 +55,11 @@
                                 </td>
                                 <td>@app.AppointmentDate.ToString("dd/MM/yyyy")</td>
                                 <td>
-                                    @if (app.Schedule != null)
-                                    {
-                                        <span class="badge bg-light text-dark border">
-                                            <i class="fa-regular fa-clock me-1 text-primary"></i>
-                                            @app.Schedule.StartTime.ToString(@"hh\:mm") - @app.Schedule.EndTime.ToString(@"hh\:mm")
-                                        </span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge bg-light text-muted border">Chưa xếp ca</span>
-                                    }
+                                    <span class="badge bg-light text-dark border">
+                                        <i class="fa-regular fa-clock me-1 text-success"></i>
+                                        @* 🔥 ĐÃ SỬA: Đổi từ item.AppointmentDate thành app.AppointmentDate *@
+                                        @app.AppointmentDate.ToString("HH:mm")
+                                    </span>
                                 </td>
                                 <td>
                                     @if (app.Status == AppointmentStatus.Pending)
@@ -109,7 +102,7 @@
                     else
                     {
                         <tr>
-                            <td colspan="8" class="text-center text-muted py-4">Hiện tại không có lịch hẹn nào được đặt từ Trang chủ.</td>
+                            <td colspan="7" class="text-center text-muted py-4">Hiện tại không có lịch hẹn nào được đặt từ Trang chủ.</td>
                         </tr>
                     }
                 </tbody>
