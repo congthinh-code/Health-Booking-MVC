@@ -328,3 +328,111 @@ h3 {
             border-color: #d93ba2;
             box-shadow: 0 4px 14px rgba(217, 59, 162, 0.35);
         }
+
+/* ===================== SELECTED DOCTOR CARD ===================== */
+.selected-doctor-card {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(214, 51, 132, 0.15);
+    padding: 30px;
+    width: 85%;
+    margin: 0 auto 40px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.selected-doctor-info {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.selected-doctor-avatar img {
+    width: 260px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 6px 15px rgba(214, 51, 132, 0.1);
+}
+
+.selected-doctor-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+
+.selected-doctor-details h2 {
+    color: #d93ba2;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.selected-doctor-details p {
+    font-size: 16px;
+    color: #4c24a8;
+    margin: 0;
+}
+
+.selected-doctor-details p b {
+    color: #4c24a8;
+    font-weight: 600;
+}
+
+.price-highlight {
+    color: #d93ba2;
+    font-weight: bold;
+}
+
+.selected-doctor-action {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.btn-book-selected {
+    width: 80%;
+    max-width: 550px;
+    padding: 15px;
+    border-radius: 35px;
+    border: none;
+    background: linear-gradient(90deg, #b5cbf5 0%, #ccd9f5 100%);
+    color: #1e3a8a;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(166, 193, 238, 0.3);
+}
+
+.btn-book-selected:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(166, 193, 238, 0.5);
+    background: linear-gradient(90deg, #a5bdf2 0%, #bccdf2 100%);
+}
+
+@media (max-width: 768px) {
+    .selected-doctor-info {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .selected-doctor-details {
+        text-align: center;
+    }
+    
+    .selected-doctor-avatar img {
+        width: 200px;
+        height: 220px;
+    }
+    
+    .btn-book-selected {
+        width: 100%;
+    }
+}
