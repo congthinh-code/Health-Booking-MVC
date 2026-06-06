@@ -1,0 +1,199 @@
+@model Health_Booking_MVC.Models.DoctorEditViewModel
+
+@{
+    ViewData["Title"] = "Sửa thông tin bác sĩ";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    body {
+        background: linear-gradient(135deg,#fbe4f5,#f6e8fa,#f0e1ff);
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .container-box {
+        max-width: 800px;
+        margin: 40px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,.1);
+    }
+
+    .avatar {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        margin: auto;
+        border: 4px solid #d19ce2;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #7b4397;
+    }
+
+    .btn-save {
+        background: linear-gradient(90deg,#fbc2eb,#a6c1ee);
+        color: white;
+        border: none;
+    }
+
+        .btn-save:hover {
+            opacity: .9;
+        }
+</style>
+
+<div class="container-box">
+
+    <h2>✏️ Sửa thông tin bác sĩ</h2>
+
+    <form asp-action="Edit"
+          asp-controller="Doctor"
+          method="post"
+          enctype="multipart/form-data">
+
+        <input asp-for="DoctorId" type="hidden" />
+
+        <div class="text-center mb-3">
+            @{
+                // Tự động tìm đúng thư mục chứa ảnh
+                var avatarUrl = string.IsNullOrEmpty(Model.CurrentAvatar)
+                    ? "https://via.placeholder.com/150?text=Avatar"
+                    : (Model.CurrentAvatar.Contains("anhbs")
+                        ? $"/images/anhbacsi/{Model.CurrentAvatar}"
+                        : $"/images/userAvatar/{Model.CurrentAvatar}");
+            }
+            <img id="avatarPreview"
+                 src="@avatarUrl"
+                 class="avatar" />
+        </div>
+        <div class="mb-3">
+            <input asp-for="AvatarFile"
+                   class="form-control"
+                   accept="image/*"
+                   onchange="previewAvatar(this)" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">
+                Họ tên
+            </label>
+
+            <input asp-for="FullName"
+                   class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">
+                Số điện thoại
+            </label>
+
+            <input asp-for="Phone"
+                   class="form-control" />
+        </div>
+
+        @{
+            // Tách ép kiểu ra biến riêng ở đây để Visual Studio không bị báo lỗi
+            var hospitals = (IEnumerable<Health_Booking_MVC.Models.Hospital>)ViewBag.Hospitals;
+        }
+
+        <!-- 1. Chọn Bệnh viện -->
+        <div class="mb-3">
+            <label class="form-label">
+                Bệnh viện / Cơ sở y tế
+            </label>
+
+            <select asp-for="HospitalId" class="form-select">
+                @if (hospitals != null)
+                {
+                    @foreach (var item in hospitals)
+                    {
+                        <option value="@item.HospitalId">
+                            @item.Name
+                        </option>
+                    }
+                }
+            </select>
+        </div>
+
+        <!-- 2. Chọn Chuyên khoa -->
+        <div class="mb-3">
+            <label class="form-label">
+                Chuyên khoa
+            </label>
+
+            <select asp-for="SpecializationId" class="form-select">
+                @foreach (var item in ViewBag.Specializations)
+                {
+                    <option value="@item.SpecializationId">
+                        @item.Name
+                    </option>
+                }
+            </select>
+        </div>
+
+        <!-- 3. Nhập Kinh nghiệm -->
+        <div class="mb-3">
+            <label class="form-label">
+                Kinh nghiệm (năm)
+            </label>
+
+            <input asp-for="ExperienceYears" class="form-control" />
+        </div>
+
+        <!-- 4. Nhập Mô tả Chuyên môn -->
+        <div class="mb-3">
+            <label class="form-label">
+                Mô tả chuyên môn
+            </label>
+            <textarea asp-for="Description" class="form-control" rows="3" placeholder="Nhập tóm tắt chuyên môn khám chữa bệnh của bạn..."></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="d-grid gap-2">
+
+            <button type="submit" class="btn btn-save">
+                Cập nhật
+            </button>
+
+            <a asp-action="Dashboard"
+               asp-controller="Doctor"
+               class="btn btn-secondary">
+                Quay lại
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+@section Scripts {
+
+    <script>
+
+        function previewAvatar(input)
+        {
+            if(input.files && input.files[0])
+            {
+                const reader = new FileReader();
+
+                reader.onload = function(e)
+                {
+                    document
+                    .getElementById("avatarPreview")
+                    .src = e.target.result;
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+    </script>
+
+}

@@ -1,0 +1,243 @@
+@model List<Health_Booking_MVC.Models.Appointment>
+
+@{
+    var doctor = ViewBag.Doctor as Health_Booking_MVC.Models.Doctor;
+    ViewData["Title"] = "Trang bác sĩ";
+}
+<link rel="stylesheet" href="~/css/doctor.css" asp-append-version="true" />
+<div class="container mt-4">
+
+    <div class="row">
+
+        <!-- Sidebar -->
+        <div class="col-md-3">
+
+            <div class="card shadow">
+
+                <div class="card-body text-center">
+
+                    @{
+                        // Tự động tìm đúng thư mục chứa ảnh
+                        var doctorAvatar = string.IsNullOrEmpty(doctor.Avatar)
+                            ? "/images/doctor.png"
+                            : (doctor.Avatar.Contains("anhbs")
+                                ? $"/images/anhbacsi/{doctor.Avatar}"
+                                : $"/images/userAvatar/{doctor.Avatar}");
+                    }
+                    <img src="@doctorAvatar"
+                         class="rounded-circle mb-3"
+                         width="150"
+                         height="150" />
+
+                    <h4>@doctor.FullName</h4>
+
+                    <p>
+                        <i class="fa-solid fa-stethoscope"></i>
+                        @doctor.Specialization.Name
+                    </p>
+
+                    <p>
+                        <i class="fa-solid fa-hospital"></i>
+                        @doctor.Hospital.Name
+                    </p>
+
+                    <p>
+                        @doctor.ExperienceYears năm kinh nghiệm
+                    </p>
+
+                    <a asp-action="Edit"
+                       asp-route-id="@doctor.DoctorId"
+                       class="btn-edit-profile">
+                        Chỉnh sửa hồ sơ
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="card mt-3 shadow">
+                <div class="card-body">
+
+                    <h5>Thống kê</h5>
+
+                    <hr />
+
+                    <p>
+                        Tổng lịch hẹn:
+                        <strong>@ViewBag.Total</strong>
+                    </p>
+
+                    <p>
+                        Chờ xác nhận:
+                        <strong>@ViewBag.Pending</strong>
+                    </p>
+
+                    <p>
+                        Hoàn thành:
+                        <strong>@ViewBag.Completed</strong>
+                    </p>
+
+                    <p>
+                        Đã hủy:
+                        <strong>@ViewBag.Cancelled</strong>
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Main -->
+
+        <div class="col-md-9">
+
+            <div class="card shadow">
+
+                <div class="card-header">
+                    <h3>Lịch hẹn của bác sĩ</h3>
+                </div>
+
+                <div class="card-body">
+
+                    @if (!Model.Any())
+                    {
+                        <div class="alert alert-info">
+                            Chưa có lịch hẹn nào.
+                        </div>
+                    }
+                    else
+                    {
+                        <table class="table table-bordered">
+
+                            <thead>
+                                <tr>
+                                    <th>Bệnh nhân</th>
+                                    <th>Ngày khám</th>
+                                    <th>Giờ khám</th>
+                                    <th>Trạng thái</th>
+                                    <th>Hành động</th> <!-- Cột Hành động -->
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.Patient.FullName
+                                        </td>
+
+                                        <td>
+                                            @item.AppointmentDate.ToString("dd/MM/yyyy")
+                                        </td>
+
+                                        <td>
+                                            @item.Schedule.StartTime - @item.Schedule.EndTime
+                                        </td>
+
+                                        <td>
+                                            @if (item.Status == AppointmentStatus.Pending)
+                                            {
+                                                <span class="badge bg-warning">Chờ xác nhận</span>
+                                            }
+                                            else if (item.Status == AppointmentStatus.Confirmed)
+                                            {
+                                                <span class="badge bg-primary">Đã xác nhận</span>
+                                            }
+                                            else if (item.Status == AppointmentStatus.Completed)
+                                            {
+                                                <span class="badge bg-success">Hoàn thành</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-danger">Đã hủy</span>
+                                            }
+                                        </td>
+
+                                        <td>
+                                            @if (item.Status == AppointmentStatus.Pending)
+                                            {
+                                                <button class="btn btn-sm btn-success me-1" onclick="confirmApp(@item.AppointmentId)">
+                                                    <i class="fa-solid fa-check"></i> Chấp nhận
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" onclick="rejectApp(@item.AppointmentId)">
+                                                    <i class="fa-solid fa-xmark"></i> Hủy lịch
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">Không có thao tác</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    }
+
+                </div>
+
+                @section Scripts {
+                    <script>
+                                        // Gọi API xác nhận lịch hẹn
+                                        function confirmApp(id) {
+                                            if (confirm("Bạn có chắc chắn muốn xác nhận lịch hẹn này không?")) {
+                                                fetch('/Doctor/ConfirmAppointment', {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'Content-Type': 'application/x-www-form-urlencoded',
+                                                    },
+                                                    body: new URLSearchParams({ id: id })
+                                                })
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    if (data.success) {
+                                                        alert(data.message);
+                                                        window.location.reload(); // Tải lại trang để cập nhật trạng thái mới
+                                                    } else {
+                                                        alert("Lỗi: " + data.message);
+                                                    }
+                                                })
+                                                .catch(err => alert("Lỗi kết nối tới máy chủ!"));
+                                            }
+                                        }
+
+                                        // Gọi API từ chối lịch hẹn kèm lý do
+                                        function rejectApp(id) {
+                                            let reason = prompt("Nhập lý do từ chối lịch khám này:");
+                                            if (reason === null) return; // Người dùng ấn Cancel không thực hiện gì cả
+
+                                            if (reason.trim() === "") {
+                                                alert("Vui lòng nhập lý do để tiếp tục từ chối lịch khám!");
+                                                return;
+                                            }
+
+                                            fetch('/Doctor/RejectAppointment', {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/x-www-form-urlencoded',
+                                                },
+                                                body: new URLSearchParams({ id: id, reason: reason })
+                                            })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                if (data.success) {
+                                                    alert(data.message);
+                                                    window.location.reload(); // Tải lại trang để cập nhật trạng thái mới
+                                                } else {
+                                                    alert("Lỗi: " + data.message);
+                                                }
+                                            })
+                                            .catch(err => alert("Lỗi kết nối tới máy chủ!"));
+                                        }
+                    </script>
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
