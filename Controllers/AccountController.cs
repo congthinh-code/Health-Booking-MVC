@@ -1,4 +1,4 @@
-﻿using Health_Booking_MVC.Models;
+using Health_Booking_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Health_Booking_MVC.Models.ViewModels;
 using Microsoft.AspNetCore.Authentication;
@@ -143,7 +143,7 @@ namespace Health_Booking_MVC.Controllers
             string displayName = user.Email;
             string avatar = "";
 
-            if (user.Role == "patient")
+            if (user.Role.ToLower() == "patient")
             {
                 var patient = _context.Patients.FirstOrDefault(p => p.UserId == user.UserId);
                 if (patient != null)
@@ -154,12 +154,17 @@ namespace Health_Booking_MVC.Controllers
                     HttpContext.Session.SetInt32("PatientId", patient.PatientId);
                 }
             }
-            else if (user.Role == "doctor")
+            else if (user.Role.ToLower() == "doctor")
             {
                 var doctor = _context.Doctors.FirstOrDefault(d => d.UserId == user.UserId);
                 if (doctor != null)
                 {
                     displayName = doctor.FullName;
+                    avatar = string.IsNullOrEmpty(doctor.Avatar)
+                        ? "/images/doctor.png"
+                        : (doctor.Avatar.Contains("anhbs")
+                            ? $"/images/anhbacsi/{doctor.Avatar}"
+                            : $"/images/userAvatar/{doctor.Avatar}");
                     // 🌟 Bổ sung để lưu DoctorId thực tế phục vụ trang danh sách lịch hẹn của bác sĩ
                     HttpContext.Session.SetInt32("DoctorId", doctor.DoctorId);
                 }
@@ -282,12 +287,14 @@ namespace Health_Booking_MVC.Controllers
             HttpContext.Session.SetString("Role", user.Role.ToLower());
 
             string displayName = user.Email;
+            string avatar = "";
             if (user.Role == "patient")
             {
                 var pInfo = _context.Patients.FirstOrDefault(p => p.UserId == user.UserId);
                 if (pInfo != null)
                 {
                     displayName = pInfo.FullName;
+                    avatar = pInfo.Avatar ?? "";
                     HttpContext.Session.SetInt32("PatientId", pInfo.PatientId); // Đồng bộ lưu ID
                 }
             }
@@ -297,11 +304,17 @@ namespace Health_Booking_MVC.Controllers
                 if (dInfo != null)
                 {
                     displayName = dInfo.FullName;
+                    avatar = string.IsNullOrEmpty(dInfo.Avatar)
+                        ? "/images/doctor.png"
+                        : (dInfo.Avatar.Contains("anhbs")
+                            ? $"/images/anhbacsi/{dInfo.Avatar}"
+                            : $"/images/userAvatar/{dInfo.Avatar}");
                     HttpContext.Session.SetInt32("DoctorId", dInfo.DoctorId); // Đồng bộ lưu ID
                 }
             }
 
             HttpContext.Session.SetString("Name", displayName);
+            HttpContext.Session.SetString("Avatar", avatar);
             return RedirectToAction("Index", "Home");
         }
     }
