@@ -1,14 +1,15 @@
-﻿@model IEnumerable<Health_Booking_MVC.Models.Appointment>
+﻿@using Health_Booking_MVC.Models
+@model IEnumerable<Health_Booking_MVC.Models.Appointment>
 @{
     Layout = "~/Views/Admin/_Admin.cshtml";
-    ViewData["Title"] = "Quản lý Lịch hẹn khám";
+    ViewData["Title"] = "Quản lý Lịch hẹn từ Trang chủ";
 }
 
 <div class="container-fluid">
     <div class="card card-custom bg-white p-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h5 class="fw-bold m-0 text-dark">
-                <i class="fa-solid fa-calendar-check me-2 text-info"></i> Danh sách Lịch hẹn khám
+                <i class="fa-solid fa-house-medical me-2 text-info"></i> Danh sách Lịch hẹn khám (Nguồn: Trang chủ)
             </h5>
         </div>
 
@@ -33,7 +34,8 @@
                     <tr>
                         <th>Mã LH</th>
                         <th>Bệnh nhân</th>
-                        <th>Bác sĩ khám</th>
+                        @* <th>Bác sĩ khám</th> *@
+                        <th>Chuyên khoa / Bệnh viện</th>
                         <th>Ngày hẹn</th>
                         <th>Giờ khám</th>
                         <th>Trạng thái</th>
@@ -48,7 +50,10 @@
                             <tr>
                                 <td><strong>#@app.AppointmentId</strong></td>
                                 <td class="fw-semibold">@app.Patient?.FullName</td>
-                                <td><div class="fw-semibold text-primary">@app.Doctor?.FullName</div></td>
+                                <td>
+                                    <div class="small fw-bold text-dark">@app.Specialization?.Name</div>
+                                    <div class="small text-muted">@app.Hospital?.Name</div>
+                                </td>
                                 <td>@app.AppointmentDate.ToString("dd/MM/yyyy")</td>
                                 <td>
                                     @if (app.Schedule != null)
@@ -104,7 +109,7 @@
                     else
                     {
                         <tr>
-                            <td colspan="7" class="text-center text-muted py-4">Hiện tại không có lịch hẹn khám nào trong hệ thống.</td>
+                            <td colspan="8" class="text-center text-muted py-4">Hiện tại không có lịch hẹn nào được đặt từ Trang chủ.</td>
                         </tr>
                     }
                 </tbody>

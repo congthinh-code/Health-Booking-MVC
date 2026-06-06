@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Health_Booking_MVC.Migrations
 {
     [DbContext(typeof(HealthBookingDbContext))]
-    [Migration("20260604125957_updatedatabase")]
-    partial class updatedatabase
+    [Migration("20260606100451_updatedb")]
+    partial class updatedb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,16 +36,26 @@ namespace Health_Booking_MVC.Migrations
                     b.Property<DateTime>("AppointmentDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("BookingSource")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("HospitalId")
+                        .HasColumnType("int");
+
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
                     b.Property<int>("ScheduleId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SpecializationId")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -55,9 +65,13 @@ namespace Health_Booking_MVC.Migrations
 
                     b.HasIndex("DoctorId");
 
+                    b.HasIndex("HospitalId");
+
                     b.HasIndex("PatientId");
 
                     b.HasIndex("ScheduleId");
+
+                    b.HasIndex("SpecializationId");
 
                     b.ToTable("Appointments");
 
@@ -66,6 +80,7 @@ namespace Health_Booking_MVC.Migrations
                         {
                             AppointmentId = 1,
                             AppointmentDate = new DateTime(2026, 5, 20, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            BookingSource = "Doctor",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 1,
                             PatientId = 1,
@@ -432,7 +447,8 @@ namespace Health_Booking_MVC.Migrations
                             Hotline = "056 3820 289",
                             Image = "images/anhbenhvien/bvdk.jpg",
                             Name = "Bệnh viện đa khoa tỉnh Bình Định",
-                            Rating = 0
+                            Rating = 0,
+                            WebsiteUrl = "https://benhvienbinhdinh.com.vn/"
                         },
                         new
                         {
@@ -442,7 +458,8 @@ namespace Health_Booking_MVC.Migrations
                             Hotline = "0256 3893 247",
                             Image = "images/anhbenhvien/bvmat.jpg",
                             Name = "Bệnh viện Mắt Bình Định",
-                            Rating = 0
+                            Rating = 0,
+                            WebsiteUrl = "https://www.bvmatbinhdinh.vn/"
                         },
                         new
                         {
@@ -452,7 +469,8 @@ namespace Health_Booking_MVC.Migrations
                             Hotline = "0269 6566 366",
                             Image = "images/anhbenhvien/bvquynhon.jpg",
                             Name = "Trung tâm Y tế Quy Nhơn",
-                            Rating = 0
+                            Rating = 0,
+                            WebsiteUrl = "https://benhvienquynhon.gov.vn/"
                         },
                         new
                         {
@@ -462,7 +480,8 @@ namespace Health_Booking_MVC.Migrations
                             Hotline = "0965 071 919",
                             Image = "images/anhbenhvien/yhoccotruyen.jpg",
                             Name = "Bệnh viện Y học cổ truyền & PHCN Bình Định",
-                            Rating = 0
+                            Rating = 0,
+                            WebsiteUrl = "https://yhctphcnquynhon.vn/"
                         },
                         new
                         {
@@ -472,7 +491,8 @@ namespace Health_Booking_MVC.Migrations
                             Hotline = "0256 3532 536",
                             Image = "images/anhbenhvien/bvquyhoa.jpg",
                             Name = "Bệnh viện Phong - Da liễu Trung ương Quy Hoà",
-                            Rating = 0
+                            Rating = 0,
+                            WebsiteUrl = "https://bvquyhoa.vn/"
                         },
                         new
                         {
@@ -482,7 +502,8 @@ namespace Health_Booking_MVC.Migrations
                             Hotline = "0256 3822 900",
                             Image = "images/anhbenhvien/bvhoabinh.jpg",
                             Name = "Bệnh viện đa khoa Hoà Bình",
-                            Rating = 0
+                            Rating = 0,
+                            WebsiteUrl = "https://hoabinhhospital.com.vn/"
                         },
                         new
                         {
@@ -492,7 +513,8 @@ namespace Health_Booking_MVC.Migrations
                             Hotline = "0256 3833 315",
                             Image = "images/anhbenhvien/bvtuyphuoc.jpg",
                             Name = "Trung tâm Y tế huyện Tuy Phước",
-                            Rating = 0
+                            Rating = 0,
+                            WebsiteUrl = "https://ttyttuyphuoc.com.vn/"
                         },
                         new
                         {
@@ -502,7 +524,8 @@ namespace Health_Booking_MVC.Migrations
                             Hotline = "0256 3846 363",
                             Image = "images/anhbenhvien/quany13.jpg",
                             Name = "Bệnh viện Quân y 13",
-                            Rating = 0
+                            Rating = 0,
+                            WebsiteUrl = "https://benhvienquany13.vn/"
                         },
                         new
                         {
@@ -512,7 +535,8 @@ namespace Health_Booking_MVC.Migrations
                             Hotline = "0256 3686 115",
                             Image = "images/anhbenhvien/dktp.jpg",
                             Name = "Bệnh viện đa khoa Thu Phúc",
-                            Rating = 0
+                            Rating = 0,
+                            WebsiteUrl = "https://thuphuc.vn/"
                         });
                 });
 
@@ -955,6 +979,10 @@ namespace Health_Booking_MVC.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Health_Booking_MVC.Models.Hospital", "Hospital")
+                        .WithMany()
+                        .HasForeignKey("HospitalId");
+
                     b.HasOne("Health_Booking_MVC.Models.Patient", "Patient")
                         .WithMany("Appointments")
                         .HasForeignKey("PatientId")
@@ -967,11 +995,19 @@ namespace Health_Booking_MVC.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Health_Booking_MVC.Models.Specialization", "Specialization")
+                        .WithMany()
+                        .HasForeignKey("SpecializationId");
+
                     b.Navigation("Doctor");
+
+                    b.Navigation("Hospital");
 
                     b.Navigation("Patient");
 
                     b.Navigation("Schedule");
+
+                    b.Navigation("Specialization");
                 });
 
             modelBuilder.Entity("Health_Booking_MVC.Models.Doctor", b =>

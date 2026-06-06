@@ -260,6 +260,9 @@ namespace Health_Booking_MVC.Controllers
                 .Include(a => a.Patient)
                 .Include(a => a.Doctor)
                 .Include(a => a.Schedule)
+                .Include(a => a.Hospital)
+                .Include(a => a.Specialization)
+                .Where(a => a.BookingSource == "Home")
                 .OrderByDescending(a => a.AppointmentDate) // Lịch hẹn mới nhất xếp lên đầu
                 .ToList();
 

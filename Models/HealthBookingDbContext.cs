@@ -218,7 +218,8 @@ namespace Health_Booking_MVC.Models
                     Address = "106 Nguyễn Huệ, Phường Quy Nhơn, Tỉnh Gia Lai",
                     Description = "Bệnh viện công",
                     Hotline = "056 3820 289",
-                    Image = "images/anhbenhvien/bvdk.jpg"
+                    Image = "images/anhbenhvien/bvdk.jpg",
+                    WebsiteUrl = "https://benhvienbinhdinh.com.vn/"
                 },
                 new Hospital
                 {
@@ -227,7 +228,8 @@ namespace Health_Booking_MVC.Models
                     Address = "78 Trần Hưng Đạo, Quy Nhơn, Gia Lai",
                     Description = "Bệnh viện công",
                     Hotline = "0256 3893 247",
-                    Image = "images/anhbenhvien/bvmat.jpg"
+                    Image = "images/anhbenhvien/bvmat.jpg",
+                    WebsiteUrl = "https://www.bvmatbinhdinh.vn/"
                 },
                 new Hospital
                 {
@@ -236,7 +238,8 @@ namespace Health_Booking_MVC.Models
                     Address = "114 Trần Hưng Đạo, phường Quy Nhơn, tỉnh Gia Lai",
                     Description = "Bệnh viện công",
                     Hotline = "0269 6566 366",
-                    Image = "images/anhbenhvien/bvquynhon.jpg"
+                    Image = "images/anhbenhvien/bvquynhon.jpg",
+                    WebsiteUrl= "https://benhvienquynhon.gov.vn/"
                 },
                 new Hospital
                 {
@@ -245,7 +248,8 @@ namespace Health_Booking_MVC.Models
                     Address = "Tổ 05, KV05, Phường Quy Nhơn Bắc, tỉnh Gia Lai",
                     Description = "Bệnh viện công",
                     Hotline = "0965 071 919",
-                    Image = "images/anhbenhvien/yhoccotruyen.jpg"
+                    Image = "images/anhbenhvien/yhoccotruyen.jpg",
+                    WebsiteUrl= "https://yhctphcnquynhon.vn/"
                 },
                 new Hospital
                 {
@@ -254,7 +258,8 @@ namespace Health_Booking_MVC.Models
                     Address = "05A Đường Chế Lan Viên, Quy Nhơn Nam, Gia Lai",
                     Description = "Bệnh viện công",
                     Hotline = "0256 3532 536",
-                    Image = "images/anhbenhvien/bvquyhoa.jpg"
+                    Image = "images/anhbenhvien/bvquyhoa.jpg",
+                    WebsiteUrl= "https://bvquyhoa.vn/"
                 },
                 new Hospital
                 {
@@ -263,7 +268,8 @@ namespace Health_Booking_MVC.Models
                     Address = "355 Trần Hưng Đạo, Phường Quy Nhơn, Gia Lai",
                     Description = "Bệnh viện tư",
                     Hotline = "0256 3822 900",
-                    Image = "images/anhbenhvien/bvhoabinh.jpg"
+                    Image = "images/anhbenhvien/bvhoabinh.jpg",
+                    WebsiteUrl= "https://hoabinhhospital.com.vn/"
                 },
                 new Hospital
                 {
@@ -272,7 +278,8 @@ namespace Health_Booking_MVC.Models
                     Address = "66 Đào Tấn, Xã Tuy Phước, Gia Lai",
                     Description = "Bệnh viện công",
                     Hotline = "0256 3833 315",
-                    Image = "images/anhbenhvien/bvtuyphuoc.jpg"
+                    Image = "images/anhbenhvien/bvtuyphuoc.jpg",
+                    WebsiteUrl= "https://ttyttuyphuoc.com.vn/"
                 },
                 new Hospital
                 {
@@ -281,7 +288,8 @@ namespace Health_Booking_MVC.Models
                     Address = "54 An Dương Vương, Phường Quy Nhơn Nam, Gia Lai",
                     Description = "Bệnh viện công",
                     Hotline = "0256 3846 363",
-                    Image = "images/anhbenhvien/quany13.jpg"
+                    Image = "images/anhbenhvien/quany13.jpg",
+                    WebsiteUrl= "https://benhvienquany13.vn/"
                 },
                 new Hospital
                 {
@@ -290,7 +298,8 @@ namespace Health_Booking_MVC.Models
                     Address = "420 Nguyễn Thái Học, Quy Nhơn Nam, Gia Lai",
                     Description = "Bệnh viện tư",
                     Hotline = "0256 3686 115",
-                    Image = "images/anhbenhvien/dktp.jpg"
+                    Image = "images/anhbenhvien/dktp.jpg",
+                    WebsiteUrl= "https://thuphuc.vn/"
                 }
             );
 
