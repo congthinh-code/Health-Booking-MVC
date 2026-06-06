@@ -1,7 +1,11 @@
 @model IEnumerable<Health_Booking_MVC.Models.Doctor>
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Đặt khám bác sĩ";
     var hospitals = ViewBag.Hospitals as IEnumerable<Health_Booking_MVC.Models.Hospital> ?? new List<Health_Booking_MVC.Models.Hospital>();
+    var isLoggedIn = HttpContextAccessor.HttpContext?.Session.GetInt32("UserId") != null;
+    var userRole = HttpContextAccessor.HttpContext?.Session.GetString("Role") ?? "";
 }
 <link rel="stylesheet" href="~/css/DVYT/ĐKBS.css" asp-append-version="true" />
 
@@ -54,16 +58,22 @@
         <span class="close" onclick="closeModal()">&times;</span>
         <h2>Đặt lịch khám Bác Sĩ</h2>
         <form id="bookingForm">
-
-            <input type="text" id="patientName" placeholder="Họ và tên bệnh nhân" required />
-            <input type="tel" id="phone" placeholder="Số điện thoại" required />
-
             <input type="hidden" id="doctorId" />
-            <!-- Textbox hiện tên bác sĩ đã chọn (chỉ đọc) -->
-            <input type="text" id="doctorName" readonly />
 
-            <input type="date" id="bookingDate" required />
-            <input type="time" id="bookingTime" required />
+            <div class="form-group mb-2">
+                <label>Bác sĩ đã chọn</label>
+                <input type="text" id="doctorName" readonly class="form-control" />
+            </div>
+
+            <div class="form-group mb-2">
+                <label for="bookingDate">Ngày khám</label>
+                <input type="date" id="bookingDate" required class="form-control" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="bookingTime">Giờ khám</label>
+                <input type="time" id="bookingTime" required class="form-control" />
+            </div>
 
             <button type="submit">Xác nhận đặt khám</button>
         </form>
@@ -71,8 +81,26 @@
 </div>
 
 <script>
-    // Hàm mở form và gắn tên bác sĩ
+    const isLoggedIn = @(isLoggedIn ? "true" : "false");
+    const userRole = "@userRole";
+
+    // Hàm mở form và gắn tên bác sĩ (Đã thêm check Đăng nhập)
     function openModal(id, name) {
+        // 1. Kiểm tra nếu chưa đăng nhập
+        if (!isLoggedIn) {
+            if (confirm("Vui lòng đăng nhập để đặt khám bác sĩ! Bạn có muốn chuyển hướng đến trang đăng nhập không?")) {
+                window.location.href = '@Url.Action("Login", "Account")';
+            }
+            return;
+        }
+
+        // 2. Kiểm tra nếu không phải tài khoản Bệnh nhân
+        if (userRole !== "patient") {
+            alert("Vui lòng đăng nhập với tài khoản Bệnh nhân để đặt khám!");
+            return;
+        }
+
+        // 3. Nếu hợp lệ, hiển thị form
         document.getElementById("bookingModal").style.display = "flex";
         document.getElementById("doctorId").value = id;
         document.getElementById("doctorName").value = name;
@@ -92,14 +120,11 @@
         }
     }
 
-    // Xử lý khi ấn nút "Xác nhận đặt khám"
-         // Xử lý khi ấn nút "Xác nhận đặt khám" (Gửi dữ liệu lên Server)
+    // Xử lý khi ấn nút "Xác nhận đặt khám" (Gửi dữ liệu lên Server)
     document.getElementById("bookingForm").addEventListener("submit", function (e) {
         e.preventDefault();
 
         let doctorId = document.getElementById("doctorId").value;
-        let patientName = document.getElementById("patientName").value;
-        let phone = document.getElementById("phone").value;
         let date = document.getElementById("bookingDate").value;
         let time = document.getElementById("bookingTime").value;
 
@@ -110,8 +135,6 @@
             },
             body: new URLSearchParams({
                 doctorId: doctorId,
-                patientName: patientName,
-                phone: phone,
                 date: date,
                 time: time
             })
@@ -131,7 +154,8 @@
             alert("Có lỗi hệ thống xảy ra khi đặt khám!");
         });
     });
-    // ===================== CODE XỬ LÝ PHÂN TRANG BÁC SĨ=====================
+
+    // ===================== CODE XỬ LÝ PHÂN TRANG BÁC SĨ =====================
     document.addEventListener("DOMContentLoaded", function () {
         const itemsPerPage = 4; // Cấu hình hiển thị 4 bác sĩ trên 1 trang
         const cards = Array.from(document.querySelectorAll(".doctor-card"));
@@ -147,7 +171,7 @@
                 if (index >= startIndex && index < endIndex) {
                     card.style.display = ""; // Hiển thị card hợp lệ
                 } else {
-                    card.style.display = "none"; 
+                    card.style.display = "none";
                 }
             });
 
