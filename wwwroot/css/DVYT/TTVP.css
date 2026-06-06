@@ -112,6 +112,8 @@ a {
     overflow: hidden;
     box-shadow: 0 6px 16px rgba(214,51,132,.1);
     transition: .3s;
+    display: flex;
+    flex-direction: column;
 }
 
     .benhvien-card:hover {
@@ -127,6 +129,9 @@ a {
 
 .benhvien-info {
     padding: 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
     .benhvien-info h2 {
@@ -151,14 +156,14 @@ a {
 .benhvien-btns {
     display: flex;
     gap: 10px;
+    margin-top: auto;
 }
 
-    .benhvien-btns a,
-    .benhvien-btns button {
+    .benhvien-btns .xem,
+    .benhvien-btns .dat {
         flex: 1;
         padding: 12px;
         border-radius: 30px;
-        text-align: center;
         text-decoration: none;
         font-weight: 600;
         cursor: pointer;
@@ -166,27 +171,28 @@ a {
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 6px;
     }
 
-.xem {
-    border: 2px solid #d93ba2;
-    background: white;
-    color: #d93ba2;
-}
-
-    .xem:hover {
-        background: #f9d4ea;
+    .benhvien-btns .xem {
+        border: 2px solid #d93ba2;
+        background: #fff;
+        color: #d93ba2;
     }
 
-.dat {
-    border: none;
-    background: linear-gradient(90deg,#fbc2eb,#a6c1ee);
-    color: #000;
-}
+        .benhvien-btns .xem:hover {
+            background: #f9e2e7;
+        }
 
-    .dat:hover {
-        transform: translateY(-2px);
+    .benhvien-btns .dat {
+        border: none;
+        background: linear-gradient( 90deg, #fbc2eb, #a6c1ee );
+        color: #000;
     }
+
+        .benhvien-btns .dat:hover {
+            transform: translateY(-2px);
+        }
 
 /* ===================== MODAL (FORM ĐỒNG BỘ RỘNG HƠN) ===================== */
 .modal {

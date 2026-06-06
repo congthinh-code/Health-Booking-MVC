@@ -23,10 +23,6 @@ namespace Health_Booking_MVC.Controllers
                 .OrderBy(h => h.Name)
                 .ToListAsync();
 
-            model.Specializations = await _context.Specializations
-                .OrderBy(s => s.Name)
-                .ToListAsync();
-
             return View(model);
         }
 

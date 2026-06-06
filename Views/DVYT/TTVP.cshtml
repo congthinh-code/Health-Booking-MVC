@@ -1,9 +1,14 @@
-﻿@model IEnumerable<Health_Booking_MVC.Models.Hospital>
+@model IEnumerable<Health_Booking_MVC.Models.Hospital>
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Thanh toán viện phí";
+    var isLoggedIn = HttpContextAccessor.HttpContext?.Session.GetInt32("UserId") != null;
+    var userRole = HttpContextAccessor.HttpContext?.Session.GetString("Role") ?? "";
 }
 
 <link rel="stylesheet" href="~/css/DVYT/TTVP.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
 <div class="tab-container">
     <a asp-controller="DVYT" asp-action="ĐKCS" class="tab-item">Đặt khám cơ sở</a>
@@ -31,8 +36,12 @@
                 <p>@h.Address</p>
                 <div class="rating">⭐ @h.Rating / 5</div>
                 <div class="benhvien-btns">
-                    <a href="@h.WebsiteUrl" target="_blank" class="xem">Xem chi tiết</a>
+                    <a href="@h.WebsiteUrl" target="_blank" class="xem">
+                        <i class="fa-solid fa-eye"></i>
+                        Xem chi tiết
+                    </a>
                     <button class="dat" onclick="openModal(@h.HospitalId,'@h.Name')">
+                        <i class="fa-solid fa-credit-card"></i>
                         Thanh toán viện phí
                     </button>
                 </div>
@@ -83,7 +92,20 @@
 </div>
 
 <script>
+    const isLoggedIn = @(isLoggedIn ? "true" : "false");
+    const userRole = "@userRole";
+
     function openModal(id, name) {
+        if (!isLoggedIn) {
+            if (confirm("Vui lòng đăng nhập để thực hiện thanh toán viện phí! Bạn có muốn chuyển hướng đến trang đăng nhập?")) {
+                window.location.href = '@Url.Action("Login", "Account")';
+            }
+            return;
+        }
+        if (userRole !== "patient") {
+            alert("Vui lòng đăng nhập với tài khoản Bệnh nhân để thanh toán viện phí!");
+            return;
+        }
         document.getElementById("hospitalId").value = id;
         document.getElementById("hospitalName").value = name;
         document.getElementById("modal").classList.add("show");
@@ -95,6 +117,14 @@
     }
 
     function payNow() {
+        if (!isLoggedIn) {
+            alert("Vui lòng đăng nhập để thanh toán viện phí!");
+            return;
+        }
+        if (userRole !== "patient") {
+            alert("Vui lòng đăng nhập với tài khoản Bệnh nhân để thanh toán viện phí!");
+            return;
+        }
         let patientName = document.getElementById("patientName").value;
         let phone = document.getElementById("phone").value;
         let billNumber = document.getElementById("billNumber").value;
