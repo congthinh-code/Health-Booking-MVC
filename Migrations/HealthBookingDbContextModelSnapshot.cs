@@ -444,7 +444,8 @@ namespace Health_Booking_MVC.Migrations
                             Hotline = "056 3820 289",
                             Image = "images/anhbenhvien/bvdk.jpg",
                             Name = "Bệnh viện đa khoa tỉnh Bình Định",
-                            Rating = 0
+                            Rating = 0,
+                            WebsiteUrl = "https://benhvienbinhdinh.com.vn/"
                         },
                         new
                         {
@@ -454,7 +455,8 @@ namespace Health_Booking_MVC.Migrations
                             Hotline = "0256 3893 247",
                             Image = "images/anhbenhvien/bvmat.jpg",
                             Name = "Bệnh viện Mắt Bình Định",
-                            Rating = 0
+                            Rating = 0,
+                            WebsiteUrl = "https://www.bvmatbinhdinh.vn/"
                         },
                         new
                         {
@@ -464,7 +466,8 @@ namespace Health_Booking_MVC.Migrations
                             Hotline = "0269 6566 366",
                             Image = "images/anhbenhvien/bvquynhon.jpg",
                             Name = "Trung tâm Y tế Quy Nhơn",
-                            Rating = 0
+                            Rating = 0,
+                            WebsiteUrl = "https://benhvienquynhon.gov.vn/"
                         },
                         new
                         {
@@ -474,7 +477,8 @@ namespace Health_Booking_MVC.Migrations
                             Hotline = "0965 071 919",
                             Image = "images/anhbenhvien/yhoccotruyen.jpg",
                             Name = "Bệnh viện Y học cổ truyền & PHCN Bình Định",
-                            Rating = 0
+                            Rating = 0,
+                            WebsiteUrl = "https://yhctphcnquynhon.vn/"
                         },
                         new
                         {
@@ -484,7 +488,8 @@ namespace Health_Booking_MVC.Migrations
                             Hotline = "0256 3532 536",
                             Image = "images/anhbenhvien/bvquyhoa.jpg",
                             Name = "Bệnh viện Phong - Da liễu Trung ương Quy Hoà",
-                            Rating = 0
+                            Rating = 0,
+                            WebsiteUrl = "https://bvquyhoa.vn/"
                         },
                         new
                         {
@@ -494,7 +499,8 @@ namespace Health_Booking_MVC.Migrations
                             Hotline = "0256 3822 900",
                             Image = "images/anhbenhvien/bvhoabinh.jpg",
                             Name = "Bệnh viện đa khoa Hoà Bình",
-                            Rating = 0
+                            Rating = 0,
+                            WebsiteUrl = "https://hoabinhhospital.com.vn/"
                         },
                         new
                         {
@@ -504,7 +510,8 @@ namespace Health_Booking_MVC.Migrations
                             Hotline = "0256 3833 315",
                             Image = "images/anhbenhvien/bvtuyphuoc.jpg",
                             Name = "Trung tâm Y tế huyện Tuy Phước",
-                            Rating = 0
+                            Rating = 0,
+                            WebsiteUrl = "https://ttyttuyphuoc.com.vn/"
                         },
                         new
                         {
@@ -514,7 +521,8 @@ namespace Health_Booking_MVC.Migrations
                             Hotline = "0256 3846 363",
                             Image = "images/anhbenhvien/quany13.jpg",
                             Name = "Bệnh viện Quân y 13",
-                            Rating = 0
+                            Rating = 0,
+                            WebsiteUrl = "https://benhvienquany13.vn/"
                         },
                         new
                         {
@@ -524,7 +532,8 @@ namespace Health_Booking_MVC.Migrations
                             Hotline = "0256 3686 115",
                             Image = "images/anhbenhvien/dktp.jpg",
                             Name = "Bệnh viện đa khoa Thu Phúc",
-                            Rating = 0
+                            Rating = 0,
+                            WebsiteUrl = "https://thuphuc.vn/"
                         });
                 });
 
