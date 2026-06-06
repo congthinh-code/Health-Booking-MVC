@@ -1,4 +1,4 @@
-﻿/* ===================== RESET ===================== */
+/* ===================== RESET ===================== */
 * {
     margin: 0;
     padding: 0;
@@ -76,6 +76,8 @@ body {
     overflow: hidden;
     box-shadow: 0 6px 16px rgba(214,51,132,.12);
     transition: .3s;
+    display: flex;
+    flex-direction: column;
 }
 
     .benhvien-card:hover {
@@ -91,6 +93,9 @@ body {
 
 .benhvien-info {
     padding: 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
     .benhvien-info h2 {
@@ -121,6 +126,7 @@ body {
 .benhvien-btns {
     display: flex;
     gap: 10px;
+    margin-top: auto;
 }
 
     .benhvien-btns .xem,
@@ -128,11 +134,14 @@ body {
         flex: 1;
         padding: 12px;
         border-radius: 30px;
-        text-align: center;
         text-decoration: none;
         font-weight: 600;
         cursor: pointer;
         transition: .3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
     }
 
     .benhvien-btns .xem {

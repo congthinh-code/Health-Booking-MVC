@@ -1,7 +1,11 @@
-﻿@model IEnumerable<Health_Booking_MVC.Models.Hospital>
+@model IEnumerable<Health_Booking_MVC.Models.Hospital>
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Đặt khám tại cơ sở";
     var specialties = ViewBag.Specialties as IEnumerable<Health_Booking_MVC.Models.Specialization> ?? new List<Health_Booking_MVC.Models.Specialization>();
+    var isLoggedIn = HttpContextAccessor.HttpContext?.Session.GetInt32("UserId") != null;
+    var userRole = HttpContextAccessor.HttpContext?.Session.GetString("Role") ?? "";
 }
 
 <link rel="stylesheet" href="~/css/DVYT/ĐKCS.css" />
@@ -82,7 +86,20 @@
 </div>
 
 <script>
+    const isLoggedIn = @(isLoggedIn ? "true" : "false");
+    const userRole = "@userRole";
+
     function openBookingFromHospital(id) {
+        if (!isLoggedIn) {
+            if (confirm("Vui lòng đăng nhập để thực hiện chức năng đặt khám! Bạn có muốn chuyển hướng đến trang đăng nhập?")) {
+                window.location.href = '@Url.Action("Login", "Account")';
+            }
+            return;
+        }
+        if (userRole !== "patient") {
+            alert("Vui lòng đăng nhập với tài khoản Bệnh nhân để đặt khám!");
+            return;
+        }
         document.getElementById("bookingModal").style.display = "flex";
         document.getElementById("hospitalSelect").value = id;
     }
@@ -100,6 +117,14 @@
 
     document.getElementById("bookingForm").addEventListener("submit", function (e) {
         e.preventDefault();
+        if (!isLoggedIn) {
+            alert("Vui lòng đăng nhập để đặt khám!");
+            return;
+        }
+        if (userRole !== "patient") {
+            alert("Vui lòng đăng nhập với tài khoản Bệnh nhân để đặt khám!");
+            return;
+        }
         alert("Đặt lịch khám thành công!");
         closeBooking();
     });

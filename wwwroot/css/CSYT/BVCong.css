@@ -93,6 +93,8 @@ a:focus {
     box-shadow: 0 6px 16px rgba(214,51,132,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
     .card:hover {
@@ -129,6 +131,8 @@ a:focus {
 
 /* ===================== BUTTON ===================== */
 .btn {
+    display: inline-block;
+    width: fit-content;
     padding: 12px 20px;
     font-size: 15px;
     font-weight: 600;
@@ -139,7 +143,7 @@ a:focus {
     color: #000;
     box-shadow: 0 5px 15px rgba(166,193,238,0.4);
     transition: 0.3s ease;
-    margin-bottom: 15px;
+    margin: auto auto 15px auto;
 }
 
     .btn:hover {
