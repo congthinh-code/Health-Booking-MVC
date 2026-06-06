@@ -60,30 +60,19 @@
         <form id="paymentForm">
             <input type="hidden" id="hospitalId" />
 
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label for="hospitalName">Bệnh viện</label>
                 <input type="text" id="hospitalName" readonly />
             </div>
 
-            <div class="form-group">
-                <label for="patientName">Họ và tên bệnh nhân</label>
-                <input type="text" id="patientName" placeholder="Họ và tên" required />
+            <div class="form-group mb-2">
+                <label for="billNumber">Mã hóa đơn</label>
+                <input type="text" id="billNumber" placeholder="Nhập mã hóa đơn..." required />
             </div>
 
-            <div class="form-group">
-                <label for="phone">Số điện thoại</label>
-                <input type="tel" id="phone" placeholder="Số điện thoại" required />
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="billNumber">Mã hóa đơn</label>
-                    <input type="text" id="billNumber" placeholder="Mã hóa đơn" required />
-                </div>
-                <div class="form-group">
-                    <label for="amount">Số tiền cần thanh toán (VNĐ)</label>
-                    <input type="number" id="amount" placeholder="Nhập số tiền..." required />
-                </div>
+            <div class="form-group mb-3">
+                <label for="amount">Số tiền cần thanh toán (VNĐ)</label>
+                <input type="number" id="amount" placeholder="Nhập số tiền..." required />
             </div>
 
             <button type="button" onclick="payNow()">Xác nhận thanh toán</button>
@@ -116,7 +105,7 @@
         document.getElementById("paymentForm").reset();
     }
 
-    function payNow() {
+           function payNow() {
         if (!isLoggedIn) {
             alert("Vui lòng đăng nhập để thanh toán viện phí!");
             return;
@@ -125,17 +114,16 @@
             alert("Vui lòng đăng nhập với tài khoản Bệnh nhân để thanh toán viện phí!");
             return;
         }
-        let patientName = document.getElementById("patientName").value;
-        let phone = document.getElementById("phone").value;
+        // ➡️ Chỉ đọc mã hóa đơn và số tiền (không còn đọc Tên và SĐT)
         let billNumber = document.getElementById("billNumber").value;
         let amount = document.getElementById("amount").value;
 
-        if (!patientName || !phone || !billNumber || !amount) {
+        if (!billNumber || !amount) {
             alert("Vui lòng nhập đầy đủ thông tin!");
             return;
         }
 
-        alert("Thanh toán thành công!\n\nBệnh nhân: " + patientName + "\nMã hóa đơn: " + billNumber + "\nSố tiền: " + amount + " VNĐ");
+        alert("Thanh toán thành công!\n\nMã hóa đơn: " + billNumber + "\nSố tiền: " + amount + " VNĐ");
         closeModal();
     }
 
