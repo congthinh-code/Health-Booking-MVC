@@ -141,8 +141,23 @@ namespace Health_Booking_MVC.Controllers
 
             // Lấy tên hiển thị
             string displayName = user.Email;
-            if (user.Role == "patient" && user.Patient != null) displayName = user.Patient.FullName;
-            if (user.Role == "doctor" && user.Doctor != null) displayName = user.Doctor.FullName;
+            if (user.Role == "patient" && user.Patient != null) 
+                displayName = user.Patient.FullName; if (user.Role == "patient")
+            {
+                var patient = _context.Patients
+                    .FirstOrDefault(p => p.UserId == user.UserId);
+
+                if (patient != null)
+                    displayName = patient.FullName;
+            }
+            else if (user.Role == "doctor")
+            {
+                var doctor = _context.Doctors
+                    .FirstOrDefault(d => d.UserId == user.UserId);
+
+                if (doctor != null)
+                    displayName = doctor.FullName;
+            }
 
             HttpContext.Session.SetString("Name", displayName);
 
