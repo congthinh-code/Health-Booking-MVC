@@ -116,7 +116,6 @@
 <script src="~/js/search.js"></script>
 <script src="~/js/home.js"></script>
 <script>
-    <script>
     // 1. Hàm mở Modal đặt lịch và kiểm tra trạng thái đăng nhập
     function openBooking(hospitalId, specializationId, doctorUserId) {
     // Lấy trạng thái đăng nhập trực tiếp từ Session C# truyền ra View
@@ -152,7 +151,7 @@
     }
     }
 
-    // 2. Hàm đóng Modal đặt lịch
+    // 2. Hàm đóng Modal đặt lịch (Dự phòng nếu file home.js chưa viết hàm này)
     function closeBooking() {
     const modal = document.getElementById("bookingModal");
     if (modal) {
@@ -222,10 +221,16 @@
     })
     .then(data => {
     if (data.success) {
+    // 1. Hiển thị thông báo thành công từ Server gửi về trước
     alert(data.message);
+
+    // 2. Đóng Modal an toàn
     closeBooking();
+
+    // 3. Xóa sạch dữ liệu cũ đã điền trên Form
     bookingForm.reset();
     } else {
+    // Hiển thị thông báo lỗi logic cụ thể từ Server (Ví dụ: Trùng lịch, lỗi DB...)
     alert(data.message);
     }
     })
@@ -234,6 +239,7 @@
     alert('Có lỗi kết nối mạng hoặc hệ thống đang bận, vui lòng thử lại sau!');
     })
     .finally(() => {
+    // Trả lại trạng thái ban đầu cho nút bấm sau khi xử lý xong xuôi
     if (submitBtn) {
     submitBtn.disabled = false;
     submitBtn.innerText = "Xác nhận đặt lịch";

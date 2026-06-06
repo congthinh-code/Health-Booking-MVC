@@ -35,7 +35,7 @@ namespace Health_Booking_MVC.Controllers
                     id = d.DoctorId,
                     title = d.FullName, 
                     subtitle = d.Specialization.Name,
-                    url = "/DVYT/ĐKBS?doctorId=" + d.DoctorId
+                    url = "/DVYT/ĐKBS?id=" + d.DoctorId
                 })
                 .Take(10)
                 .ToList();
