@@ -24,10 +24,23 @@
                                 ? $"/images/anhbacsi/{doctor.Avatar}"
                                 : $"/images/userAvatar/{doctor.Avatar}");
                     }
-                    <img src="@doctorAvatar"
-                         class="rounded-circle mb-3"
-                         width="150"
-                         height="150" />
+                    <div class="profile-avatar">
+                        <img src="@doctorAvatar" alt="Avatar Bác sĩ" />
+                        <div class="avatar-badge" style="cursor: pointer;" onclick="document.getElementById('avatarInput').click()">
+                            <i class="fa-solid fa-camera"></i>
+                        </div>
+                        <form id="avatarForm"
+                              asp-action="UploadAvatar"
+                              asp-controller="Doctor"
+                              method="post"
+                              enctype="multipart/form-data">
+                            <input type="file"
+                                   id="avatarInput"
+                                   name="avatarFile"
+                                   hidden
+                                   accept="image/*" />
+                        </form>
+                    </div>
 
                     <h4>@doctor.FullName</h4>
 
@@ -231,6 +244,10 @@
                                             })
                                             .catch(err => alert("Lỗi kết nối tới máy chủ!"));
                                         }
+
+                                        document.getElementById("avatarInput")?.addEventListener("change", function () {
+                                            document.getElementById("avatarForm").submit();
+                                        });
                     </script>
                 }
 

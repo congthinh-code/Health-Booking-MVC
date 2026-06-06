@@ -47,7 +47,14 @@
                         </span>
                     </div>
                     <div class="card-actions">
-                        <a href="#" class="btn outline">Xem chi tiết</a>
+                        @if (!string.IsNullOrEmpty(bv.WebsiteUrl))
+                        {
+                            <a href="@bv.WebsiteUrl" target="_blank" rel="noopener noreferrer" class="btn outline">Xem chi tiết</a>
+                        }
+                        else
+                        {
+                            <a href="#" class="btn outline">Xem chi tiết</a>
+                        }
                         <button type="button" class="btn primary" onclick="openModal(@bv.HospitalId,'@bv.Name')">
                             Đặt khám
                         </button>
