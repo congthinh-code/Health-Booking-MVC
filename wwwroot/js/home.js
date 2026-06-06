@@ -197,6 +197,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 🔥 ĐÃ XÓA BỎ: Toàn bộ khối bookingForm.addEventListener("submit") cũ của PHP ở đây!
-    // Logic submit gửi dữ liệu AJAX đã được nhường quyền xử lý hoàn toàn cho file Index.cshtml để tránh lỗi đè thông báo.
+    
 });

@@ -19,12 +19,29 @@ namespace Health_Booking_MVC.Controllers
             _notificationService = notificationService;
         }
 
-        public async Task<IActionResult> ĐKBS(int? id)
+        public async Task<IActionResult> ĐKBS(int? doctorId)
         {
             var doctors = await _context.Doctors
                 .Include(d => d.Specialization)
                 .Include(d => d.Hospital)
+                .Include(d => d.User)
                 .ToListAsync();
+
+            if (doctorId.HasValue)
+            {
+                var selectedDoctor = doctors
+                    .FirstOrDefault(d => d.DoctorId == doctorId.Value);
+
+                if (selectedDoctor != null)
+                {
+                    ViewBag.SelectedDoctor = selectedDoctor;
+
+                    // Loại bác sĩ này khỏi danh sách bên dưới để không bị lặp
+                    doctors = doctors
+                        .Where(d => d.DoctorId != doctorId.Value)
+                        .ToList();
+                }
+            }
 
             return View(doctors);
         }
