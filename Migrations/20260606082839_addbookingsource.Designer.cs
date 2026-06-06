@@ -4,6 +4,7 @@ using Health_Booking_MVC.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Health_Booking_MVC.Migrations
 {
     [DbContext(typeof(HealthBookingDbContext))]
-    partial class HealthBookingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260606082839_addbookingsource")]
+    partial class addbookingsource
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,16 +46,10 @@ namespace Health_Booking_MVC.Migrations
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("HospitalId")
-                        .HasColumnType("int");
-
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
                     b.Property<int>("ScheduleId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SpecializationId")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -62,13 +59,9 @@ namespace Health_Booking_MVC.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.HasIndex("HospitalId");
-
                     b.HasIndex("PatientId");
 
                     b.HasIndex("ScheduleId");
-
-                    b.HasIndex("SpecializationId");
 
                     b.ToTable("Appointments");
 
@@ -967,10 +960,6 @@ namespace Health_Booking_MVC.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Health_Booking_MVC.Models.Hospital", "Hospital")
-                        .WithMany()
-                        .HasForeignKey("HospitalId");
-
                     b.HasOne("Health_Booking_MVC.Models.Patient", "Patient")
                         .WithMany("Appointments")
                         .HasForeignKey("PatientId")
@@ -983,19 +972,11 @@ namespace Health_Booking_MVC.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Health_Booking_MVC.Models.Specialization", "Specialization")
-                        .WithMany()
-                        .HasForeignKey("SpecializationId");
-
                     b.Navigation("Doctor");
-
-                    b.Navigation("Hospital");
 
                     b.Navigation("Patient");
 
                     b.Navigation("Schedule");
-
-                    b.Navigation("Specialization");
                 });
 
             modelBuilder.Entity("Health_Booking_MVC.Models.Doctor", b =>
