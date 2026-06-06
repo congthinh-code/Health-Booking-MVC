@@ -150,6 +150,48 @@ namespace Health_Booking_MVC.Controllers
         }
 
         // =======================================================
+        // 5. HÀM XÓA BÁC SĨ (DELETE)
+        // =======================================================
+        [HttpPost]
+        [ValidateAntiForgeryToken] // Lớp bảo mật chống giả mạo request từ bên ngoài
+        public IActionResult DeleteDoctor(int id)
+        {
+            // Kiểm tra quyền truy cập của Admin/Doctor trước khi thực hiện
+            if (!IsAuthorized()) return RedirectToAction("Login", "Account");
+
+            // 1. Tìm thông tin bác sĩ trong DB theo ID truyền lên
+            var doctor = _context.Doctors.Find(id);
+
+            if (doctor != null)
+            {
+                try
+                {
+                    // 2. Xóa bản ghi bác sĩ khỏi bảng Doctors
+                    _context.Doctors.Remove(doctor);
+
+                    // 3. Lưu thay đổi xuống cơ sở dữ liệu
+                    _context.SaveChanges();
+
+                    // Bạn có thể dùng TempData để thông báo thành công ra giao diện
+                    TempData["SuccessMessage"] = "Xóa bác sĩ thành công!";
+                }
+                catch (Exception ex)
+                {
+                    // Trường hợp bác sĩ đã có lịch hẹn hoặc lịch trình khám, database sẽ chặn không cho xóa trực tiếp
+                    // Lúc này hệ thống sẽ thông báo lỗi thay vì bị sập trang
+                    TempData["ErrorMessage"] = "Không thể xóa bác sĩ này vì đã có dữ liệu lịch trình hoặc lịch hẹn liên quan!";
+                }
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Không tìm thấy thông tin bác sĩ cần xóa.";
+            }
+
+            // Sau khi xử lý xong, tải lại trang danh sách Bác sĩ
+            return RedirectToAction("Doctor");
+        }
+
+        // =======================================================
         // 3. THÊM MỚI: HÀM KHÓA TÀI KHOẢN BỆNH NHÂN (LOCK)
         // =======================================================
         [HttpPost]
@@ -205,6 +247,61 @@ namespace Health_Booking_MVC.Controllers
 
             // Xóa xong quay lại tải lại trang danh sách bệnh nhân
             return RedirectToAction("Patient");
+        }
+        // =======================================================
+        // 6. TRANG QUẢN LÝ LỊCH HẸN KHÁM (READ)
+        // =======================================================
+        public IActionResult Appointments()
+        {
+            if (!IsAuthorized()) return RedirectToAction("Login", "Account");
+
+            // Lấy danh sách lịch hẹn, kèm theo thông tin Bệnh nhân và Bác sĩ để hiển thị ra bảng
+            var appointments = _context.Appointments
+                .Include(a => a.Patient)
+                .Include(a => a.Doctor)
+                .Include(a => a.Schedule)
+                .OrderByDescending(a => a.AppointmentDate) // Lịch hẹn mới nhất xếp lên đầu
+                .ToList();
+
+            return View(appointments); // Trả về tệp Views/Admin/Appointments.cshtml
+        }
+
+        // =======================================================
+        // 7. XỬ LÝ XÁC NHẬN ĐẶT LỊCH KHÁM (UPDATE STATUS)
+        // =======================================================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ConfirmAppointment(int id)
+        {
+            if (!IsAuthorized()) return RedirectToAction("Login", "Account");
+
+            // 1. Tìm thông tin lịch hẹn theo mã ID gửi lên
+            var appointment = _context.Appointments.Find(id);
+
+            if (appointment != null)
+            {
+                // 🔥 ĐÃ SỬA: So sánh trực tiếp với Enum AppointmentStatus.Pending
+                if (appointment.Status == AppointmentStatus.Pending)
+                {
+                    // 🔥 ĐÃ SỬA: Gán trạng thái mới bằng Enum AppointmentStatus.Confirmed
+                    appointment.Status = AppointmentStatus.Confirmed;
+
+                    _context.Appointments.Update(appointment);
+                    _context.SaveChanges();
+
+                    TempData["SuccessMessage"] = $"Đã xác nhận thành công lịch hẹn mã #{id}!";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Lịch hẹn này đã được xử lý hoặc không ở trạng thái chờ duyệt.";
+                }
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Không tìm thấy thông tin lịch hẹn.";
+            }
+
+            return RedirectToAction("Appointments");
         }
     }
 }

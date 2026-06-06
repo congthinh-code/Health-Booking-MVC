@@ -32,11 +32,11 @@
                             <td>@pat.Phone</td>
                             <td><small class="text-muted">@pat.Address</small></td>
                             <td class="text-center">
-                                <form asp-controller="Admin" asp-action="LockPatient" asp-route-id="@pat.PatientId" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn khóa tài khoản bệnh nhân này không?');" style="display:inline;">
+                                @* <form asp-controller="Admin" asp-action="LockPatient" asp-route-id="@pat.PatientId" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn khóa tài khoản bệnh nhân này không?');" style="display:inline;">
                                     <button type="submit" class="btn btn-sm btn-light border text-danger me-1">
                                         <i class="fa-solid fa-user-lock"></i> Khóa
                                     </button>
-                                </form>
+                                </form> *@
 
                                 <form asp-controller="Admin" asp-action="DeletePatient" asp-route-id="@pat.PatientId" method="post" onsubmit="return confirm('CẢNH BÁO: Xóa bệnh nhân sẽ xóa toàn bộ tài khoản liên quan! Bạn có chắc chắn muốn xóa không?');" style="display:inline;">
                                     <button type="submit" class="btn btn-sm btn-outline-danger">
