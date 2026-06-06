@@ -115,7 +115,7 @@
                                     <th>Ngày khám</th>
                                     <th>Giờ khám</th>
                                     <th>Trạng thái</th>
-                                    <th>Hành động</th> <!-- Cột Hành động -->
+                                    <th>Hành động</th>
                                 </tr>
                             </thead>
 
@@ -132,7 +132,7 @@
                                         </td>
 
                                         <td>
-                                            @item.Schedule.StartTime - @item.Schedule.EndTime
+                                            @item.AppointmentDate.ToString("HH:mm:ss") - @item.AppointmentDate.AddMinutes(30).ToString("HH:mm:ss")
                                         </td>
 
                                         <td>
@@ -206,7 +206,7 @@
                                         // Gọi API từ chối lịch hẹn kèm lý do
                                         function rejectApp(id) {
                                             let reason = prompt("Nhập lý do từ chối lịch khám này:");
-                                            if (reason === null) return; // Người dùng ấn Cancel không thực hiện gì cả
+                                            if (reason === null) return;
 
                                             if (reason.trim() === "") {
                                                 alert("Vui lòng nhập lý do để tiếp tục từ chối lịch khám!");
@@ -224,7 +224,7 @@
                                             .then(data => {
                                                 if (data.success) {
                                                     alert(data.message);
-                                                    window.location.reload(); // Tải lại trang để cập nhật trạng thái mới
+                                                    window.location.reload(); 
                                                 } else {
                                                     alert("Lỗi: " + data.message);
                                                 }
