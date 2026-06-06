@@ -66,24 +66,14 @@
         <form id="bookingForm">
             <input type="hidden" id="hospital_id" />
 
-            <div class="form-group">
-                <label for="hospital_name">Cơ sở y tế</label>
-                <input type="text" id="hospital_name" readonly />
+            <div class="form-group mb-2">
+                <label>Cơ sở y tế</label>
+                <input type="text" id="hospital_name" readonly class="form-control" />
             </div>
 
-            <div class="form-group">
-                <label for="patientName">Họ và tên bệnh nhân</label>
-                <input type="text" id="patientName" placeholder="Họ và tên" required />
-            </div>
-
-            <div class="form-group">
-                <label for="phone">Số điện thoại</label>
-                <input type="tel" id="phone" placeholder="Số điện thoại" required />
-            </div>
-
-            <div class="form-group">
-                <label for="doctorSelect">Chọn bác sĩ khám</label>
-                <select id="doctorSelect" required>
+            <div class="form-group mb-2">
+                <label for="doctorSelect">Chọn bác sĩ khám ngoài giờ</label>
+                <select id="doctorSelect" class="form-select" required>
                     <option value="">-- Chọn bác sĩ --</option>
                     @foreach (var doctor in doctors)
                     {
@@ -92,15 +82,14 @@
                 </select>
             </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Ngày khám</label>
-                    <input type="date" required />
-                </div>
-                <div class="form-group">
-                    <label>Giờ khám</label>
-                    <input type="time" required />
-                </div>
+            <div class="form-group mb-2">
+                <label>Ngày khám</label>
+                <input type="date" required class="form-control" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Giờ khám</label>
+                <input type="time" required class="form-control" />
             </div>
 
             <button type="submit">Xác nhận đặt khám</button>
@@ -133,6 +122,7 @@
         document.getElementById("bookingForm").reset();
     }
 
+    // Xử lý khi ấn nút "Xác nhận đặt khám"
     document.getElementById("bookingForm").addEventListener("submit", function (e) {
         e.preventDefault();
         if (!isLoggedIn) {
@@ -143,8 +133,7 @@
             alert("Vui lòng đăng nhập với tài khoản Bệnh nhân để đặt khám!");
             return;
         }
-        let patient = document.getElementById("patientName").value;
-        alert("Đặt lịch thành công!\n\nBệnh nhân: " + patient);
+        alert("Đặt lịch khám ngoài giờ thành công!");
         closeModal();
     });
 
@@ -155,6 +144,7 @@
         }
     }
 
+    // ===================== CODE PHÂN TRANG BỆNH VIỆN =====================
     document.addEventListener("DOMContentLoaded", function () {
         const itemsPerPage = 3;
         const cards = Array.from(document.querySelectorAll("#hospitalGrid .card"));

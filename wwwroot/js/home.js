@@ -1,41 +1,69 @@
-﻿function openBooking() {
-    document.getElementById("bookingModal").style.display = "flex";
+﻿// 1. Hàm mở Modal đặt lịch (Để hàm này tự quản lý hiển thị, logic check đăng nhập sẽ do Index.cshtml đè chặn ở vòng ngoài)
+function openBooking(hospitalId, specializationId, doctorUserId) {
+    const modal = document.getElementById("bookingModal");
+    if (modal) {
+        // Đồng bộ giao diện dạng hiển thị Block/Flex giống Index.cshtml
+        modal.style.display = "block";
+
+        // Tự động nạp giá trị khi người dùng click chọn từ ô tìm kiếm Autocomplete
+        if (hospitalId) {
+            const hospitalSelect = document.getElementById("hospital_id");
+            if (hospitalSelect) hospitalSelect.value = hospitalId;
+        }
+        if (specializationId) {
+            const specSelect = document.getElementById("specialization_id");
+            if (specSelect) specSelect.value = specializationId;
+        }
+
+        // Nạp ID bác sĩ nếu có chỉ định bác sĩ khám
+        const doctorInput = document.getElementById("doctor_user_id");
+        if (doctorInput) {
+            doctorInput.value = doctorUserId || "";
+        }
+    }
 }
 
+// 2. Hàm đóng Modal đặt lịch khám và làm sạch dữ liệu cũ
 function closeBooking() {
-    document.getElementById("bookingModal").style.display = "none";
-    document.getElementById("bookingForm").reset();
+    const modal = document.getElementById("bookingModal");
+    if (modal) {
+        modal.style.display = "none";
+    }
+    const bookingForm = document.getElementById("bookingForm");
+    if (bookingForm) {
+        bookingForm.reset();
+    }
 }
 
-// Đóng modal khi click ra ngoài
+// Đóng modal khi người dùng click vào vùng trống ngoài Modal
 window.onclick = function (event) {
     const modal = document.getElementById("bookingModal");
     if (event.target === modal) {
         modal.style.display = "none";
-        document.getElementById("bookingForm").reset();
+        const bookingForm = document.getElementById("bookingForm");
+        if (bookingForm) {
+            bookingForm.reset();
+        }
     }
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Hiệu ứng delay animation cho danh sách chuyên khoa
     const items = document.querySelectorAll(".specialties .item");
     items.forEach((item, index) => {
         item.style.animationDelay = `${index * 0.1}s`;
     });
 
-    // Tìm kiếm autocomplete
+    // ==========================================
+    // TÍNH NĂNG TÌM KIẾM AUTOCOMPLETE (GIỮ LẠI & ĐỒNG BỘ ĐƯỜNG DẪN C#)
+    // ==========================================
     const searchInput = document.getElementById("searchInput");
     const searchResults = document.getElementById("searchResults");
     let searchTimeout;
 
-    console.log("Search elements:", { searchInput, searchResults }); // Debug
-
     if (searchInput && searchResults) {
-        console.log("Search initialized"); // Debug
-
         searchInput.addEventListener("input", function (e) {
             const query = this.value.trim();
-            console.log("Search input:", query); // Debug
-
             clearTimeout(searchTimeout);
 
             if (query.length < 1) {
@@ -46,30 +74,25 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             searchTimeout = setTimeout(() => {
-                const url = `/HealthMeet/public/api/search.php?q=${encodeURIComponent(query)}`;
-                console.log("Fetching:", url); // Debug
+                // ĐÃ ĐỒNG BỘ: Chuyển hướng endpoint gọi API tìm kiếm về đúng Controller C# thay vì file .php cũ
+                const url = `/Home/SearchDoctors?q=${encodeURIComponent(query)}`;
 
                 fetch(url)
                     .then(res => {
-                        console.log("Response status:", res.status); // Debug
-                        if (!res.ok) {
-                            throw new Error('Network response was not ok: ' + res.status);
-                        }
+                        if (!res.ok) throw new Error('Lỗi phản hồi mạng từ hệ thống: ' + res.status);
                         return res.json();
                     })
                     .then(data => {
-                        console.log("Search results:", data); // Debug
                         displaySearchResults(data);
                     })
                     .catch(err => {
                         console.error("Search error:", err);
-                        searchResults.innerHTML = "<div class='search-item' style='padding: 15px; color: red;'>Lỗi: " + err.message + "</div>";
+                        searchResults.innerHTML = "<div class='search-item' style='padding: 15px; color: red;'>Hệ thống tìm kiếm đang bận...</div>";
                         searchResults.style.display = "block";
                     });
             }, 200);
         });
 
-        // Hiển thị kết quả khi focus vào input
         searchInput.addEventListener("focus", function () {
             const query = this.value.trim();
             if (query.length >= 1 && searchResults.innerHTML) {
@@ -77,7 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Hàm escape HTML
         function escapeHtml(text) {
             if (!text) return '';
             const div = document.createElement('div');
@@ -93,7 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // Giới hạn tối đa 10 kết quả
             const limitedResults = results.slice(0, 10);
 
             searchResults.innerHTML = limitedResults.map(item => {
@@ -102,42 +123,37 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (item.type === "doctor") {
                     icon = "👨‍⚕️";
                     typeLabel = "Bác sĩ";
-                } else if (item.type === "specialty") {
+                } else if (item.type === "specialty" || item.type === "specialization") {
                     icon = "💊";
                     typeLabel = "Chuyên khoa";
                 }
-                // prefer API-provided URL if available (e.g. listing page)
+
                 let link = item.url ? item.url : '';
                 if (!link && item.type === 'doctor') {
-                    // fallback to detail page if no url provided
-                    link = `/HealthMeet/public/services/dkbs.php?doctor_id=${item.id}`;
+                    link = `/Home/DoctorDetail?doctor_id=${item.id}`; // Sửa lại route C#
                 }
 
                 const inner = `
-          <div class="search-item" data-type="${item.type}" data-id="${item.id}" style="cursor: pointer;">
-            <span class="search-icon">${icon}</span>
-            <div class="search-info" style="flex: 1;">
-              <div class="search-title" style="font-weight: 600; color: #333; margin-bottom: 4px; font-size: 15px;">${escapeHtml(item.title)}</div>
-              ${item.subtitle ? `<div class="search-subtitle" style="color: #666; font-size: 13px; margin-bottom: 2px;">${escapeHtml(item.subtitle)}</div>` : ""}
-              ${item.price ? `<div class="search-price" style="color: #d93ba2; font-weight: 600; font-size: 13px;">${escapeHtml(item.price)}</div>` : ""}
-              ${item.rating ? `<div style="color: #ffc107; font-size: 12px;">⭐ ${item.rating}</div>` : ""}
-            </div>
-            <span style="color: #999; font-size: 12px; margin-left: 10px;">${typeLabel}</span>
-          </div>
-        `;
+                  <div class="search-item" data-type="${item.type}" data-id="${item.id}" style="cursor: pointer;">
+                    <span class="search-icon">${icon}</span>
+                    <div class="search-info" style="flex: 1;">
+                      <div class="search-title" style="font-weight: 600; color: #333; margin-bottom: 4px; font-size: 15px;">${escapeHtml(item.title)}</div>
+                      ${item.subtitle ? `<div class="search-subtitle" style="color: #666; font-size: 13px; margin-bottom: 2px;">${escapeHtml(item.subtitle)}</div>` : ""}
+                      ${item.price ? `<div class="search-price" style="color: #d93ba2; font-weight: 600; font-size: 13px;">${escapeHtml(item.price)}</div>` : ""}
+                    </div>
+                    <span style="color: #999; font-size: 12px; margin-left: 10px;">${typeLabel}</span>
+                  </div>
+                `;
 
                 if (link) {
                     return `<a href="${link}" class="search-link" style="text-decoration:none; color:inherit; display:block;">${inner}</a>`;
                 }
-
                 return inner;
             }).join("");
 
             searchResults.style.display = "block";
             searchResults.classList.add("show");
 
-            // Xử lý click vào kết quả (event delegation & anchors)
-            // If there are direct anchor links (for doctors), let them navigate but hide dropdown
             searchResults.querySelectorAll('.search-link').forEach(a => {
                 a.addEventListener('click', function () {
                     searchInput.value = '';
@@ -145,15 +161,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             });
 
-            // For non-anchor items (or if anchor not used), keep existing behaviour
             searchResults.querySelectorAll(".search-item").forEach(item => {
                 item.addEventListener("click", function (e) {
                     const type = this.dataset.type;
                     const id = this.dataset.id;
 
-                    // If this is a doctor item wrapped with a link, do not handle here
                     if (type === 'doctor') {
-                        // just hide dropdown; anchor will navigate if present
                         searchInput.value = '';
                         searchResults.style.display = 'none';
                         return;
@@ -162,11 +175,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (type === "hospital") {
                         const el = document.getElementById("hospital_id");
                         if (el) el.value = id;
-                        openBooking();
-                    } else if (type === "specialty") {
-                        const el = document.getElementById("specialty_id");
+                        // Gọi hàm openBooking (Kiểm tra đăng nhập từ Index.cshtml sẽ tự kích hoạt chặn)
+                        if (typeof openBooking === "function") openBooking(id, null, null);
+                    } else if (type === "specialization" || type === "specialty") {
+                        const el = document.getElementById("specialization_id");
                         if (el) el.value = id;
-                        openBooking();
+                        if (typeof openBooking === "function") openBooking(null, id, null);
                     }
 
                     searchInput.value = "";
@@ -175,7 +189,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        // Đóng kết quả tìm kiếm khi click ra ngoài
         document.addEventListener("click", function (e) {
             if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
                 searchResults.style.display = "none";
@@ -184,41 +197,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Xử lý form đặt lịch
-    const bookingForm = document.getElementById("bookingForm");
-    if (bookingForm) {
-        bookingForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            const formData = new FormData(this);
-            const submitBtn = this.querySelector(".btn-submit");
-            const originalText = submitBtn.textContent;
-
-            submitBtn.textContent = "Đang xử lý...";
-            submitBtn.disabled = true;
-
-            fetch("/HealthMeet/public/api/submit_booking.php", {
-                method: "POST",
-                body: formData
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) {
-                        alert(data.message);
-                        closeBooking();
-                        bookingForm.reset();
-                    } else {
-                        alert(data.message || "Có lỗi xảy ra");
-                    }
-                })
-                .catch(err => {
-                    console.error("Error:", err);
-                    alert("Có lỗi xảy ra khi đặt lịch");
-                })
-                .finally(() => {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                });
-        });
-    }
+    // 🔥 ĐÃ XÓA BỎ: Toàn bộ khối bookingForm.addEventListener("submit") cũ của PHP ở đây!
+    // Logic submit gửi dữ liệu AJAX đã được nhường quyền xử lý hoàn toàn cho file Index.cshtml để tránh lỗi đè thông báo.
 });

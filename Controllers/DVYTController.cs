@@ -119,6 +119,11 @@ namespace Health_Booking_MVC.Controllers
             _context.Appointments.Add(appointment);
             await _context.SaveChangesAsync();
 
+            await _notificationService.CreateNotification(
+                userId.Value,
+                $"✅ Bạn đã đặt lịch khám với bác sĩ thành công vào lúc {time:hh\\:mm} ngày {date:dd/MM/yyyy}. Vui lòng chờ bác sĩ xác nhận."
+            );  
+
             // 🔔 GỬI THÔNG BÁO CHO BÁC SĨ
             var doctor = await _context.Doctors.FindAsync(doctorId);
             if (doctor != null)

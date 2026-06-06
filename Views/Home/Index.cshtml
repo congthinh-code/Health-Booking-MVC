@@ -2,18 +2,13 @@
 @{
     ViewData["Title"] = "Trang Chủ";
 }
-
 <link rel="stylesheet" href="~/css/index.css" />
 
-<!-- HERO -->
 <section class="hero">
-
-    <!-- Video nền -->
     <video autoplay muted loop playsinline class="hero-video">
         <source src="~/video/nen.mp4" type="video/mp4">
     </video>
 
-    <!-- Nội dung hero -->
     <div class="hero-content">
         <h1>Đặt lịch khám nhanh chóng</h1>
         <div class="search-container">
@@ -43,42 +38,43 @@
         <span class="close" onclick="closeBooking()">&times;</span>
         <h2>Đặt Lịch Khám</h2>
         <form id="bookingForm">
+            <input type="hidden" name="doctor_user_id" id="doctor_user_id" value="" />
+
             <label>Họ và Tên:</label>
             <input type="text" name="patient_name" id="patient_name" required>
+
             <label>Số điện thoại:</label>
             <input type="tel" name="phone" id="phone" required pattern="[0-9]{10,11}" placeholder="0123456789">
+
             <label>Bệnh viện:</label>
             <select name="hospital_id" id="hospital_id">
                 <option value="">-- Chọn bệnh viện --</option>
-
                 @foreach (var item in Model.Hospitals)
                 {
-                    <option value="@item.HospitalId">
-                        @item.Name
-                    </option>
+                    <option value="@item.HospitalId">@item.Name</option>
                 }
             </select>
+
             <label>Chuyên khoa:</label>
             <select name="specialization_id" id="specialization_id">
                 <option value="">-- Chọn chuyên khoa --</option>
-
                 @foreach (var item in Model.Specializations)
                 {
-                    <option value="@item.SpecializationId">
-                        @item.Name
-                    </option>
+                    <option value="@item.SpecializationId">@item.Name</option>
                 }
             </select>
+
             <label>Ngày khám:</label>
-            <input type="date" name="appointment_date" id="appointment_date" required min="<?= date('Y-m-d') ?>">
+            <input type="date" name="appointment_date" id="appointment_date" required>
+
             <label>Giờ khám:</label>
             <input type="time" name="appointment_time" id="appointment_time" required>
+
             <button type="submit" class="btn-submit">Xác nhận đặt lịch</button>
         </form>
     </div>
 </div>
 
-<!-- DỊCH VỤ -->
 <section class="services">
     <div class="container">
         <div class="cards">
@@ -88,14 +84,12 @@
                     <p>Đặt khám tại cơ sở</p>
                 </div>
             </a>
-
             <a href="#">
                 <div class="card" onclick="window.location.href='/DVYT/ĐKCK'">
                     💊
                     <p>Đặt khám chuyên khoa</p>
                 </div>
             </a>
-
             <a href="#">
                 <div class="card" onclick="window.location.href='/DVYT/ĐKBS'">
                     👨‍⚕️
@@ -106,7 +100,6 @@
     </div>
 </section>
 
-<!-- CHUYÊN KHOA -->
 <section class="specialties">
     <h2>CHUYÊN KHOA</h2>
     <div class="grid">
@@ -122,3 +115,137 @@
 
 <script src="~/js/search.js"></script>
 <script src="~/js/home.js"></script>
+<script>
+    // 1. Hàm mở Modal đặt lịch và kiểm tra trạng thái đăng nhập
+    function openBooking(hospitalId, specializationId, doctorUserId) {
+    // Lấy trạng thái đăng nhập trực tiếp từ Session C# truyền ra View
+    const isLoggedIn = @(Context.Session.GetInt32("UserId") != null ? "true" : "false");
+
+    if (!isLoggedIn) {
+    alert("Quý khách chưa đăng nhập tài khoản. Vui lòng đăng nhập để tiếp tục.");
+    // Chuyển hướng người dùng sang trang đăng nhập ngay lập tức
+    window.location.href = '/Account/Login';
+    return;
+    }
+
+    // Nếu đã đăng nhập thành công -> Tiến hành hiển thị Modal đặt lịch lên
+    const modal = document.getElementById("bookingModal");
+    if (modal) {
+    modal.style.display = "block";
+
+    // Tự động điền ID bệnh viện và chuyên khoa tương ứng nếu truyền vào từ danh mục
+    if (hospitalId) {
+    const hospitalSelect = document.getElementById("hospital_id");
+    if (hospitalSelect) hospitalSelect.value = hospitalId;
+    }
+    if (specializationId) {
+    const specSelect = document.getElementById("specialization_id");
+    if (specSelect) specSelect.value = specializationId;
+    }
+
+    // Nạp ID bác sĩ vào trường ẩn nếu có tìm kiếm chỉ định bác sĩ
+    const doctorInput = document.getElementById("doctor_user_id");
+    if (doctorInput) {
+    doctorInput.value = doctorUserId || "";
+    }
+    }
+    }
+
+    // 2. Hàm đóng Modal đặt lịch (Dự phòng nếu file home.js chưa viết hàm này)
+    function closeBooking() {
+    const modal = document.getElementById("bookingModal");
+    if (modal) {
+    modal.style.display = "none";
+    }
+    }
+
+    // 3. Quản lý việc chặn chọn ngày giờ quá khứ & Xử lý AJAX khi gửi Form
+    document.addEventListener("DOMContentLoaded", function () {
+    const dateInput = document.getElementById("appointment_date");
+    const timeInput = document.getElementById("appointment_time");
+    const bookingForm = document.getElementById("bookingForm");
+
+    // Khóa ngày quá khứ (Chỉ cho chọn từ ngày hôm nay trở đi)
+    if (dateInput) {
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.min = today;
+    dateInput.addEventListener("change", validateDateTime);
+    }
+
+    if (timeInput) {
+    timeInput.addEventListener("change", validateDateTime);
+    }
+
+    // Hàm kiểm tra ngày giờ phối hợp chặt chẽ
+    function validateDateTime() {
+    if (!dateInput.value || !timeInput.value) return true;
+
+    const selectedDateTime = new Date(`${dateInput.value}T${timeInput.value}`);
+    const currentDateTime = new Date();
+
+    // Chặn nếu người dùng chọn giờ đã qua trong ngày hôm nay
+    if (selectedDateTime < currentDateTime) {
+    alert("Thời gian đặt khám không được nhỏ hơn giờ hiện tại của ngày hôm nay!");
+    timeInput.value = ""; // Xóa sạch giờ chọn sai
+    return false;
+    }
+    return true;
+    }
+
+    // Luồng xử lý Submit gửi dữ liệu ngầm bằng AJAX lên Server C#
+    if (bookingForm) {
+    bookingForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Kiểm tra lại tính hợp lệ của thời gian trước khi gửi đi
+    if (!validateDateTime()) return;
+
+    // Thay đổi giao diện nút bấm thành "Đang xử lý..." để tránh người dùng click lặp
+    const submitBtn = this.querySelector(".btn-submit");
+    if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Đang xử lý...";
+    }
+
+    var formData = new FormData(this);
+
+    fetch('/Booking/ProcessBooking', {
+    method: 'POST',
+    body: formData
+    })
+    .then(response => {
+    if (!response.ok) {
+    throw new Error("Lỗi mạng hoặc lỗi hệ thống từ Server");
+    }
+    return response.json();
+    })
+    .then(data => {
+    if (data.success) {
+    // 1. Hiển thị thông báo thành công từ Server gửi về trước
+    alert(data.message);
+
+    // 2. Đóng Modal an toàn
+    closeBooking();
+
+    // 3. Xóa sạch dữ liệu cũ đã điền trên Form
+    bookingForm.reset();
+    } else {
+    // Hiển thị thông báo lỗi logic cụ thể từ Server (Ví dụ: Trùng lịch, lỗi DB...)
+    alert(data.message);
+    }
+    })
+    .catch(error => {
+    console.error('Error:', error);
+    alert('Có lỗi kết nối mạng hoặc hệ thống đang bận, vui lòng thử lại sau!');
+    })
+    .finally(() => {
+    // Trả lại trạng thái ban đầu cho nút bấm sau khi xử lý xong xuôi
+    if (submitBtn) {
+    submitBtn.disabled = false;
+    submitBtn.innerText = "Xác nhận đặt lịch";
+    }
+    });
+    });
+    }
+    });
+</script>
