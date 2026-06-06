@@ -642,3 +642,49 @@ h1, h2, h3, h4, .page-header h1, .section-header h2, .profile-info h3, .appointm
     margin-bottom: 10px;
     color: #333
 }
+
+/* =========================
+   LỊCH KHÁM ĐẶT QUA FORM
+========================= */
+
+.booking-request-card {
+    background: #f8eef8;
+    border: 1px solid #e8dce8;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.booking-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+    .booking-header h4 {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: #222;
+    }
+
+.booking-info {
+    color: #444;
+    font-size: 15px;
+    margin: 0;
+}
+
+.status-badge {
+    background: #6c757d;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.booking-note {
+    margin-top: 20px;
+    color: #666;
+    font-size: 15px;
+}

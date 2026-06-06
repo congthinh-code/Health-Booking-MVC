@@ -186,7 +186,45 @@
                 <h2>📋 Lịch khám đã đặt qua form</h2>
             </div>
 
-            <p>Chưa có yêu cầu nào.</p>
+            @{
+                var bookingRequests =
+                    ViewBag.BookingRequests as List<Health_Booking_MVC.Models.Appointment>;
+            }
+
+            @if (bookingRequests != null && bookingRequests.Any())
+            {
+                foreach (var item in bookingRequests)
+                {
+                    <div class="booking-request-card">
+
+                        <div class="booking-header">
+
+                            <div>
+                                <h4>@item.Hospital?.Name</h4>
+
+                                <p class="booking-info">
+                                    Ngày @item.AppointmentDate.ToString("dd/MM/yyyy HH:mm")
+                                    • @item.Specialization?.Name
+                                </p>
+                            </div>
+
+                            <span class="status-badge">
+                                Đang Chờ Duyệt
+                            </span>
+
+                        </div>
+
+                        <p class="booking-note">
+                            Yêu cầu của bạn đang được đội ngũ chăm sóc khách hàng xử lý.
+                        </p>
+
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Chưa có yêu cầu nào.</p>
+            }
         </div>
     </div>
 </div>

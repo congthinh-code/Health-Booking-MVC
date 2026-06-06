@@ -94,10 +94,13 @@ namespace Health_Booking_MVC.Controllers
                     // Bắt buộc phải có giá trị số nguyên (vì Model để kiểu 'int' không cho phép null)
                     ScheduleId = 1,
 
+                    HospitalId = hospital_id,
+                    SpecializationId = specialization_id,
+
                     AppointmentDate = appointmentDateTime,
                     Status = AppointmentStatus.Pending,
-                    CreatedAt = DateTime.Now
-
+                    CreatedAt = DateTime.Now,
+                    BookingSource = "Home"
                     // XÓA HOÀN TOÀN 2 dòng HospitalId và SpecializationId ở đây đi vì Model không có!
                 };
 
