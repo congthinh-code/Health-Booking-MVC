@@ -209,11 +209,12 @@ body {
 
 .modal-content {
     background: #fff;
-    margin: 6% auto;
+    margin: 2% auto;
     padding: 35px 30px;
     border-radius: 20px;
     width: 90%;
     max-width: 520px;
+    min-height: 720px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.15);
     position: relative;
     animation: fadeIn .4s ease;

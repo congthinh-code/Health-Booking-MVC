@@ -314,15 +314,6 @@ h1, h2, h3, h4, .page-header h1, .section-header h2, .profile-info h3, .appointm
     flex-wrap: wrap
 }
 
-/* Ratings */
-.rating-card {
-    background: linear-gradient(135deg,#fff9f2,#fef0f7);
-    border-radius: 16px;
-    padding: 16px;
-    border-left: 5px solid var(--primary-1);
-    margin-bottom: 12px
-}
-
 /* Toast */
 .toast-notification {
     position: fixed;
@@ -351,8 +342,7 @@ h1, h2, h3, h4, .page-header h1, .section-header h2, .profile-info h3, .appointm
 
 /* Ensure appointment / booking request / rating sections use the same font & heading weights as doctor.css */
 .appointments-section,
-.requests-section,
-.ratings-section {
+.requests-section{
     font-family: 'Poppins', 'Segoe UI', 'Inter', sans-serif;
     color: var(--accent);
     background: #fff; /* Màu nền trắng cho các section */
@@ -636,6 +626,19 @@ h1, h2, h3, h4, .page-header h1, .section-header h2, .profile-info h3, .appointm
     transition: 3s;
 }
 
-    .camera-btn:hover {
-        transform: scale(1.1);
-    }
+.camera-btn:hover {
+    transform: scale(1.1);
+}
+
+.appointment-card {
+    background: white;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+
+.appointment-card h5 {
+    margin-bottom: 10px;
+    color: #333
+}

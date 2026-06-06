@@ -68,22 +68,22 @@
 
             <div class="stat-item">
                 <span class="label">Tổng lịch hẹn</span>
-                <span class="value">0</span>
+                <span class="value">@ViewBag.TotalAppointments</span>
             </div>
 
             <div class="stat-item">
                 <span class="label">Chờ xác nhận</span>
-                <span class="value">0</span>
+                <span class="value">@ViewBag.PendingAppointments</span>
             </div>
 
             <div class="stat-item">
                 <span class="label">Hoàn thành</span>
-                <span class="value">0</span>
+                <span class="value">@ViewBag.CompletedAppointments</span>
             </div>
 
             <div class="stat-item">
                 <span class="label">Đã hủy</span>
-                <span class="value">0</span>
+                <span class="value">@ViewBag.CancelledAppointments</span>
             </div>
         </div>
     </div>
@@ -124,7 +124,61 @@
                 </div>
             </div>
 
-            <p>Chưa có lịch hẹn nào.</p>
+            @{
+                var appointments =
+                ViewBag.Appointments as List<Health_Booking_MVC.Models.Appointment>;
+            }
+
+            @if (appointments != null && appointments.Any())
+            {
+                foreach (var item in appointments)
+                {
+                    <div class="appointment-card">
+
+                        <h5>
+                            @item.Doctor?.FullName
+                        </h5>
+
+                        <p>
+                            <strong>Ngày khám:</strong>
+                            @item.AppointmentDate.ToString("dd/MM/yyyy HH:mm")
+                        </p>
+
+                        <p>
+                            <strong>Trạng thái:</strong>
+
+                            @if (item.Status == Health_Booking_MVC.Models.AppointmentStatus.Pending)
+                            {
+                                <span class="badge bg-warning">
+                                    Chờ xác nhận
+                                </span>
+                            }
+                            else if (item.Status == Health_Booking_MVC.Models.AppointmentStatus.Confirmed)
+                            {
+                                <span class="badge bg-primary">
+                                    Đã xác nhận
+                                </span>
+                            }
+                            else if (item.Status == Health_Booking_MVC.Models.AppointmentStatus.Completed)
+                            {
+                                <span class="badge bg-success">
+                                    Hoàn thành
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">
+                                    Đã hủy
+                                </span>
+                            }
+                        </p>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Chưa có lịch hẹn nào.</p>
+            }
         </div>
 
         <div class="requests-section">
@@ -134,24 +188,16 @@
 
             <p>Chưa có yêu cầu nào.</p>
         </div>
-
-        <div class="ratings-section">
-            <div class="section-header">
-                <h2>⭐ Lịch sử đánh giá</h2>
-            </div>
-
-            <p>Chưa có đánh giá nào.</p>
-        </div>
     </div>
 </div>
 
 <script>
 
-document.getElementById("avatarInput")
-?.addEventListener("change", function () {
+    document.getElementById("avatarInput")
+        ?.addEventListener("change", function () {
 
-    document.getElementById("avatarForm").submit();
+            document.getElementById("avatarForm").submit();
 
-});
+        });
 
 </script>
