@@ -113,7 +113,9 @@ namespace Health_Booking_MVC.Controllers
                 Schedule = schedule,
                 AppointmentDate = date.Date.Add(time),
                 Status = AppointmentStatus.Pending,
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.Now,
+
+                BookingSource = "Doctor"
             };
 
             _context.Appointments.Add(appointment);

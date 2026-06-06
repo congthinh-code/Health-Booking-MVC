@@ -45,9 +45,20 @@ namespace Health_Booking_MVC.Controllers
             // Lấy danh sách lịch hẹn
             var appointments = _context.Appointments
                 .Include(a => a.Doctor)
-                .Where(a => a.PatientId == patient.PatientId)
+                .Where(a => a.PatientId == patient.PatientId
+                            && a.BookingSource == "Doctor")
                 .OrderByDescending(a => a.AppointmentDate)
                 .ToList();
+
+            var bookingRequests = _context.Appointments
+                .Include(a => a.Hospital)
+                .Include(a => a.Specialization)
+                .Where(a => a.PatientId == patient.PatientId
+                         && a.BookingSource == "Home")
+                .ToList();
+
+            ViewBag.BookingRequests = bookingRequests;
+            ViewBag.Appointments = appointments;
 
             // Bộ lọc trạng thái
             if (status == "pending")

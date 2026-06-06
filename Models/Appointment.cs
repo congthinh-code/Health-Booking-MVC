@@ -21,7 +21,18 @@ namespace Health_Booking_MVC.Models
 
         public DateTime AppointmentDate { get; set; }
         public AppointmentStatus Status { get; set; } = AppointmentStatus.Pending;
-        public DateTime CreatedAt { get; set; } 
+        public DateTime CreatedAt { get; set; }
+
+        public string BookingSource { get; set; } = "Doctor";
         public virtual MedicalRecord MedicalRecord { get; set; }
+
+        public int? HospitalId { get; set; }
+        public int? SpecializationId { get; set; }
+
+        [ForeignKey("HospitalId")]
+        public virtual Hospital Hospital { get; set; }
+
+        [ForeignKey("SpecializationId")]
+        public virtual Specialization Specialization { get; set; }
     }
 }
