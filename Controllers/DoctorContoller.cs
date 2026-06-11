@@ -48,7 +48,7 @@ namespace Health_Booking_MVC.Controllers
             var appointments = _context.Appointments
                 .Include(a => a.Patient)
                 .Include(a => a.Schedule)
-                .Where(a => a.DoctorId == doctor.DoctorId)
+                .Where(a => a.DoctorId == doctor.DoctorId && a.BookingSource == "Doctor")
                 .OrderByDescending(a => a.AppointmentDate)
                 .ToList();
 
