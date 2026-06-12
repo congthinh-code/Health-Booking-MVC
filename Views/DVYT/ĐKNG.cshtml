@@ -160,14 +160,6 @@
     // Xử lý khi ấn nút "Xác nhận đặt khám"
     document.getElementById("bookingForm").addEventListener("submit", function (e) {
         e.preventDefault();
-        if (!isLoggedIn) {
-            alert("Vui lòng đăng nhập để đặt khám!");
-            return;
-        }
-        if (userRole !== "patient") {
-            alert("Vui lòng đăng nhập với tài khoản Bệnh nhân để đặt khám!");
-            return;
-        }
 
         if (!validateDateTime()) return;
 
