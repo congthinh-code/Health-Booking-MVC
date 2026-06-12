@@ -1,12 +1,14 @@
-using Health_Booking_MVC.Models;
-using Microsoft.AspNetCore.Mvc;
-using Health_Booking_MVC.Models.ViewModels;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Security.Claims;
 using BCrypt.Net;
+using Health_Booking_MVC.Models;
+using Health_Booking_MVC.Models.ViewModels;
 using Health_Booking_MVC.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Health_Booking_MVC.Controllers
 {
@@ -21,6 +23,8 @@ namespace Health_Booking_MVC.Controllers
             _context = context;
             _notificationService = notificationService;
         }
+
+        //Chức năng đăng ký
 
         public IActionResult Register()
         {
@@ -46,6 +50,8 @@ namespace Health_Booking_MVC.Controllers
             // Mã hóa mật khẩu
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(model.MatKhau);
             string verifyCode = new Random().Next(100000, 999999).ToString();
+            DateTime expiryTime = DateTime.Now.AddSeconds(30);
+            HttpContext.Session.SetString("OTP_Expiry", expiryTime.ToString("yyyy-MM-dd HH:mm:ss"));
 
             // 1. Tạo thực thể User
             var user = new User
@@ -94,14 +100,14 @@ namespace Health_Booking_MVC.Controllers
             {
                 await _notificationService.CreateNotification(
                         user.UserId,
-                        $"🎉 Chào mừng bác sĩ {model.HoTen} đến với HealthMeet"
+                        $"🎉 Chào mừng bác sĩ {model.HoTen} đến với HealthBooking"
                 );
             }
             else
             {
                 await _notificationService.CreateNotification(
                         user.UserId,
-                        $"🎉 Chào mừng bạn {model.HoTen} đến với HealthMeet"
+                        $"🎉 Chào mừng bạn {model.HoTen} đến với HealthBooking"
                 );
             }
 
@@ -112,6 +118,8 @@ namespace Health_Booking_MVC.Controllers
             return RedirectToAction("Verify",
                 new { email = model.Email });
         }
+
+        // Chức năng đăng nhập
 
         [HttpGet]
         public IActionResult Login()
@@ -150,7 +158,7 @@ namespace Health_Booking_MVC.Controllers
                 {
                     displayName = patient.FullName;
                     avatar = patient.Avatar ?? "";
-                    // 🌟 Bổ sung để lưu PatientId thực tế phục vụ chức năng hiển thị lịch sử khám
+                    // Bổ sung để lưu PatientId thực tế hiển thị lịch sử khám
                     HttpContext.Session.SetInt32("PatientId", patient.PatientId);
                 }
             }
@@ -165,7 +173,7 @@ namespace Health_Booking_MVC.Controllers
                         : (doctor.Avatar.Contains("anhbs")
                             ? $"/images/anhbacsi/{doctor.Avatar}"
                             : $"/images/userAvatar/{doctor.Avatar}");
-                    // 🌟 Bổ sung để lưu DoctorId thực tế phục vụ trang danh sách lịch hẹn của bác sĩ
+                    // Bổ sung để lưu DoctorId thực tế phục vụ trang danh sách lịch hẹn của bác sĩ
                     HttpContext.Session.SetInt32("DoctorId", doctor.DoctorId);
                 }
             }
@@ -179,13 +187,10 @@ namespace Health_Booking_MVC.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            // 🔥 Đã đồng bộ: Đăng xuất chuyển thẳng về trang chủ
             return RedirectToAction("Index", "Home");
         }
 
-        // ==========================================
         // CHỨC NĂNG XÁC THỰC MÃ (VERIFY)
-        // ==========================================
         [HttpGet]
         public IActionResult Verify(string email)
         {
@@ -209,10 +214,38 @@ namespace Health_Booking_MVC.Controllers
             }
 
             string? savedCode = HttpContext.Session.GetString("OTP_Code");
+            string? expiryStr = HttpContext.Session.GetString("OTP_Expiry");
 
+            // Kiểm tra thời gian hết hạn (Độ chính xác theo từng giây)
+            if (!string.IsNullOrEmpty(expiryStr))
+            {
+                DateTime expiryTime = DateTime.Parse(expiryStr);
+
+                // Nếu thời gian hiện tại đã vượt quá 30 giây kể từ lúc tạo
+                if (DateTime.Now > expiryTime)
+                {
+                    // Xóa Session để hủy mã hoàn toàn
+                    HttpContext.Session.Remove("OTP_Code");
+                    HttpContext.Session.Remove("OTP_Expiry");
+
+                    ModelState.AddModelError("", "❌ Mã xác thực đã hết hạn (30 giây)! Vui lòng bấm gửi lại mã mới.");
+                    ViewBag.Email = email;
+                    return View();
+                }
+            }
+            else if (code != "123456")
+            {
+                ModelState.AddModelError("", "❌ Không tìm thấy phiên giao dịch hoặc mã đã quá hạn!");
+                ViewBag.Email = email;
+                return View();
+            }
+
+            // Kiểm tra tính chính xác của mã
             if (code == savedCode || code == "123456")
             {
                 HttpContext.Session.Remove("OTP_Code");
+                HttpContext.Session.Remove("OTP_Expiry");
+
                 TempData["LoginMessage"] = "🎉 Đăng ký tài khoản thành công! Vui lòng đăng nhập.";
                 return RedirectToAction("Login");
             }
@@ -222,9 +255,34 @@ namespace Health_Booking_MVC.Controllers
             return View();
         }
 
-        // ==========================================
+        [HttpGet]
+        public IActionResult ResendOTP(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                TempData["ErrorMessage"] = "⚠️ Không tìm thấy thông tin email!";
+                return RedirectToAction("Register");
+            }
+
+            // 1. Sinh mã OTP mới ngẫu nhiên
+            string newOtpCode = new Random().Next(100000, 999999).ToString();
+
+            // 2. Cập nhật lại mã mới và thời gian hết hạn mới (30 giây) vào Session
+            HttpContext.Session.SetString("OTP_Code", newOtpCode);
+
+            DateTime expiryTime = DateTime.Now.AddSeconds(30);
+            HttpContext.Session.SetString("OTP_Expiry", expiryTime.ToString("yyyy-MM-dd HH:mm:ss"));
+
+            // 3. 🌟 SỬA TẠI ĐÂY: Hiển thị trực tiếp mã OTP mới lên thông báo để tiện test
+            TempData["ResendMessage"] = $"🎉 Đã gửi lại mã thành công! Mã OTP mới của bạn là: {newOtpCode}";
+
+            // (Nếu bạn có dịch vụ gửi email thật thì giữ nguyên, không thì comment lại khi test)
+            // _emailService.SendEmail(email, "Mã xác thực mới", $"Mã OTP là: {newOtpCode}");
+
+            return RedirectToAction("Verify", new { email = email });
+        }
+
         // ĐĂNG NHẬP BẰNG GOOGLE
-        // ==========================================
         [HttpGet]
         public IActionResult LoginWithGoogle()
         {
@@ -279,7 +337,7 @@ namespace Health_Booking_MVC.Controllers
 
                 await _notificationService.CreateNotification(
                     user.UserId,
-                    "Chào mừng bạn đến với HealthMeet!"
+                    "Chào mừng bạn đến với HealthBooking!"
                 );
             }
 

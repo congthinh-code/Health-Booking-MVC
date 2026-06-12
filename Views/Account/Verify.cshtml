@@ -2,13 +2,12 @@
     Layout = null;
     ViewData["Title"] = "Xác thực tài khoản";
 }
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xác thực tài khoản - HealthMeet</title>
+    <title>Xác thực tài khoản - HealthBooking</title>
     <link rel="stylesheet" href="~/css/register.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -59,6 +58,14 @@
                 text-align: left;
                 border-left: 4px solid #1e8e3e;
             }
+
+            /* Thêm hiệu ứng vô hiệu hóa cho nút gửi lại mã */
+            .resend-link.disabled {
+                color: #aaa !important;
+                cursor: not-allowed;
+                pointer-events: none;
+                font-weight: normal;
+            }
     </style>
 </head>
 <body>
@@ -71,6 +78,12 @@
         <h2>Xác thực tài khoản</h2>
         <p>Hệ thống đã gửi một mã xác thực gồm 6 chữ số đến địa chỉ email: <br><span class="email-highlight">@ViewBag.Email</span></p>
 
+        @if (TempData["ResendMessage"] != null)
+        {
+            <div class="alert-success-custom">
+                <i class="fa-solid fa-circle-info"></i> @TempData["ResendMessage"]
+            </div>
+        }
         @if (TempData["SuccessMessage"] != null)
         {
             <div class="alert-success-custom">
@@ -88,19 +101,52 @@
                 <input type="text" name="code" class="otp-input" placeholder="******" maxlength="6" autocomplete="off" required>
             </div>
 
-            <div class="btn-group" style="margin-top: 25px;">
+            <div style="margin-top: 15px; font-size: 13px; color: #cc0000; font-weight: 500;">
+                <i class="fa-regular fa-clock"></i> Mã OTP sẽ hết hạn sau: <span id="countdown">30</span> giây
+            </div>
+
+            <div class="btn-group" style="margin-top: 20px;">
                 <button type="submit" class="register-btn" style="width: 100%; letter-spacing: 1px;">XÁC THỰC NGAY</button>
             </div>
         </form>
 
         <div style="margin-top: 25px; font-size: 13px;">
             <span style="color: #888;">Không nhận được mã?</span>
-            <a href="#" style="color: #f4978e; text-decoration: none; font-weight: 600;">Gửi lại mã</a>
+            <a id="btnResend" asp-controller="Account" asp-action="ResendOTP" asp-route-email="@ViewBag.Email"
+               class="resend-link disabled" style="color: #f4978e; text-decoration: none; font-weight: 600;">
+                Gửi lại mã (<span id="timer">30</span>s)
+            </a>
         </div>
     </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        let timeLeft = 30;
+        const countdownEl = document.getElementById('countdown');
+        const timerEl = document.getElementById('timer');
+        const btnResend = document.getElementById('btnResend');
+
+        const downloadTimer = setInterval(function () {
+        timeLeft--;
+
+        if (timeLeft <= 0) {
+        clearInterval(downloadTimer);
+
+        // Khi hết 30s, cập nhật lại nhãn trạng thái về 0
+        countdownEl.textContent = "0";
+
+        // Mở khóa link Gửi lại mã (Bỏ class disabled để link hoạt động bình thường)
+        btnResend.classList.remove('disabled');
+        btnResend.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Gửi lại mã ngay';
+        } else {
+        // Cập nhật số giây đếm ngược liên tục lên màn hình
+        countdownEl.textContent = timeLeft;
+        timerEl.textContent = timeLeft;
+        }
+        }, 1000);
+    </script>
 </body>
 </html>

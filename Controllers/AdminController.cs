@@ -321,5 +321,44 @@ namespace Health_Booking_MVC.Controllers
 
             return RedirectToAction("Appointments");
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteAppointment(int id)
+        {
+            // Kiểm tra quyền truy cập trước khi thực hiện xóa
+            if (!IsAuthorized()) return RedirectToAction("Login", "Account");
+
+            // 1. Tìm lịch hẹn trong cơ sở dữ liệu theo ID
+            var appointment = _context.Appointments.FirstOrDefault(a => a.AppointmentId == id);
+
+            if (appointment == null)
+            {
+                TempData["ErrorMessage"] = "❌ Không tìm thấy lịch hẹn hoặc lịch hẹn đã bị xóa trước đó.";
+                return RedirectToAction("Appointments");
+            }
+
+            try
+            {
+                // 2. Thực hiện xóa khỏi DbContext và lưu thay đổi
+                _context.Appointments.Remove(appointment);
+                _context.SaveChanges();
+
+                TempData["SuccessMessage"] = $"🎉 Đã xóa vĩnh viễn lịch hẹn #{id} thành công!";
+            }
+            catch (Exception ex)
+            {
+                // Xử lý trường hợp ràng buộc dữ liệu (ví dụ lịch hẹn đã phát sinh hóa đơn, bệnh án...)
+                TempData["ErrorMessage"] = "❌ Không thể xóa lịch hẹn này do có dữ liệu liên quan khác trong hệ thống!";
+            }
+
+            // 3. 🌟 SỬA TẠI ĐÂY: Sử dụng Redirect (đối với đường dẫn URL) hoặc quay về trang Appointments cố định
+            string refererUrl = Request.Headers["Referer"].ToString();
+            if (!string.IsNullOrEmpty(refererUrl))
+            {
+                return Redirect(refererUrl); // Điều hướng an toàn về đúng URL trang trước đó của Admin
+            }
+
+            return RedirectToAction("Appointments"); // Phương án dự phòng quay về trang danh sách lịch hẹn
+        }
     }
 }

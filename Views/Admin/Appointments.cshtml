@@ -91,10 +91,17 @@
                                     }
                                     else
                                     {
-                                        <button class="btn btn-sm btn-light border" disabled>
+                                        <button class="btn btn-sm btn-light border me-1" disabled>
                                             <i class="fa-solid fa-ban"></i> Đã xử lý
                                         </button>
                                     }
+
+                                    <form asp-controller="Admin" asp-action="DeleteAppointment" asp-route-id="@app.AppointmentId" method="post" style="display:inline;" onsubmit="return confirm('⚠️ CẢNH BÁO: Bạn có chắc chắn muốn XÓA VĨNH VIỄN lịch hẹn này không? Thao tác này không thể hoàn tác!');">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            <i class="fa-solid fa-trash-can"></i> Xóa
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         }
