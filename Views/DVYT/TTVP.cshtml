@@ -106,14 +106,6 @@
     }
 
            function payNow() {
-        if (!isLoggedIn) {
-            alert("Vui lòng đăng nhập để thanh toán viện phí!");
-            return;
-        }
-        if (userRole !== "patient") {
-            alert("Vui lòng đăng nhập với tài khoản Bệnh nhân để thanh toán viện phí!");
-            return;
-        }
         // ➡️ Chỉ đọc mã hóa đơn và số tiền (không còn đọc Tên và SĐT)
         let billNumber = document.getElementById("billNumber").value;
         let amount = document.getElementById("amount").value;

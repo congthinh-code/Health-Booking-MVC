@@ -112,7 +112,7 @@ namespace Health_Booking_MVC.Controllers
                     Status = AppointmentStatus.Pending,
                     CreatedAt = DateTime.Now,
                     BookingSource = "Home"
-                    // XÓA HOÀN TOÀN 2 dòng HospitalId và SpecializationId ở đây đi vì Model không có!
+
                 };
 
                 _context.Appointments.Add(newAppointment);
