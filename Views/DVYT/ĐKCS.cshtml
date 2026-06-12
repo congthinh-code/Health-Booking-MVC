@@ -44,7 +44,7 @@
                             <i class="fa-solid fa-eye"></i>
                             Xem chi tiết
                         </a>
-                        <button class="dat" onclick="openBookingFromHospital(@bv.HospitalId)">
+                        <button class="dat" onclick="openBookingFromHospital(@bv.HospitalId, '@bv.Name')">
                             <i class="fa-solid fa-calendar-check"></i>
                             Đặt khám ngay
                         </button>
@@ -66,13 +66,7 @@
 
             <div class="form-group mb-2">
                 <label>Bệnh viện</label>
-                <select id="hospitalSelect" class="form-select" disabled>
-                    <option value="">-- Chọn bệnh viện --</option>
-                    @foreach (var bv in Model)
-                    {
-                        <option value="@bv.HospitalId">@bv.Name</option>
-                    }
-                </select>
+                <input type="text" id="hospital_name" readonly class="form-control" />
             </div>
 
             <div class="form-group mb-2">
@@ -94,7 +88,7 @@
     const isLoggedIn = @(isLoggedIn ? "true" : "false");
     const userRole = "@userRole";
 
-    function openBookingFromHospital(id) {
+    function openBookingFromHospital(id, name) {
         if (!isLoggedIn) {
             if (confirm("Vui lòng đăng nhập để thực hiện chức năng đặt khám! Bạn có muốn chuyển hướng đến trang đăng nhập?")) {
                 window.location.href = '@Url.Action("Login", "Account")';
@@ -106,7 +100,7 @@
             return;
         }
         document.getElementById("bookingModal").style.display = "flex";
-        document.getElementById("hospitalSelect").value = id;
+        document.getElementById("hospital_name").value = name;
         document.getElementById("hospital_id").value = id;
     }
 
@@ -152,14 +146,6 @@
 
     document.getElementById("bookingForm").addEventListener("submit", function (e) {
         e.preventDefault();
-        if (!isLoggedIn) {
-            alert("Vui lòng đăng nhập để đặt khám!");
-            return;
-        }
-        if (userRole !== "patient") {
-            alert("Vui lòng đăng nhập với tài khoản Bệnh nhân để đặt khám!");
-            return;
-        }
 
         if (!validateDateTime()) return;
 
