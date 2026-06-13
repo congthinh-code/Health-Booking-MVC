@@ -34,9 +34,7 @@ namespace Health_Booking_MVC.Controllers
             ViewBag.TotalUsers = _context.Users.Count();
             ViewBag.TotalDoctors = _context.Doctors.Count();
             ViewBag.TotalPatients = _context.Patients.Count();
-
-            // Bạn có thể bổ sung đếm lịch hẹn nếu bảng Appointments của bạn đã hoàn thiện
-            // ViewBag.TotalAppointments = _context.Appointments.Count();
+            ViewBag.TotalAppointments = _context.Appointments.Count();
 
             return View();
         }
@@ -64,9 +62,7 @@ namespace Health_Booking_MVC.Controllers
             return View(patients);
         }
 
-        // =======================================================
         // 1. XỬ LÝ THÊM BÁC SĨ (CREATE)
-        // =======================================================
         [HttpGet]
         public IActionResult CreateDoctor()
         {
@@ -86,7 +82,7 @@ namespace Health_Booking_MVC.Controllers
             ModelState.Remove("User");
             ModelState.Remove("Specialization");
             ModelState.Remove("Hospital");
-            // 🔥 THÊM DÒNG NÀY: Loại bỏ bắt buộc đối với danh sách Lịch trình
+            // Loại bỏ bắt buộc đối với danh sách Lịch trình
             ModelState.Remove("Schedules");
 
             if (ModelState.IsValid)
@@ -103,9 +99,7 @@ namespace Health_Booking_MVC.Controllers
             return View(model);
         }
 
-        // =======================================================
         // 2. XỬ LÝ SỬA BÁC SĨ (UPDATE)
-        // =======================================================
         [HttpGet]
         public IActionResult EditDoctor(int id)
         {
@@ -128,7 +122,7 @@ namespace Health_Booking_MVC.Controllers
             ModelState.Remove("User");
             ModelState.Remove("Specialization");
             ModelState.Remove("Hospital");
-            // 🔥 THÊM DÒNG NÀY: Loại bỏ bắt buộc đối với danh sách Lịch trình
+            // Loại bỏ bắt buộc đối với danh sách Lịch trình
             ModelState.Remove("Schedules");
 
             if (ModelState.IsValid)
@@ -153,9 +147,7 @@ namespace Health_Booking_MVC.Controllers
             return View(model);
         }
 
-        // =======================================================
         // 5. HÀM XÓA BÁC SĨ (DELETE)
-        // =======================================================
         [HttpPost]
         [ValidateAntiForgeryToken] // Lớp bảo mật chống giả mạo request từ bên ngoài
         public IActionResult DeleteDoctor(int id)
@@ -195,9 +187,7 @@ namespace Health_Booking_MVC.Controllers
             return RedirectToAction("Doctor");
         }
 
-        // =======================================================
         // 3. THÊM MỚI: HÀM KHÓA TÀI KHOẢN BỆNH NHÂN (LOCK)
-        // =======================================================
         [HttpPost]
         public IActionResult LockPatient(int id)
         {
@@ -220,9 +210,7 @@ namespace Health_Booking_MVC.Controllers
 
             return RedirectToAction("Patient"); // Khóa xong tải lại trang danh sách bệnh nhân
         }
-        // =======================================================
         // 4. THÊM MỚI: HÀM XÓA BỆNH NHÂN (DELETE)
-        // =======================================================
         [HttpPost]
         public IActionResult DeletePatient(int id)
         {
@@ -252,9 +240,7 @@ namespace Health_Booking_MVC.Controllers
             // Xóa xong quay lại tải lại trang danh sách bệnh nhân
             return RedirectToAction("Patient");
         }
-        // =======================================================
         // 6. TRANG QUẢN LÝ LỊCH HẸN KHÁM (READ)
-        // =======================================================
         public IActionResult Appointments()
         {
             if (!IsAuthorized()) return RedirectToAction("Login", "Account");
@@ -273,9 +259,7 @@ namespace Health_Booking_MVC.Controllers
             return View(appointments); // Trả về tệp Views/Admin/Appointments.cshtml
         }
 
-        // =======================================================
         // 7. XỬ LÝ XÁC NHẬN ĐẶT LỊCH KHÁM (UPDATE STATUS)
-        // =======================================================
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ConfirmAppointment(int id)
@@ -287,10 +271,10 @@ namespace Health_Booking_MVC.Controllers
 
             if (appointment != null)
             {
-                // 🔥 ĐÃ SỬA: So sánh trực tiếp với Enum AppointmentStatus.Pending
+                // So sánh trực tiếp với Enum AppointmentStatus.Pending
                 if (appointment.Status == AppointmentStatus.Pending)
                 {
-                    // 🔥 ĐÃ SỬA: Gán trạng thái mới bằng Enum AppointmentStatus.Confirmed
+                    // Gán trạng thái mới bằng Enum AppointmentStatus.Confirmed
                     appointment.Status = AppointmentStatus.Confirmed;
 
                     _context.Appointments.Update(appointment);
@@ -351,7 +335,7 @@ namespace Health_Booking_MVC.Controllers
                 TempData["ErrorMessage"] = "❌ Không thể xóa lịch hẹn này do có dữ liệu liên quan khác trong hệ thống!";
             }
 
-            // 3. 🌟 SỬA TẠI ĐÂY: Sử dụng Redirect (đối với đường dẫn URL) hoặc quay về trang Appointments cố định
+            // Sử dụng Redirect (đối với đường dẫn URL) hoặc quay về trang Appointments cố định
             string refererUrl = Request.Headers["Referer"].ToString();
             if (!string.IsNullOrEmpty(refererUrl))
             {
