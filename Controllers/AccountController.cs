@@ -264,19 +264,18 @@ namespace Health_Booking_MVC.Controllers
                 return RedirectToAction("Register");
             }
 
-            // 1. Sinh mã OTP mới ngẫu nhiên
+            // Sinh mã OTP mới ngẫu nhiên
             string newOtpCode = new Random().Next(100000, 999999).ToString();
 
-            // 2. Cập nhật lại mã mới và thời gian hết hạn mới (30 giây) vào Session
+            // Cập nhật lại mã mới và thời gian hết hạn mới (30 giây) vào Session
             HttpContext.Session.SetString("OTP_Code", newOtpCode);
 
             DateTime expiryTime = DateTime.Now.AddSeconds(30);
             HttpContext.Session.SetString("OTP_Expiry", expiryTime.ToString("yyyy-MM-dd HH:mm:ss"));
 
-            // 3. 🌟 SỬA TẠI ĐÂY: Hiển thị trực tiếp mã OTP mới lên thông báo để tiện test
+            // Hiển thị trực tiếp mã OTP mới lên thông báo để tiện test
             TempData["ResendMessage"] = $"🎉 Đã gửi lại mã thành công! Mã OTP mới của bạn là: {newOtpCode}";
 
-            // (Nếu bạn có dịch vụ gửi email thật thì giữ nguyên, không thì comment lại khi test)
             // _emailService.SendEmail(email, "Mã xác thực mới", $"Mã OTP là: {newOtpCode}");
 
             return RedirectToAction("Verify", new { email = email });
