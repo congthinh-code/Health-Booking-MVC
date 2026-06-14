@@ -106,7 +106,7 @@
     }
 
            function payNow() {
-        // ➡️ Chỉ đọc mã hóa đơn và số tiền (không còn đọc Tên và SĐT)
+        // Chỉ đọc mã hóa đơn và số tiền (không còn đọc Tên và SĐT)
         let billNumber = document.getElementById("billNumber").value;
         let amount = document.getElementById("amount").value;
 
@@ -146,9 +146,8 @@
         }
     };
 
-    // ===================== CODE PHÂN TRANG TTVP (4 bệnh viện / trang) =====================
-    const itemsPerPage = 4; // Thay đổi từ 3 thành 4 bệnh viện / trang theo yêu cầu
-    let currentPage = 1;
+    // ===================== CODE PHÂN TRANG TTVP =====================
+    const itemsPerPage = 4; 
     let activeCards = [];
 
     function initPagination(cardsArray) {

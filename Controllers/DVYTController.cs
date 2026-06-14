@@ -88,6 +88,13 @@ namespace Health_Booking_MVC.Controllers
                 return Json(new { success = false, message = "Không tìm thấy thông tin bệnh nhân của tài khoản này!" });
             }
 
+            // Kiểm tra an toàn: Ngày và giờ đặt khám không ở quá khứ
+            DateTime appointmentDateTime = date.Date.Add(time);
+            if (appointmentDateTime < DateTime.Now)
+            {
+                return Json(new { success = false, message = "Ngày và giờ đặt khám không được là quá khứ!" });
+            }
+
             // Cập nhật thông tin bệnh nhân nếu có thay đổi
             if (!string.IsNullOrEmpty(patientName)) patient.FullName = patientName;
             if (!string.IsNullOrEmpty(phone)) patient.Phone = phone;

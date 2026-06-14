@@ -269,9 +269,39 @@
         }
     }
 
+    // Khóa ngày quá khứ & Validate thời gian
+    const dateInput = document.getElementById("bookingDate");
+    const timeInput = document.getElementById("bookingTime");
+
+    if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+        dateInput.addEventListener("change", validateDateTime);
+    }
+
+    if (timeInput) {
+        timeInput.addEventListener("change", validateDateTime);
+    }
+
+    function validateDateTime() {
+        if (!dateInput.value || !timeInput.value) return true;
+
+        const selectedDateTime = new Date(`${dateInput.value}T${timeInput.value}`);
+        const currentDateTime = new Date();
+
+        if (selectedDateTime < currentDateTime) {
+            alert("Thời gian đặt khám không được nhỏ hơn giờ hiện tại của ngày hôm nay!");
+            timeInput.value = "";
+            return false;
+        }
+        return true;
+    }
+
     // Xử lý khi ấn nút "Xác nhận đặt khám" (Gửi dữ liệu lên Server)
     document.getElementById("bookingForm").addEventListener("submit", function (e) {
         e.preventDefault();
+
+        if (!validateDateTime()) return;
 
         let doctorId = document.getElementById("doctorId").value;
         let date = document.getElementById("bookingDate").value;
